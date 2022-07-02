@@ -1,0 +1,19 @@
+.host ul {
+    margin: 1rem 0 0.5rem 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.host li {
+    margin: 0;
+    padding: 0;
+}
+
+.host a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 0.2rem 1rem;
+}

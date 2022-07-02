@@ -60,3 +60,25 @@ Incorporación de **Firebase** en un proyecto de React para utilizar
     ```json
     "singleQuote": true
     ```
+
+## Componentes iniciales
+
+-   carpeta app
+    -   componente app: <Layout> + <Páginas> (más adelante con el router)
+-   carpeta /layout
+    -   components: layout - header - footer - menu
+    -   interfaces: menu-options
+-   carpeta features/home
+    -   pages: HomePage
+
+### Uso de module.css
+
+-   Añadir Globals.d.ts en la carpeta sources
+    ```ts
+    declare module '*.module.css';
+    declare module '*.module.scss';
+    ```
+
+### Home Page
+
+Components (counters): counter, counter-clicks, counter-states
