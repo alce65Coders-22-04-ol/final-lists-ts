@@ -4,6 +4,7 @@ import { menuOptionsType } from '../layout/interfaces/menu-options';
 import HomePage from '../features/home/pages/home';
 import TasksPage from '../features/tasks/pages/tasks';
 import { Layout } from '../layout/components/layout/layout';
+import { ContextProvider } from '../infrastructure/context/provider';
 
 function App() {
     startFirebase();
@@ -16,12 +17,18 @@ function App() {
     ];
 
     return (
-        <Layout appTitle={appTitle} company={company} menuOptions={menuOptions}>
-            <>
-                <HomePage></HomePage>
-                <TasksPage></TasksPage>
-            </>
-        </Layout>
+        <ContextProvider>
+            <Layout
+                appTitle={appTitle}
+                company={company}
+                menuOptions={menuOptions}
+            >
+                <>
+                    <HomePage></HomePage>
+                    <TasksPage></TasksPage>
+                </>
+            </Layout>
+        </ContextProvider>
     );
 }
 

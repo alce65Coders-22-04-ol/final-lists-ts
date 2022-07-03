@@ -79,6 +79,111 @@ Incorporación de **Firebase** en un proyecto de React para utilizar
     declare module '*.module.scss';
     ```
 
-### Home Page
+### Testing
+
+Se configura para estos test iniciales
+Parámetros en el script de npm:
+
+```json
+"test": "react-scripts test --watchAll --collect-coverage"
+```
+
+Se testa: app - layout - header - footer - menu
+Ficheros a excluir:
+
+-   src/index.tsx
+-   src/reportWebVitals.js
+
+```json
+"coveragePathIgnorePatterns": ["index.tsx", "reportWebVitals.js"]
+```
+
+## Home Page
 
 Components (counters): counter, counter-clicks, counter-states
+
+### Testing
+
+Test completos de la página y los componentes
+
+## Firebase
+
+[Consola](hhhttps://console.firebase.google.com/?pli=1)
+
+usuario: alejandro.cerezo@skylab.com
+
+### Crear un proyecto
+
+Nombre del proyecto: <todo-react>
+Organización: <isdi.es>
+ID: <alce65-todo-react>
+No habilitar Analytics
+
+### Proyecto todo-react
+
+Inicio: Agregar firestore a tu app
+
+-   Android
+-   iOS
+-   **Web**
+-   Unity
+-   Flutter
+
+Opciones disponibles
+
+-   Authentication
+-   Cloud Firestore
+-   RealTime Database
+-   Storage
+-   Functions ...
+
+### Registrar aplicación Web
+
+Nombre: <Todo-App>
+No configurar Firebase Hosting
+
+Agrega el SDK de Firebase
+
+```shell
+npm i firebase
+```
+
+Datos para el fichero de inicialización app/firebase.ts
+
+Los valores personales se trasladan a un fichero .env
+Este fichero debe quedar excluido en el .gitignore
+Para ser usadas en React, las variables deben denominarse REACT_APP...
+
+    -   REACT_APP_APIKEY
+    -   REACT_APP_AUTHDOMAIN
+    -   REACT_APP_DB=
+    -   REACT_APP_PID=
+    -   REACT_APP_SB=
+    -   REACT_APP_SID=
+    -   REACT_APP_APPID=
+    -   REACT_APP_MID=
+
+### Autentication
+
+Agrega método(s) de acceso y comenzar a utilizar Firebase Auth
+
+-   Google
+-   GitHub ...
+
+## Google
+
+Nombre público del proyecto: alce65-todo-react
+Correo electrónico de asistencia del proyecto: alejandro.cerezo@skylabcoders.com
+
+Comprobar "Dominios autorizados"
+
+## Github
+
+[Registra tu app](https://github.com/settings/applications/new) como aplicación de desarrollador en GitHub y obtén el ID de cliente y el Secreto de cliente de OAuth 2.0.
+
+## Componente login
+
+Inicialmente se crea con Google como proveedor.
+Se añade un botón con la capacidad de login / logout
+
+## Test del componente login

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import login from './login.module.css';
+import { Context } from '../context/context';
 
 export function Login() {
-    const [isLogged, setIsLogged] = useState(false);
-
+    const { isLogged, setIsLogged } = useContext(Context);
     const handleClick = () => {
         if (isLogged) {
             doLogout();
@@ -22,11 +22,13 @@ export function Login() {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential =
                     GoogleAuthProvider.credentialFromResult(result);
-                if (!credential) throw new Error('No credential');
+                const error: any = new Error('No credential');
+                error.code = '';
+                error.customData = { email: '' };
+                if (!credential) throw error;
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                // ...
                 console.log({ token, user });
                 setIsLogged(true);
             })
@@ -49,7 +51,9 @@ export function Login() {
             });
     };
 
-    const doLogout = () => {};
+    const doLogout = () => {
+        setIsLogged(false);
+    };
 
     return (
         <div className={login.host}>
