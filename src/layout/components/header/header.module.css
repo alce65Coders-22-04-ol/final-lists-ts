@@ -11,9 +11,20 @@
     padding-bottom: 1rem;
 }
 
+.host h1 {
+    margin-top: 0rem;
+}
+
 .logo {
     height: 15vmin;
     pointer-events: none;
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .link {

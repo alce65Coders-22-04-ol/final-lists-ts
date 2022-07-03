@@ -1,3 +1,4 @@
+import { Login } from '../../../infrastructure/login/login';
 import header from './header.module.css';
 export function Header({
     appTitle,
@@ -9,7 +10,11 @@ export function Header({
     const logo = './logo.svg';
     return (
         <header className={header.host}>
-            <img src={logo} className={header.logo} alt="logo" />
+            <div className={header.top}>
+                <img src={logo} className={header.logo} alt="logo" />
+                <Login></Login>
+            </div>
+
             <a
                 className={header.link}
                 href="https://reactjs.org"
