@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Counter } from '../components/counter/counter';
-import { CounterClicks } from '../components/counter/counter-clicks';
-import { CounterStates } from '../components/counter/counter-states';
+import { CounterClicks } from '../components/counter-clicks/counter-clicks';
+import { CounterStates } from '../components/counter-states/counter-states';
 
 import home from './home.module.css';
 
