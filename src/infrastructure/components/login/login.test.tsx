@@ -7,7 +7,7 @@ import {
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Login } from './login';
-import { Context, iContext } from '../context/context';
+import { AppContext, iContext } from '../../context/context';
 
 jest.mock('firebase/auth');
 
@@ -34,9 +34,9 @@ describe('Given Login component', () => {
                     setIsLogged: jest.fn(),
                 };
                 jsx = (
-                    <Context.Provider value={context}>
+                    <AppContext.Provider value={context}>
                         <Login />
-                    </Context.Provider>
+                    </AppContext.Provider>
                 );
             });
             test('Then it renders a button for login', () => {
@@ -83,9 +83,9 @@ describe('Given Login component', () => {
                     setIsLogged: jest.fn(),
                 };
                 jsx = (
-                    <Context.Provider value={context}>
+                    <AppContext.Provider value={context}>
                         <Login />
-                    </Context.Provider>
+                    </AppContext.Provider>
                 );
             });
             test('Then it renders a button for logout', () => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Context } from './context';
+import { AppContext } from './context';
 
-export function ContextProvider({ children }: { children: JSX.Element }) {
+export function AppContextProvider({ children }: { children: JSX.Element }) {
     const [isLogged, setIsLogged] = useState(false);
 
     const context = {
@@ -9,5 +9,7 @@ export function ContextProvider({ children }: { children: JSX.Element }) {
         setIsLogged,
     };
 
-    return <Context.Provider value={context}>{children}</Context.Provider>;
+    return (
+        <AppContext.Provider value={context}>{children}</AppContext.Provider>
+    );
 }

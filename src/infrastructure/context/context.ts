@@ -10,4 +10,4 @@ const initialContext: iContext = {
     setIsLogged: () => {},
 };
 
-export const Context = createContext(initialContext);
+export const AppContext = createContext(initialContext);

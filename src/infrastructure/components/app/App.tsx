@@ -1,10 +1,10 @@
-import { startFirebase } from './firebase';
+import { startFirebase } from '../../services/firebase';
 
-import { menuOptionsType } from '../layout/interfaces/menu-options';
-import HomePage from '../features/home/pages/home';
-import TasksPage from '../features/tasks/pages/tasks';
-import { Layout } from '../layout/components/layout/layout';
-import { ContextProvider } from '../infrastructure/context/provider';
+import { menuOptionsType } from '../../../layout/interfaces/menu-options';
+import HomePage from '../../../features/home/pages/home';
+import TasksPage from '../../../features/tasks/pages/tasks';
+import { Layout } from '../../../layout/components/layout/layout';
+import { AppContextProvider } from '../../context/provider';
 
 function App() {
     startFirebase();
@@ -17,7 +17,7 @@ function App() {
     ];
 
     return (
-        <ContextProvider>
+        <AppContextProvider>
             <Layout
                 appTitle={appTitle}
                 company={company}
@@ -28,7 +28,7 @@ function App() {
                     <TasksPage></TasksPage>
                 </>
             </Layout>
-        </ContextProvider>
+        </AppContextProvider>
     );
 }
 

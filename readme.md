@@ -181,9 +181,23 @@ Comprobar "Dominios autorizados"
 
 [Registra tu app](https://github.com/settings/applications/new) como aplicación de desarrollador en GitHub y obtén el ID de cliente y el Secreto de cliente de OAuth 2.0.
 
+## Contexto
+
+Se crea un contexto para la aplicación (AppContext) con su correspondiente Provider
+Este último se utiliza como wrapper en App
+
+En el contexto se incluye y se exporta un estado (isLogged) y su setter (setIsLogged)
+
 ## Componente login
 
 Inicialmente se crea con Google como proveedor.
 Se añade un botón con la capacidad de login / logout
 
+El estado manipulado desde este componente corresponde al creado en el contexto.
+
+Se incorpora el componente en el header (layout/header) para que sea renderizado.
+
 ## Test del componente login
+
+Se crea un mock del módulo de firebase,
+Se le suministra al componente un contexto con los datos adecuados para el test.

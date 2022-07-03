@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import login from './login.module.css';
-import { Context } from '../context/context';
+import { AppContext } from '../../context/context';
 
 export function Login() {
-    const { isLogged, setIsLogged } = useContext(Context);
+    const { isLogged, setIsLogged } = useContext(AppContext);
     const handleClick = () => {
         if (isLogged) {
             doLogout();
