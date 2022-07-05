@@ -1,13 +1,23 @@
 export class LocalStore<T> {
     constructor(private storeName: string) {}
 
-    getItems(): T {
+    getItem(): T {
+        return localStorage.getItem(this.storeName)
+            ? JSON.parse(localStorage.getItem(this.storeName) as string)
+            : null;
+    }
+
+    getItems(): Array<T> {
         return localStorage.getItem(this.storeName)
             ? JSON.parse(localStorage.getItem(this.storeName) as string)
             : [];
     }
 
-    setItems(data: T) {
+    setItem(data: T) {
+        localStorage.setItem(this.storeName, JSON.stringify(data));
+    }
+
+    setItems(data: Array<T>) {
         localStorage.setItem(this.storeName, JSON.stringify(data));
     }
 
