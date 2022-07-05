@@ -1,5 +1,10 @@
 import { useContext, useEffect } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signOut,
+} from 'firebase/auth';
 import login from './login.module.css';
 import { AppContext } from '../../context/context';
 import { LocalStore } from '../../services/local.store';
@@ -74,7 +79,19 @@ export function Login() {
     };
 
     const doLogout = () => {
-        setIsLogged(false);
+        signOut(getAuth())
+            .then(() => {
+                setIsLogged(false);
+                setUserLogged({
+                    uid: '',
+                    name: '',
+                    email: '',
+                });
+                ls.removeItems();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (

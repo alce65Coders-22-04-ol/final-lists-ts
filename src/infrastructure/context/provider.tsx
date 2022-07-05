@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { iUser } from '../interfaces/user';
 import { AppContext } from './context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {
-    const [isLogged, setIsLogged] = useState(false);
-    const [userLogged, setUserLogged] = useState({
+    const initialUserLoggedState: iUser = {
         uid: '',
         name: '',
         email: '',
-    });
+    };
+    const [isLogged, setIsLogged] = useState(false);
+    const [userLogged, setUserLogged] = useState(initialUserLoggedState);
 
     const context = {
         isLogged,

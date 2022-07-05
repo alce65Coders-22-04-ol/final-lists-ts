@@ -163,21 +163,21 @@ Para ser usadas en React, las variables deben denominarse REACT_APP...
     -   REACT_APP_APPID=
     -   REACT_APP_MID=
 
-### Autentication
+## Autenticación con Firebase
 
 Agrega método(s) de acceso y comenzar a utilizar Firebase Auth
 
 -   Google
 -   GitHub ...
 
-## Google
+### Google
 
 Nombre público del proyecto: alce65-todo-react
 Correo electrónico de asistencia del proyecto: alejandro.cerezo@skylabcoders.com
 
 Comprobar "Dominios autorizados"
 
-## Github
+### Github
 
 [Registra tu app](https://github.com/settings/applications/new) como aplicación de desarrollador en GitHub y obtén el ID de cliente y el Secreto de cliente de OAuth 2.0.
 
@@ -197,7 +197,40 @@ El estado manipulado desde este componente corresponde al creado en el contexto.
 
 Se incorpora el componente en el header (layout/header) para que sea renderizado.
 
-## Test del componente login
+### Test del componente login
 
 Se crea un mock del módulo de firebase,
 Se le suministra al componente un contexto con los datos adecuados para el test.
+
+## LocalStore service
+
+Se encapsula en un servicio genérico las operaciones con localStorage.
+
+Se le asigna un tipo genérico T para luego poder manejar ese tipo o arrays del mismo
+
+-   getItem(): T / getItems(): T[]
+-   setItem(T) / setItems(T[])
+-   removeItems()
+
+## Persistencia en el login
+
+Se añade al contexto un nuevo estado y su setter (userLogged / setUserLogged).
+
+Se refactoriza el componente Login para que utilice el estado recién creado.
+
+Se añade persistencia al login,
+
+-   guardando los datos del estado en localStorage después de hacer login
+-   leyendo los datos del localStorage al iniciar, para actualizar el estado con los datos del usuario logado, en caso de que existan
+
+### Logout
+
+Se realiza a tres niveles
+
+    -   se ejecuta el método singOut de Firebase
+    -   se borran los datos del estado correspondientes al usuario
+    -   se eliminan los datos el el localStorage
+
+## Refactorización: custom Hook
+
+Antes se define en Git la versión 1
