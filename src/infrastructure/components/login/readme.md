@@ -2,9 +2,8 @@
 
 ## Renderización
 
--   Un botón cuya etiqueta depende del estado (login/logout) leido desde el contexto
+-   Un botón cuya etiqueta depende del estado (login/logout), leído desde el contexto
 
 ## Respuestas a eventos
 
--   Cuando el usuario hace click se ejecuta el método de **firebase** adecuado para hacer login / logout
--   Al finalizar con éxito cualquiera de los procesos, se utiliza el método para actualizar el estado proporcionado por el contexto
+-   Cuando el usuario hace click se ejecuta el método adecuado para hacer login / logout, proporcionado por el custom hook useLogin
