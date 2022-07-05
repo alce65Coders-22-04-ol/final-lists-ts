@@ -1,10 +1,24 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import login from './login.module.css';
 import { AppContext } from '../../context/context';
+import { LocalStore } from '../../services/local.store';
+import { iUser } from '../../interfaces/user';
 
 export function Login() {
     const { isLogged, setIsLogged } = useContext(AppContext);
+    const { setUserLogged } = useContext(AppContext);
+    const ls = new LocalStore<iUser>('Login');
+
+    useEffect(() => {
+        const storeUser = ls.getItems();
+        console.log('LS:', storeUser);
+        if (storeUser) {
+            setUserLogged(storeUser);
+            setIsLogged(true);
+        }
+    }, []);
+
     const handleClick = () => {
         if (isLogged) {
             doLogout();
@@ -31,6 +45,14 @@ export function Login() {
                 const user = result.user;
                 console.log({ token, user });
                 setIsLogged(true);
+                const userData: iUser = {
+                    uid: result.user.uid,
+                    token: token,
+                    name: result.user.displayName,
+                    email: result.user.email,
+                };
+                setUserLogged(userData);
+                ls.setItem(userData);
             })
             .catch((error) => {
                 // Handle Errors here.

@@ -7,14 +7,22 @@ import {
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Login } from './login';
-import { AppContext, iContext } from '../../context/context';
+import { AppContext } from '../../context/context';
+import { iContext } from '../../interfaces/context';
 
 jest.mock('firebase/auth');
 
 describe('Given Login component', () => {
     describe('When it has been instantiate', () => {
         let jsx: JSX.Element;
+        let context: iContext;
         beforeEach(() => {
+            context = {
+                isLogged: false,
+                setIsLogged: jest.fn(),
+                userLogged: { uid: '', name: '', email: '' },
+                setUserLogged: jest.fn(),
+            };
             (signInWithPopup as jest.Mock).mockResolvedValue({
                 user: '',
             });
@@ -25,14 +33,10 @@ describe('Given Login component', () => {
         });
         describe('And the user is not logged', () => {
             let btnLabel: string;
-            let context: iContext;
             beforeEach(() => {
                 // arrange
                 btnLabel = 'Login';
-                context = {
-                    isLogged: false,
-                    setIsLogged: jest.fn(),
-                };
+                context.isLogged = false;
                 jsx = (
                     <AppContext.Provider value={context}>
                         <Login />
@@ -74,14 +78,10 @@ describe('Given Login component', () => {
         });
         describe('And the user is logged', () => {
             let btnLabel: string;
-            let context: iContext;
             beforeEach(() => {
                 // arrange
                 btnLabel = 'Logout';
-                context = {
-                    isLogged: true,
-                    setIsLogged: jest.fn(),
-                };
+                context.isLogged = true;
                 jsx = (
                     <AppContext.Provider value={context}>
                         <Login />
