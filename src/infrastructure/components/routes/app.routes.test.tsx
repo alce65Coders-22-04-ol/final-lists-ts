@@ -1,21 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
-import App, { menuOptions } from './App';
+import { menuOptions } from '../app/App';
+import { AppRoutes } from './app.routes';
 
-describe('Given App component', () => {
-    describe('When it has been instantiate', () => {
-        const appTitle = /Learning React/i;
-        const jsx = (
-            <Router>
-                <App />;
-            </Router>
-        );
-        test('Then it renders app title', () => {
-            render(jsx);
-            const element = screen.getByText(appTitle);
-            expect(element).toBeInTheDocument();
-        });
-    });
+describe('Given AppRoutes component', () => {
     describe('When it has been instantiate inside a router', () => {
         //     { path: '', label: 'Home' },
         //     { path: 'tasks', label: 'Tasks' },
@@ -25,34 +13,35 @@ describe('Given App component', () => {
             entries = [...menuOptions.map((item) => item.path), '/bad_route'];
         });
 
-        test('If route is Home, then Home Page will be render', () => {
-            render(
+        test('If route is Home, then Home Page will be render', async () => {
+            const jsx = (
                 <Router initialEntries={entries} initialIndex={0}>
-                    <App></App>
+                    <AppRoutes menuOptions={menuOptions}></AppRoutes>
                 </Router>
             );
-            const element = screen.getByText(/Página Home/i);
+            render(jsx);
+            const element = await screen.findByText(/Página Home/i);
             expect(element).toBeInTheDocument();
         });
         test('If route is Tasks, then Task Page will be render', async () => {
             render(
                 <Router initialEntries={entries} initialIndex={1}>
-                    <App></App>
+                    <AppRoutes menuOptions={menuOptions}></AppRoutes>
                 </Router>
             );
             const element = await screen.findByText(/Página Tasks/i);
             expect(element).toBeInTheDocument();
         });
-        test('If route is bad, then Home Page will be render', () => {
+        test('If route is bad, then Home Page will be render', async () => {
             render(
                 <Router
                     initialEntries={entries}
                     initialIndex={entries.length - 1}
                 >
-                    <App></App>
+                    <AppRoutes menuOptions={menuOptions}></AppRoutes>
                 </Router>
             );
-            const element = screen.getByText(/Página Home/i);
+            const element = await screen.findByText(/Página Home/i);
             expect(element).toBeInTheDocument();
         });
     });

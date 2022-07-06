@@ -183,14 +183,14 @@ Comprobar "Dominios autorizados"
 
 ## Contexto
 
-Se crea un contexto para la aplicación (AppContext) con su correspondiente Provider
+Se crea un contexto para la aplicación (`AppContext`) con su correspondiente Provider
 Este último se utiliza como wrapper en App
 
-En el contexto se incluye y se exporta un estado (isLogged) y su setter (setIsLogged)
+En el contexto se incluye y se exporta un estado (`isLogged`) y su setter (`setIsLogged`)
 
 ## Componente login
 
-Inicialmente se crea con Google como proveedor.
+Inicialmente se crea con **Google** como proveedor.
 Se añade un botón con la capacidad de login / logout
 
 El estado manipulado desde este componente corresponde al creado en el contexto.
@@ -199,7 +199,7 @@ Se incorpora el componente en el header (layout/header) para que sea renderizado
 
 ### Test del componente login
 
-Se crea un mock del módulo de firebase,
+Se crea un mock del módulo de Firebase,
 Se le suministra al componente un contexto con los datos adecuados para el test.
 
 ## LocalStore service
@@ -208,29 +208,86 @@ Se encapsula en un servicio genérico las operaciones con localStorage.
 
 Se le asigna un tipo genérico T para luego poder manejar ese tipo o arrays del mismo
 
--   getItem(): T / getItems(): T[]
--   setItem(T) / setItems(T[])
--   removeItems()
+-   `getItem(): T` / `getItems(): T[]`
+-   `setItem(T)` / `setItems(T[])`
+-   `removeItems()`
 
 ## Persistencia en el login
 
-Se añade al contexto un nuevo estado y su setter (userLogged / setUserLogged).
+Se añade al contexto un nuevo estado y su setter (`userLogged` / `setUserLogged`).
 
 Se refactoriza el componente Login para que utilice el estado recién creado.
 
 Se añade persistencia al login,
 
--   guardando los datos del estado en localStorage después de hacer login
--   leyendo los datos del localStorage al iniciar, para actualizar el estado con los datos del usuario logado, en caso de que existan
+-   guardando los datos del estado en `localStorage` después de hacer login
+-   leyendo los datos del `localStorage` al iniciar, para actualizar el estado con los datos del usuario logado, en caso de que existan
 
 ### Logout
 
 Se realiza a tres niveles
 
-    -   se ejecuta el método singOut de Firebase
+    -   se ejecuta el método `singOut` de Firebase
     -   se borran los datos del estado correspondientes al usuario
-    -   se eliminan los datos el el localStorage
+    -   se eliminan los datos el el `localStorage`
 
 ## Refactorización: custom Hook
 
 Antes se define en Git la versión 1
+
+El estado se mantiene en el contexto, de forma que puede ser compartido por los distintos componentes
+
+> Custom Hooks are a mechanism to reuse stateful logic (such as setting up a subscription and remembering the current value), but every time you use a custom Hook, all state and effects inside of it are fully isolated.
+
+En nuestro caso, la lógica en el **custom hook** es responsable de interaccionar con `localStorage` y Firebase para gestionar los procesos de login/logout. Al inicio del hook y al final de sus procesos se setean también los estados recibidos desde el contexto
+
+## Enrutamiento (Routing)
+
+Se instala en modulo de `react-router-dom`
+
+```shell
+npm i react-router-dom
+```
+
+La App, o la pare de ella que debe enrutar se envuelve en el componente **Router**
+
+```jsx
+import { BrowserRouter as Router } from 'react-router-dom';
+
+<Router>...</Router>;
+```
+
+### Rutas lazy
+
+Se crea un componentes Routes que se instancia en App
+
+En Routes se definen los componentes virtuales (`Home`, `Tasks`, `About`...), que de forma lazy harán el import condicional de los componentes Page desde sus correspondientes módulos
+
+Se definen las rutas correspondientes a cada unos de eses "componentes virtuales"
+
+```jsx
+<Route
+    path={menuOptions[n].path}
+    element={
+        <React.Suspense>
+            <Component />
+        </React.Suspense>
+    }
+></Route>
+```
+
+Se modifican los enlaces del menu utilizando en lugar de <a> el componente <Link> de react-router-dom
+
+### Test de las Rutas lazy
+
+Los test se pueden realizar en App, que incluye AppRoutes, o, de forma más correcta en este último.
+
+Se utiliza MemoryRouter para poder darle valorees al enrutador al instanciarlo
+
+```jsx
+<Router initialEntries={entries} initialIndex={0}>
+    <AppRoutes menuOptions={menuOptions}></AppRoutes>
+</Router>
+```
+
+Los test son asincronos, para permitir la carga lazy de las rutas

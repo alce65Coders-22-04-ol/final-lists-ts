@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { menuOptionsType } from '../../interfaces/menu-options';
 import { Menu } from './menu';
 
@@ -10,7 +11,11 @@ describe('Given Menu component', () => {
             const menuOptions: menuOptionsType = [
                 { path: './test.html', label },
             ];
-            const jsx = <Menu menuOptions={menuOptions}></Menu>;
+            const jsx = (
+                <Router>
+                    <Menu menuOptions={menuOptions}></Menu>
+                </Router>
+            );
             // act
             render(jsx);
             // assert
