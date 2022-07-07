@@ -94,7 +94,7 @@ describe('Given Login component', () => {
                 expect(await context.setIsLogged).toHaveBeenCalled();
                 expect(await LocalStore.prototype.setItem).toHaveBeenCalled();
             });
-            test('When the user click login button and no credential is provided by firebase', () => {
+            test('When the user click login button and no credential is provided by firebase', async () => {
                 (
                     GoogleAuthProvider.credentialFromResult as jest.Mock
                 ).mockReturnValue(null);
@@ -104,7 +104,7 @@ describe('Given Login component', () => {
                 const element = screen.getByText(btnLabel);
                 try {
                     userEvent.click(element);
-                    expect(signInWithPopup).toHaveBeenCalled();
+                    await expect(signInWithPopup).toHaveBeenCalled();
                 } catch (error) {
                     // eslint-disable-next-line jest/no-conditional-expect
                     expect((error as Error).message).toBe('No credential');
