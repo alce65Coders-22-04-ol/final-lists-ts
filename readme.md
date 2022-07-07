@@ -148,7 +148,7 @@ Agrega el SDK de Firebase
 npm i firebase
 ```
 
-Datos para el fichero de inicialización app/firebase.ts
+Datos para el fichero de inicialización `firebase.ts`
 
 Los valores personales se trasladan a un fichero .env
 Este fichero debe quedar excluido en el .gitignore
@@ -290,4 +290,29 @@ Se utiliza MemoryRouter para poder darle valorees al enrutador al instanciarlo
 </Router>
 ```
 
-Los test son asincronos, para permitir la carga lazy de las rutas
+Los test son asíncronos, para permitir la carga lazy de las rutas.
+
+## Firebase RealTime Database
+
+Se crea una **Realtime Database** en la consola de Firebase
+
+-   Ubicación: Bélgica
+-   Habilitar
+
+DBName: alce65-todo-react-default-rtdb (añadir en .env: REACT_APP_DB)
+DBRegion: europe-west1 (añadir en .env: REACT_APP_DBR)
+DbUrl: https://alce65-todo-react-default-rtdb.europe-west1.firebasedatabase.app/
+
+Se modifica el servicio de inicialización de Firebase `firebase.ts`
+
+Se crea un nuevo servicios de acceso general a datos de la Realtime Database
+basado en la clase **Repository<T>** con los métodos
+
+```TS
+-   getAllData(): Promise<Array<T>>
+-   getData(dataID: string): Promise<T>
+-   setData(dataID: string, data: T): Promise<void>
+-   setListData(data: T): Promise<void>
+-   updateData(dataID: string, data: Partial<T>): Promise<void>
+-   deleteData(dataID: string): Promise<void>
+```
