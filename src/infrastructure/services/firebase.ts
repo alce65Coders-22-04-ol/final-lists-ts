@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase } from 'firebase/database';
 
 export const startFirebase = () => {
     // Your web app's Firebase configuration
@@ -12,7 +13,13 @@ export const startFirebase = () => {
         storageBucket: process.env.REACT_APP_SB,
         messagingSenderId: process.env.REACT_APP_SID,
         appId: process.env.REACT_APP_APPID,
+        databaseURL: `https://${process.env.REACT_APP_DB}.${process.env.REACT_APP_DBR}.firebasedatabase.app`,
     };
     // Initialize Firebase
-    return initializeApp(firebaseConfig);
+    const fireApp = initializeApp(firebaseConfig);
+
+    // Initialize Realtime Database and get a reference to the service
+    const fireDataBase = getDatabase(fireApp);
+
+    return { fireApp, fireDataBase };
 };

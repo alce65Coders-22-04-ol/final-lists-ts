@@ -1,4 +1,4 @@
-import { iUser } from './user';
+import { iUser } from '../model/user';
 
 export interface iContext {
     isLogged: boolean;

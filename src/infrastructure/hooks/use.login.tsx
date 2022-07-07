@@ -6,7 +6,7 @@ import {
     signOut,
 } from 'firebase/auth';
 import { LocalStore } from '../services/local.store';
-import { iUser } from '../interfaces/user';
+import { iUser } from '../model/user';
 import { AppContext } from '../context/context';
 
 export function useLogin() {
