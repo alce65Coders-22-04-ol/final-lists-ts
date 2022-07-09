@@ -1,0 +1,7 @@
+:host {
+    border: none;
+}
+
+.error {
+    color: crimson;
+}
