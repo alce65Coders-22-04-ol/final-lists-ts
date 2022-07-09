@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { Login } from './login';
-
 import * as hook from '../../hooks/use.login';
 import userEvent from '@testing-library/user-event';
+import { AppContext } from '../../context/context';
+import { iContext } from '../../interfaces/context';
 
 jest.mock('../../hooks/use.login');
 
@@ -10,18 +11,26 @@ describe('Given Login component', () => {
     describe('When it has been instantiate', () => {
         let jsx: JSX.Element;
         let handleClick: Function;
+        let context: Partial<iContext>;
+
+        beforeEach(() => {
+            (hook.useLogin as jest.Mock).mockReturnValue({
+                handleClick: jest.fn(),
+            });
+            handleClick = hook.useLogin().handleClick;
+        });
 
         describe('And the user is not logged', () => {
             let btnLabel: string;
             beforeEach(() => {
                 // arrange
-                (hook.useLogin as jest.Mock).mockReturnValue({
-                    handleClick: jest.fn(),
-                    isLogged: false,
-                });
-                handleClick = hook.useLogin().handleClick;
                 btnLabel = 'Login';
-                jsx = <Login />;
+                context = { isLogged: false };
+                jsx = (
+                    <AppContext.Provider value={context as iContext}>
+                        <Login />;
+                    </AppContext.Provider>
+                );
             });
             test('Then it renders a button for login', () => {
                 // act
@@ -43,13 +52,13 @@ describe('Given Login component', () => {
             let btnLabel: string;
             beforeEach(() => {
                 // arrange
-                (hook.useLogin as jest.Mock).mockReturnValue({
-                    handleClick: jest.fn(),
-                    isLogged: true,
-                });
-                handleClick = hook.useLogin().handleClick;
                 btnLabel = 'Logout';
-                jsx = <Login />;
+                context = { isLogged: true };
+                jsx = (
+                    <AppContext.Provider value={context as iContext}>
+                        <Login />;
+                    </AppContext.Provider>
+                );
             });
             test('Then it renders a button for logout', () => {
                 // act
@@ -58,7 +67,7 @@ describe('Given Login component', () => {
                 const element = screen.getByText(btnLabel);
                 expect(element).toBeInTheDocument();
             });
-            test('Then handleClick will be run after button login was click', () => {
+            test('Then handleClick will be run after button logout was click', () => {
                 // act
                 render(jsx);
                 // assert

@@ -84,6 +84,7 @@ export function useLogin() {
                     uid: '',
                     name: '',
                     email: '',
+                    token: '',
                 });
                 ls.removeItems();
             })
@@ -93,7 +94,6 @@ export function useLogin() {
     };
 
     return {
-        isLogged,
         handleClick,
     };
 }

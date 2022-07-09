@@ -84,7 +84,7 @@ describe('Given Login component', () => {
                     </AppContext.Provider>
                 );
             });
-            test('When the user click login button, firebase is invoked', async () => {
+            test('When a valid user click login button, firebase is invoked', async () => {
                 // act
                 render(jsx);
                 // assert
@@ -94,7 +94,7 @@ describe('Given Login component', () => {
                 expect(await context.setIsLogged).toHaveBeenCalled();
                 expect(await LocalStore.prototype.setItem).toHaveBeenCalled();
             });
-            test('When the user click login button and no credential is provided by firebase', async () => {
+            test('When an invalid user click login button and no credential is provided by firebase', async () => {
                 (
                     GoogleAuthProvider.credentialFromResult as jest.Mock
                 ).mockReturnValue(null);
@@ -143,7 +143,6 @@ describe('Given Login component', () => {
                 render(jsx);
                 // assert
                 const element = screen.getByText(btnLabel);
-                userEvent.click(element);
                 try {
                     userEvent.click(element);
                 } catch (error) {
