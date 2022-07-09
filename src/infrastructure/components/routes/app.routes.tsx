@@ -4,7 +4,7 @@ import { menuOptionsType } from '../../../layout/interfaces/menu-options';
 
 const Home = React.lazy(() => import('../../../features/home/pages/home'));
 const Todo = React.lazy(() => import('../../../features/tasks/pages/tasks'));
-// const About = React.lazy(() => import('../../pages/about'));
+const About = React.lazy(() => import('../../../features/about/pages/about'));
 
 export function AppRoutes({ menuOptions }: { menuOptions: menuOptionsType }) {
     return (
@@ -22,6 +22,14 @@ export function AppRoutes({ menuOptions }: { menuOptions: menuOptionsType }) {
                 element={
                     <React.Suspense>
                         <Todo />
+                    </React.Suspense>
+                }
+            ></Route>
+            <Route
+                path={menuOptions[2].path}
+                element={
+                    <React.Suspense>
+                        <About />
                     </React.Suspense>
                 }
             ></Route>
