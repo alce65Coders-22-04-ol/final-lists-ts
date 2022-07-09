@@ -79,7 +79,7 @@ describe('Given an instance of service Repository for "tasks"', () => {
         collection = 'tasks';
         repo = new Repository<iTask>(collection);
         taskData = {
-            name: 'Test task',
+            title: 'Test task',
             responsible: 'Pepe',
             isCompleted: true,
         };
@@ -88,7 +88,7 @@ describe('Given an instance of service Repository for "tasks"', () => {
         await repo.setListData(taskData);
         await repo.setListData({
             ...taskData,
-            name: 'Otra task',
+            title: 'Otra task',
             responsible: 'Luisa',
         });
         const result = await repo.getAllData();
