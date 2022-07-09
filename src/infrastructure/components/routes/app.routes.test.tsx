@@ -9,7 +9,7 @@ describe('Given AppRoutes component', () => {
         let entries: Array<string>;
         beforeEach(() => {
             menuOptions = [
-                { path: '', label: 'Home' },
+                { path: '/', label: 'Home' },
                 { path: '/tasks', label: 'Tasks' },
                 { path: '/about', label: 'About' },
             ];
