@@ -10,12 +10,6 @@ import {
     update,
 } from 'firebase/database';
 
-export interface iUserData {
-    username: string;
-    email: string;
-    profile_picture: string;
-}
-
 export class Repository<T> {
     db: Database;
 
@@ -44,7 +38,7 @@ export class Repository<T> {
         const query = child(dbRef, this.collection);
         const result = this.processQuery(query).then(
             (data: { [key: string]: any }) => {
-                if (Array.isArray(data)) return data;
+                if (!data || Array.isArray(data)) return data;
                 return Object.keys(data).map((item) => ({
                     ...data[item],
                     id: item,

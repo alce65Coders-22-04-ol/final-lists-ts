@@ -1,8 +1,10 @@
+import { async } from '@firebase/util';
 import { iTask } from '../../features/tasks/models/task';
-import { startFirebase } from './firebase';
-import { iUserData, Repository } from './repository';
+import { iUserData } from '../interfaces/user.data';
+import { startFirebase } from '../services/firebase';
+import { Repository } from './RTFrebase';
 
-describe('Given an instance of service Repository for "users"', () => {
+describe('Given an instance of service RTFrebase for "users"', () => {
     let repo: Repository<iUserData>;
     let userData: iUserData;
     let userID: string;
@@ -10,7 +12,7 @@ describe('Given an instance of service Repository for "users"', () => {
 
     beforeEach(() => {
         startFirebase();
-        collection = 'users';
+        collection = 'users-test';
         repo = new Repository<iUserData>(collection);
         userData = {
             username: 'Pepe',
@@ -72,28 +74,44 @@ describe('Given an instance of service Repository for "users"', () => {
 describe('Given an instance of service Repository for "tasks"', () => {
     let repo: Repository<iTask>;
     let taskData: iTask;
+    let taskData2: iTask;
     let collection: string;
 
     beforeEach(() => {
         startFirebase();
-        collection = 'tasks';
+        collection = 'tasks-test';
         repo = new Repository<iTask>(collection);
         taskData = {
+            id: '1',
             title: 'Test task',
             responsible: 'Pepe',
+            isCompleted: true,
+        };
+        taskData2 = {
+            id: '1',
+            title: 'Otra task',
+            responsible: 'Luisa',
             isCompleted: true,
         };
     });
     test('A document in de DB should be created & read', async () => {
         await repo.setListData(taskData);
-        await repo.setListData({
-            ...taskData,
-            title: 'Otra task',
-            responsible: 'Luisa',
-        });
+        await repo.setListData(taskData2);
         const result = await repo.getAllData();
         console.log({ result });
         expect((result as unknown as Array<any>).length).toBeGreaterThan(1);
         expect((result as unknown as Array<any>)[0].responsible).toBe('Pepe');
+    });
+    test('A document in de DB should be deleted', async () => {
+        await repo.setListData(taskData);
+        await repo.setListData(taskData2);
+        const data = await repo.getAllData();
+
+        data.forEach(async (item, index) => {
+            if (index > 1) await repo.deleteData(item.id);
+        });
+        const result = await repo.getAllData();
+        console.log({ result });
+        expect((result as unknown as Array<any>).length).toBeLessThan(3);
     });
 });
