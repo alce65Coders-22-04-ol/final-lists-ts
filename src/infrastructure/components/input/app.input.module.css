@@ -1,5 +1,13 @@
-:host {
+.host {
     border: none;
+    border-bottom: 2px solid gainsboro;
+}
+
+.host:focus,
+.host:focus-visible {
+    border: none;
+    border-bottom: 2px solid gray;
+    outline: none;
 }
 
 .error {
