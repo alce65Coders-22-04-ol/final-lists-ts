@@ -50,7 +50,9 @@
     "jest": {
         "coveragePathIgnorePatterns": [
             "index.tsx",
-            "reportWebVitals.js"
+            "reportWebVitals.js",
+            "interfaces",
+            "models"
         ]
     }
 }

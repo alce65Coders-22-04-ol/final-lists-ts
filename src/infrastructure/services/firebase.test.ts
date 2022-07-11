@@ -11,7 +11,6 @@ describe('Given startFirebase service', () => {
             // act
             startFirebase();
             // assert
-            // const element = screen.getByText();
             expect(initializeApp).toHaveBeenCalled();
             expect(getDatabase).toHaveBeenCalled();
         });

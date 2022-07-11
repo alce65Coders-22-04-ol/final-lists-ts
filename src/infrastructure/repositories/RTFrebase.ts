@@ -58,24 +58,24 @@ export class Repository<T> {
     setData(dataID: string, data: T) {
         const target = `${this.collection}/${dataID}`;
         const dbRef = ref(this.db, target);
-        return set(dbRef, data);
+        return set(dbRef, data).then(() => data);
     }
 
     setListData(data: T) {
         const listRef = ref(this.db, this.collection);
         const newItemRef = push(listRef);
-        return set(newItemRef, data);
+        return set(newItemRef, data).then(() => data);
     }
 
     updateData(dataID: string, data: Partial<T>) {
         const target = `${this.collection}/${dataID}`;
         const dbRef = ref(this.db, target);
-        return update(dbRef, data);
+        return update(dbRef, data).then(() => data);
     }
 
     deleteData(dataID: string) {
         const target = `${this.collection}/${dataID}`;
         const dbRef = ref(this.db, target);
-        return set(dbRef, null);
+        return set(dbRef, null).then(() => ({}));
     }
 }

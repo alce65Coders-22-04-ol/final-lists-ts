@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import { iTask } from '../../features/tasks/models/task';
 import { iUserData } from '../interfaces/user.data';
 import { startFirebase } from '../services/firebase';
@@ -53,7 +52,6 @@ describe('Given an instance of service RTFrebase for "users"', () => {
         test('Several documents in de DB should be read', async () => {
             // await repo.setData(userData, userID);
             const result = await repo.getAllData();
-            console.log({ result }, Array.isArray(result));
             expect((result as unknown as Array<any>).length).toBeGreaterThan(1);
         });
     });
@@ -98,7 +96,6 @@ describe('Given an instance of service Repository for "tasks"', () => {
         await repo.setListData(taskData);
         await repo.setListData(taskData2);
         const result = await repo.getAllData();
-        console.log({ result });
         expect((result as unknown as Array<any>).length).toBeGreaterThan(1);
         expect((result as unknown as Array<any>)[0].responsible).toBe('Pepe');
     });
@@ -111,7 +108,6 @@ describe('Given an instance of service Repository for "tasks"', () => {
             if (index > 1) await repo.deleteData(item.id);
         });
         const result = await repo.getAllData();
-        console.log({ result });
         expect((result as unknown as Array<any>).length).toBeLessThan(3);
     });
 });

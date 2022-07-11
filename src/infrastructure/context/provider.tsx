@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { iUser } from '../model/user';
+import { iUser } from '../models/user';
 import { AppContext } from './context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {

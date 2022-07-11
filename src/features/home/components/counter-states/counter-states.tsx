@@ -9,7 +9,7 @@ export function CounterStates({ setTT }: { setTT(): void }) {
     const [clicks, setClicks] = useState(0);
 
     useEffect(() => {
-        console.log(counter);
+        console.log({ counter });
     }, [counter]);
 
     useEffect(() => {

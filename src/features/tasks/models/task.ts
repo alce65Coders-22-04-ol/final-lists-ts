@@ -1,6 +1,12 @@
 export interface iTask {
-    id?: string;
-    name: string;
+    id: string;
+    title: string;
+    responsible: string;
+    isCompleted: boolean;
+}
+
+export interface iTaskInput {
+    title: string;
     responsible: string;
     isCompleted: boolean;
 }

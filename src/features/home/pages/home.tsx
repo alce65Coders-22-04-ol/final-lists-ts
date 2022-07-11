@@ -4,7 +4,6 @@ import { CounterClicks } from '../components/counter-clicks/counter-clicks';
 import { CounterStates } from '../components/counter-states/counter-states';
 
 import home from './home.module.css';
-import { TaskContextProvider } from '../../tasks/context/provider';
 
 function HomePage() {
     const [totalClicks, setTotalClicks] = useState(0);
