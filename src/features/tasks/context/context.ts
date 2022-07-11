@@ -3,7 +3,7 @@ import { iContext } from '../interfaces/context';
 
 export const initialContext: iContext = {
     tasks: [],
-    setTask: () => {},
+    setTasks: () => {},
     isLoading: false,
     setIsLoading: () => {},
 };

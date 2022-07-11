@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import { useContext, useEffect } from 'react';
 import { iTask } from '../models/task';
 import { TaskContextProvider } from './provider';
@@ -9,7 +8,7 @@ describe('Given the context AppContext', () => {
     let TestComponent: Function;
     describe('When a Test Component is wrapper with this context', () => {
         beforeEach(() => {
-            initialContext.setTask([]);
+            initialContext.setTasks([]);
             initialContext.setIsLoading(false);
             const task: iTask = {
                 id: '1',
@@ -19,15 +18,15 @@ describe('Given the context AppContext', () => {
             };
             initialContext.tasks = [task];
             TestComponent = () => {
-                const { tasks, setTask, isLoading, setIsLoading } =
+                const { tasks, setTasks, isLoading, setIsLoading } =
                     useContext(TaskContext);
                 useEffect(() => {
                     setIsLoading(true);
-                    setTask(initialContext.tasks);
-                }, [setIsLoading, setTask]);
+                    setTasks(initialContext.tasks);
+                }, [setIsLoading, setTasks]);
                 const handleClick = () => {
                     setIsLoading(false);
-                    setTask(null);
+                    setTasks(null);
                 };
                 return (
                     <>

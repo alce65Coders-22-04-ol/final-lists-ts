@@ -8,7 +8,7 @@ describe('Given the context AppContext', () => {
     let TestComponent: Function;
     describe('When a Test Component is wrapper with this context', () => {
         beforeEach(() => {
-            initialContext.setTask([]);
+            initialContext.setTasks([]);
             initialContext.setIsLoading(false);
             const task: iTask = {
                 id: '1',

@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { TaskContext } from './context';
 
 export function TaskContextProvider({ children }: { children: JSX.Element }) {
-    const [tasks, setTask] = useState([]);
+    const [tasks, setTasks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const context = {
         tasks,
-        setTask,
+        setTasks,
         isLoading,
         setIsLoading,
     };
