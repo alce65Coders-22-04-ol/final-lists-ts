@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useTasks } from '../../hooks/use.tasks';
 import { Add } from '../add/add';
 import { Task } from '../task/task';
+import list from './list.module.css';
 
 export function List() {
     const { getContext, loadTasks } = useTasks();
@@ -14,10 +15,10 @@ export function List() {
 
     return (
         <>
-            <p>List</p>
             <Add></Add>
             {isLoading && <p>Loading</p>}
-            <ul>
+            <p>Lista de tareas</p>
+            <ul className={list.list}>
                 {tasks.map((item) => (
                     <li key={item.id}>
                         <Task task={item}></Task>

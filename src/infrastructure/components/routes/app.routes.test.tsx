@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { menuOptionsType } from '../../../layout/interfaces/menu-options';
+import { startFirebase } from '../../services/firebase';
 import { AppRoutes } from './app.routes';
 
 describe('Given AppRoutes component', () => {
@@ -27,6 +28,7 @@ describe('Given AppRoutes component', () => {
             expect(element).toBeInTheDocument();
         });
         test('If route is Tasks, then Task Page will be render', async () => {
+            startFirebase();
             render(
                 <Router initialEntries={entries} initialIndex={1}>
                     <AppRoutes menuOptions={menuOptions}></AppRoutes>

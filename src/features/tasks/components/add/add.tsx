@@ -13,7 +13,7 @@ export function Add() {
         isCompleted: false,
     };
     const [formState, setFormState] = useState(initialState);
-
+    const [validState, setValidState] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
     const handleSubmit = (ev: SyntheticEvent) => {
@@ -24,9 +24,15 @@ export function Add() {
             isCompleted: false,
         };
         addTask(formData);
+        setFormState(initialState);
+        setValidState(false);
     };
 
-    const inputs = [
+    const inputs: Array<{
+        name: keyof typeof formState;
+        placeholder: string;
+        required: boolean;
+    }> = [
         { name: 'title', placeholder: 'Describe la tarea', required: true },
         {
             name: 'responsible',
@@ -39,18 +45,21 @@ export function Add() {
         <form onSubmit={handleSubmit} ref={formRef}>
             {inputs.map((item) => (
                 <AppInput
-                    key={item.name}
-                    name={item.name}
+                    key={item.name as string}
+                    name={item.name as string}
                     formInfo={{
                         setFormState,
-                        setValidState: () => {},
-                        formRef: formRef,
+                        setValidState,
+                        formRef,
                     }}
-                    placeholder={item.placeholder}
-                    required={item.required}
+                    placeholder={item.placeholder as string}
+                    required={item.required as boolean}
+                    initialValue={formState[item.name] as string}
                 />
             ))}
-            <button type="submit">Guardar</button>
+            <button type="submit" disabled={!validState}>
+                Guardar
+            </button>
         </form>
     );
 }

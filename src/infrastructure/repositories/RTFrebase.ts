@@ -64,7 +64,10 @@ export class Repository<T> {
     setListData(data: T) {
         const listRef = ref(this.db, this.collection);
         const newItemRef = push(listRef);
-        return set(newItemRef, data).then(() => data);
+        return set(newItemRef, data).then(() => ({
+            ...data,
+            id: newItemRef.key,
+        }));
     }
 
     updateData(dataID: string, data: Partial<T>) {

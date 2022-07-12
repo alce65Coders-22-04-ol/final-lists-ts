@@ -131,9 +131,9 @@ Inicio: Agregar firestore a tu app
 
 Opciones disponibles
 
--   Authentication
+-   Authentication (++)
 -   Cloud Firestore
--   RealTime Database
+-   RealTime Database (++)
 -   Storage
 -   Functions ...
 
@@ -316,3 +316,82 @@ basado en la clase **Repository<T>** con los métodos
 -   updateData(dataID: string, data: Partial<T>): Promise<void>
 -   deleteData(dataID: string): Promise<void>
 ```
+
+## Nuevas páginas (features): About
+
+Páginas y componentes
+
+-   Se añade la carpeta correspondiente en features (e.g. about)
+-   Se añade la carpeta de la página about/page
+-   Se crea en ella el componente about con su css.module y su test
+
+Rutas
+
+-   Se añade la definición de la ruta lazy al app.routes
+
+```ts
+const About = React.lazy(() => import('../../../features/about/pages/about'));
+```
+
+-   Se añade la ruta
+
+```jsx
+<Route
+    path={menuOptions[n].path}
+    element={
+        <React.Suspense>
+            <Component />
+        </React.Suspense>
+    }
+></Route>
+```
+
+Opciones del menú y de la aplicación
+
+Se añade la entrada en la lista de opciones definida en el componente App
+
+## Componentes de input genérico
+
+En el componente correspondiente a un input genérico
+
+-   se parametrizan las características del input
+-   entre ellas se incluye la información del formulario que lo incluirá:
+    -   setFormState
+    -   setValidState
+    -   formRef
+-   se define su estado local, que será manejado en el handle de onChange
+-   en el handleBlur se gestiona la validación del campo de acuerdo con sus restricciones basadas en los atributos HTML5
+
+### Test del componente
+
+Para testar el componente, al ser totalmente genérico y parametrizado, se incluye en el test un componente para las pruebas, con un formulario que consume el input genérico
+
+### Implementación: formulario de contacto
+
+Para termina de probar de forma realista el input genérico, se crea un componente con un formulario que lo consume con el tipo _text_ y el tipo _email_
+
+Se comprueba el funcionamiento de la validación
+
+Se añade un botón submit que cuyo manejador da al usuario un sencillo feedback de la información suministrada
+
+## Componentes y contexto para la feature Tasks
+
+Se usa el esquema de tres componentes habitual en las listas con CRUD
+
+-   List
+-   Add
+-   Task
+
+Se necesita definir el estado correspondiente a la lista y los procesos del CRUD.
+
+-   Lo primero será un nuevo contexto con el estado
+    -   tasks
+    -   isLoading, para diferenciar el proceso de carga
+-   Lo segundo, un custom hook responsable de las operaciones, que será el único que acceda directamente al contexto
+    -   getContext
+    -   loadTasks
+    -   addTask
+    -   completeTask
+    -   deleteTask
+
+### Testing components

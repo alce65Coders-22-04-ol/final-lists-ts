@@ -1,16 +1,18 @@
-// import { useContext } from 'react';
-// import { TodoContext } from '../../../context/todo.context';
 import { useTasks } from '../../hooks/use.tasks';
 import { iTask } from '../../models/task';
+import taskItem from './task.module.css';
 
 export function Task({ task }: { task: iTask }) {
     const { deleteTask, completeTask } = useTasks();
 
     const handleClick = () => deleteTask(task.id);
-    const handleChange = () => completeTask(task.id, task);
+    const handleChange = () => {
+        task.isCompleted = !task.isCompleted;
+        completeTask(task.id, task);
+    };
 
     return (
-        <>
+        <div className={taskItem.host}>
             <span>
                 <input
                     type="checkbox"
@@ -24,6 +26,6 @@ export function Task({ task }: { task: iTask }) {
             <span role="button" className="button" onClick={handleClick}>
                 🗑️
             </span>
-        </>
+        </div>
     );
 }

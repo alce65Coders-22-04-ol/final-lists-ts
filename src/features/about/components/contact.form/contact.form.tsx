@@ -37,7 +37,7 @@ export function ContactForm() {
     return (
         <>
             <h3>Formulario de contacto</h3>
-            <form onSubmit={handleSubmit} noValidate ref={formRef}>
+            <form onSubmit={handleSubmit} ref={formRef}>
                 <AppInput
                     name="userName"
                     placeholder="Dinos tu nombre"

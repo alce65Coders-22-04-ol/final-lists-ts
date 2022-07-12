@@ -1,0 +1,9 @@
+.host {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid gray;
+    background-color: gainsboro;
+    margin: 0.5rem;
+    padding: 0.2rem;
+    border-radius: 10px;
+}

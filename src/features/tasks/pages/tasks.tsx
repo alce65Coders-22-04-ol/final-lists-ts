@@ -1,3 +1,4 @@
+import { List } from '../components/list/list';
 import { TaskContextProvider } from '../context/provider';
 import tasks from './tasks.module.css';
 
@@ -6,7 +7,7 @@ function TasksPage() {
         <TaskContextProvider>
             <section className={tasks.host}>
                 <h2>Página Tasks</h2>
-                <p>Lista de tareas</p>
+                <List></List>
             </section>
         </TaskContextProvider>
     );

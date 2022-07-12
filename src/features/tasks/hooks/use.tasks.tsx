@@ -34,6 +34,7 @@ export function useTasks() {
 
     const completeTask = (id: iTask['id'], partialTask: Partial<iTask>) => {
         // Modificar la ratea en el repositorio
+        console.log({ id, partialTask });
         rp.updateData(id, partialTask).then((data) =>
             setTasks(tasks.map((item) => (item.id === id ? data : item)))
         );
