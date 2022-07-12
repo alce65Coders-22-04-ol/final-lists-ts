@@ -1,4 +1,5 @@
 import { SyntheticEvent, useLayoutEffect, useRef, useState } from 'react';
+import { AppButton } from '../../../../infrastructure/components/button/app.button';
 import AppInput from '../../../../infrastructure/components/input/app.input';
 
 interface iContact {
@@ -55,9 +56,9 @@ export function ContactForm() {
                     ref={emailRef}
                     initialValue={formState.email}
                 ></AppInput>
-                <button type="submit" disabled={!validState}>
+                <AppButton type="submit" disabled={!validState}>
                     Enviar
-                </button>
+                </AppButton>
             </form>
             <div>
                 {sendState.send && (

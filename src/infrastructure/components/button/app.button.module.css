@@ -1,0 +1,18 @@
+.host {
+    border: 2px solid rgb(9, 76, 94);
+    border-radius: 5px;
+    background-color: #61dafb;
+    padding: 0.5rem 1rem;
+    transition: all 0.6 ease;
+}
+
+.host:focus,
+.host:focus-visible,
+.host:hover {
+    transform: scale(1.1);
+}
+
+.host:disabled {
+    border: 1px solid #61dafb;
+    background-color: #ccecf4;
+}

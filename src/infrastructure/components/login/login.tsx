@@ -2,6 +2,7 @@ import login from './login.module.css';
 import { useLogin } from '../../hooks/use.login';
 import { useContext } from 'react';
 import { AppContext } from '../../context/context';
+import { AppButton } from '../button/app.button';
 
 export function Login() {
     const { isLogged } = useContext(AppContext);
@@ -9,9 +10,9 @@ export function Login() {
 
     return (
         <div className={login.host}>
-            <button type="button" onClick={handleClick}>
+            <AppButton type="button" onClick={handleClick}>
                 {isLogged ? 'Logout' : 'Login'}
-            </button>
+            </AppButton>
         </div>
     );
 }
