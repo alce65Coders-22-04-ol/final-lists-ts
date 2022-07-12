@@ -4,7 +4,7 @@ import { Repository } from '../../../infrastructure/repositories/RTFrebase';
 import { iTask } from '../models/task';
 import { TaskContext } from '../context/context';
 import { getDatabase } from 'firebase/database';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 jest.mock('../../../infrastructure/repositories/RTFrebase');
 jest.mock('firebase/database');
@@ -14,10 +14,12 @@ describe('Given useTasks hook inside a TestElement', () => {
     let TestContextProvider: Function;
     let tasks: Array<iTask>;
     let isLoading: boolean;
+    let taskToEdit: iTask | null;
     let jsx: JSX.Element;
     let externalContextData: {
         tasks: Array<iTask>;
         isLoading: boolean;
+        taskToEdit: iTask | null;
     };
 
     const taskData1 = {
@@ -40,7 +42,11 @@ describe('Given useTasks hook inside a TestElement', () => {
             initialData,
         }: {
             children: JSX.Element;
-            initialData: { tasks: Array<iTask>; isLoading: boolean };
+            initialData: {
+                tasks: Array<iTask>;
+                isLoading: boolean;
+                taskToEdit: null;
+            };
         }) => {
             const [tasks, setTasks] = useState(initialData.tasks);
             const [isLoading, setIsLoading] = useState(initialData.isLoading);
@@ -64,6 +70,7 @@ describe('Given useTasks hook inside a TestElement', () => {
         externalContextData = {
             tasks: [],
             isLoading: false,
+            taskToEdit: null,
         };
     });
 
@@ -96,6 +103,37 @@ describe('Given useTasks hook inside a TestElement', () => {
             // assert
             expect(tasks).toStrictEqual(externalContextData.tasks);
             expect(isLoading).toBe(externalContextData.isLoading);
+        });
+    });
+
+    describe('When its function startToEditTask has been used in a component', () => {
+        beforeEach(() => {
+            // arrange
+            (getDatabase as jest.Mock).mockReturnValue({});
+
+            TestElement = () => {
+                // se toman del hook todos sus métodos
+                const hook = useTasks();
+                // uno de ellos permite acceder a los datos del contexto
+                ({ taskToEdit } = hook.getContext());
+                // en el contexto estarán definidos los estados y sus setters
+                hook.startToEditTask(taskData1);
+                return <></>;
+            };
+
+            externalContextData.taskToEdit = null;
+            jsx = (
+                <TestContextProvider initialData={externalContextData}>
+                    <TestElement></TestElement>;
+                </TestContextProvider>
+            );
+        });
+
+        test('Then it set the value taskToEdit from the context', async () => {
+            // act
+            render(jsx);
+            // assert
+            expect(taskToEdit).toStrictEqual(taskData1);
         });
     });
 
@@ -167,7 +205,8 @@ describe('Given useTasks hook inside a TestElement', () => {
             });
         });
     });
-    describe('When its function completeTask has been used in a component', () => {
+
+    describe('When its function updateTask has been used in a component', () => {
         beforeEach(() => {
             // arrange
 
@@ -178,7 +217,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
-                hook.completeTask(taskData1.id, { isCompleted: true });
+                hook.updateTask(taskData1.id, { isCompleted: true });
                 return <></>;
             };
             externalContextData.tasks = [taskData1, taskData2];
@@ -198,6 +237,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             });
         });
     });
+
     describe('When its function deleteTask has been used in a component', () => {
         beforeEach(() => {
             // arrange

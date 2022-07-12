@@ -61,7 +61,7 @@ function AppInput<T>(
             valid: element.checkValidity(),
             errorMessage: element.validationMessage,
         });
-        console.log('Validity:', element.validity);
+        // console.log('Validity:', element.validity);
     };
 
     let jsx: JSX.Element = (

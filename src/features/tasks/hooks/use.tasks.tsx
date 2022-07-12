@@ -4,8 +4,7 @@ import { iTask, iTaskInput } from '../models/task';
 import { Repository } from '../../../infrastructure/repositories/RTFrebase';
 
 export function useTasks() {
-    // Traer del contexto los valores del estado: tareas, isLoading y sus seteadores
-
+    // Traer del contexto los valores del estado: tareas, isLoading y sus setters
     const {
         tasks,
         isLoading,
@@ -40,16 +39,6 @@ export function useTasks() {
 
     const updateTask = (id: iTask['id'], partialTask: Partial<iTask>) => {
         // Modificar la ratea en el repositorio
-        console.log({ id, partialTask });
-        rp.updateData(id, partialTask).then((data) =>
-            // Actualizar el estado con la tarea modificada
-            setTasks(tasks.map((item) => (item.id === id ? data : item)))
-        );
-    };
-
-    const completeTask = (id: iTask['id'], partialTask: Partial<iTask>) => {
-        // Modificar la ratea en el repositorio
-        console.log({ id, partialTask });
         rp.updateData(id, partialTask).then((data) =>
             // Actualizar el estado con la tarea modificada
             setTasks(tasks.map((item) => (item.id === id ? data : item)))
@@ -73,7 +62,6 @@ export function useTasks() {
         loadTasks,
         addTask,
         updateTask,
-        completeTask,
         deleteTask,
         startToEditTask,
     };

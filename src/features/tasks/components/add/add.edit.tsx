@@ -6,9 +6,7 @@ import { AppButton } from '../../../../infrastructure/components/button/app.butt
 
 export function AddOrEdit() {
     const { addTask, updateTask, getContext } = useTasks();
-    const { taskToEdit: task } = getContext();
-
-    console.log('Starting AddOrEdit', task);
+    const { taskToEdit } = getContext();
 
     const initialState: iTaskInput = {
         title: '',
@@ -19,24 +17,24 @@ export function AddOrEdit() {
     const [formState, setFormState] = useState(initialState);
 
     useEffect(() => {
-        if (task) {
+        if (taskToEdit) {
             const updateState: iTask = {
-                id: task.id,
-                title: task.title,
-                responsible: task.responsible,
-                isCompleted: task.isCompleted,
+                id: taskToEdit.id,
+                title: taskToEdit.title,
+                responsible: taskToEdit.responsible,
+                isCompleted: taskToEdit.isCompleted,
             };
             setFormState(updateState);
         }
-    }, [task]);
+    }, [taskToEdit]);
 
     const [validState, setValidState] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
-        if (task) {
-            makeUpdateTask();
+        if (taskToEdit) {
+            makeUpdateTask(taskToEdit);
         } else {
             makeAddTask();
         }
@@ -53,14 +51,13 @@ export function AddOrEdit() {
         setValidState(false);
     };
 
-    const makeUpdateTask = () => {
-        if (!task) return;
+    const makeUpdateTask = (task: iTask) => {
         const formData: iTaskInput = {
             title: formState.title as string,
             responsible: formState.responsible as string,
             isCompleted: task.isCompleted,
         };
-        updateTask((task as iTask).id, formData);
+        updateTask(task.id, formData);
         setFormState(initialState);
         setValidState(false);
     };
@@ -95,7 +92,7 @@ export function AddOrEdit() {
                 />
             ))}
             <AppButton type="submit" disabled={!validState}>
-                {task ? 'Guardar' : 'Añadir'}
+                {taskToEdit ? 'Guardar' : 'Añadir'}
             </AppButton>
         </form>
     );

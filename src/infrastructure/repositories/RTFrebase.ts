@@ -29,7 +29,7 @@ export class Repository<T> {
                 }
             })
             .catch((error) => {
-                console.log((error as Error).message);
+                console.error((error as Error).message);
             });
     };
 

@@ -43,14 +43,11 @@ export function useLogin() {
                 error.code = '';
                 error.customData = { email: '' };
                 if (!credential) throw error;
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                console.log({ token, user });
+                // console.log({ token, user });
                 setIsLogged(true);
                 const userData: iUser = {
                     uid: result.user.uid,
-                    token: token,
+                    token: credential.accessToken,
                     name: result.user.displayName,
                     email: result.user.email,
                 };
@@ -58,19 +55,13 @@ export function useLogin() {
                 ls.setItem(userData);
             })
             .catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
                 const credential =
                     GoogleAuthProvider.credentialFromError(error);
                 // ...
-                console.log({
-                    errorCode,
-                    errorMessage,
-                    email,
+                console.error({
+                    errorCode: error.code,
+                    errorMessage: error.message,
+                    email: error.customData.email,
                     credential,
                 });
             });
@@ -89,7 +80,7 @@ export function useLogin() {
                 ls.removeItems();
             })
             .catch((error) => {
-                console.log(error.message);
+                console.error(error.message);
             });
     };
 

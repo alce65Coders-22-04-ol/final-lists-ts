@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTasks } from '../../hooks/use.tasks';
-import { AddOrEdit } from '../add/add';
+import { AddOrEdit } from '../add/add.edit';
 import { Task } from '../task/task';
 import list from './list.module.css';
 

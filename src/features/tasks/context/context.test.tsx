@@ -10,6 +10,7 @@ describe('Given the context AppContext', () => {
         beforeEach(() => {
             initialContext.setTasks([]);
             initialContext.setIsLoading(false);
+            initialContext.setTaskToEdit(null);
             const task: iTask = {
                 id: '1',
                 title: 'Test task',

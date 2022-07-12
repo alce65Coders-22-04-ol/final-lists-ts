@@ -3,7 +3,7 @@ import { iTask } from '../../models/task';
 import taskItem from './task.module.css';
 
 export function Task({ task }: { task: iTask }) {
-    const { deleteTask, completeTask, startToEditTask } = useTasks();
+    const { deleteTask, updateTask, startToEditTask } = useTasks();
 
     const handleClick = (action: string) => {
         if (action === 'edit') {
@@ -14,7 +14,7 @@ export function Task({ task }: { task: iTask }) {
     };
     const handleChange = () => {
         task.isCompleted = !task.isCompleted;
-        completeTask(task.id, task);
+        updateTask(task.id, task);
     };
 
     return (

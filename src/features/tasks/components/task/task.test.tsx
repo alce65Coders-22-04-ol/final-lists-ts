@@ -21,8 +21,9 @@ describe('Given Task component', () => {
             };
             jsx = <Task task={task} />;
             (useTasks as jest.Mock).mockReturnValue({
-                completeTask: jest.fn(),
+                updateTask: jest.fn(),
                 deleteTask: jest.fn(),
+                startToEditTask: jest.fn(),
             });
         });
         test('Then it renders the provided task', () => {
@@ -32,23 +33,42 @@ describe('Given Task component', () => {
             const element = screen.getByText(task.title);
             expect(element).toBeInTheDocument();
         });
-        test('Then if user check "complete", the handle ... should be run', () => {
-            // act
-            render(jsx);
-            // assert
-            const element = screen.getByRole('checkbox');
-            expect(element).toBeInTheDocument();
-            userEvent.click(element);
-            expect(useTasks().completeTask).toHaveBeenCalled();
+        describe('And the user check "complete" button', () => {
+            test(`Then the handle handleChange should be run, 
+                    and it call a method in the custom hook for update a task`, () => {
+                // act
+                render(jsx);
+                // assert
+                const element = screen.getByRole('checkbox');
+                expect(element).toBeInTheDocument();
+                userEvent.click(element);
+                expect(useTasks().updateTask).toHaveBeenCalled();
+            });
         });
-        test('Then if user click "delete", the handle ... should be run', () => {
-            // act
-            render(jsx);
-            // assert
-            const elements = screen.getAllByRole('button');
-            expect(elements[1]).toBeInTheDocument();
-            userEvent.click(elements[1]);
-            expect(useTasks().deleteTask).toHaveBeenCalled();
+        describe('And the user click "edit"  button', () => {
+            test(`Then the handle handleClick(edit) should be run
+                and it call a method in the custom hook for update a task`, () => {
+                // act`, () => {
+                // act
+                render(jsx);
+                // assert
+                const elements = screen.getAllByRole('button');
+                expect(elements[0]).toBeInTheDocument();
+                userEvent.click(elements[0]);
+                expect(useTasks().startToEditTask).toHaveBeenCalled();
+            });
+        });
+        describe('And the user click "delete" button', () => {
+            test(`Then the handle handleClick(delete) should be run
+                and it call a method in the custom hook for update a task`, () => {
+                // act
+                render(jsx);
+                // assert
+                const elements = screen.getAllByRole('button');
+                expect(elements[1]).toBeInTheDocument();
+                userEvent.click(elements[1]);
+                expect(useTasks().deleteTask).toHaveBeenCalled();
+            });
         });
     });
 });

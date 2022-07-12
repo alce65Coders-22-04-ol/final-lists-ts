@@ -24,9 +24,9 @@ export function ContactForm() {
     const emailRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
-    useLayoutEffect(() => {
-        console.log({ formRef });
-    });
+    // useLayoutEffect(() => {
+    //     console.log({ formRef });
+    // });
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
