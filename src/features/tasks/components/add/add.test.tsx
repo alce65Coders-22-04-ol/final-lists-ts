@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Add } from './add';
+import { AddOrEdit } from './add';
 
 import { useTasks } from '../../hooks/use.tasks';
 
@@ -9,6 +9,7 @@ jest.mock('../../hooks/use.tasks');
 describe('Given the component Add', () => {
     beforeEach(() => {
         (useTasks as jest.Mock).mockReturnValue({
+            getContext: jest.fn().mockReturnValue({ taskToEdit: null }),
             addTask: jest.fn(),
             deleteTask: () => {},
             completeTask: () => {},
@@ -18,7 +19,7 @@ describe('Given the component Add', () => {
         test('Then inputs should be completed and data send to addTask function', () => {
             render(
                 // <Router>
-                <Add></Add>
+                <AddOrEdit></AddOrEdit>
                 // </Router>
             );
             const inputs = screen.getAllByRole('textbox');

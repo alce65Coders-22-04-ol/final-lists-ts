@@ -45,9 +45,9 @@ describe('Given Task component', () => {
             // act
             render(jsx);
             // assert
-            const element = screen.getByRole('button');
-            expect(element).toBeInTheDocument();
-            userEvent.click(element);
+            const elements = screen.getAllByRole('button');
+            expect(elements[1]).toBeInTheDocument();
+            userEvent.click(elements[1]);
             expect(useTasks().deleteTask).toHaveBeenCalled();
         });
     });

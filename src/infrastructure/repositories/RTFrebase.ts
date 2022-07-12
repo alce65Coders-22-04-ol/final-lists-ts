@@ -73,7 +73,10 @@ export class Repository<T> {
     updateData(dataID: string, data: Partial<T>) {
         const target = `${this.collection}/${dataID}`;
         const dbRef = ref(this.db, target);
-        return update(dbRef, data).then(() => data);
+        return update(dbRef, data).then(() => ({
+            ...data,
+            id: dbRef.key,
+        }));
     }
 
     deleteData(dataID: string) {

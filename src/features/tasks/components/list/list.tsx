@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTasks } from '../../hooks/use.tasks';
-import { Add } from '../add/add';
+import { AddOrEdit } from '../add/add';
 import { Task } from '../task/task';
 import list from './list.module.css';
 
@@ -15,7 +15,7 @@ export function List() {
 
     return (
         <>
-            <Add></Add>
+            <AddOrEdit></AddOrEdit>
             {isLoading && <p>Loading</p>}
             <p>Lista de tareas</p>
             <ul className={list.list}>

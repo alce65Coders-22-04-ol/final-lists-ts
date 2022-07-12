@@ -374,6 +374,15 @@ Se comprueba el funcionamiento de la validación
 
 Se añade un botón submit que cuyo manejador da al usuario un sencillo feedback de la información suministrada
 
+## Componente genérico button
+
+Children con el texto que mostrara el botón
+Propos con las diferentes opciones posibles; en muchas casos opcionales y con un valor por defecto.
+
+### Testing
+
+De nuevo, al ser totalmente genérico y parametrizado, se incluye en el test un componente para las pruebas que consume el button genérico.
+
 ## Componentes y contexto para la feature Tasks
 
 Se usa el esquema de tres componentes habitual en las listas con CRUD
@@ -395,3 +404,20 @@ Se necesita definir el estado correspondiente a la lista y los procesos del CRUD
     -   deleteTask
 
 ### Testing components
+
+### Modificación del componente add como add/edit
+
+En el contexto se añade un estado con la tarea a editar (taskToEdit) y su setter (setTaskToEdit), siendo sus valores posibles una tarea o null.
+
+El custom Hook (useTask) accede a este nuevo estado y lo exporta junto con un método capaz de setearlo.
+
+Tanto en task como en addOrEdit se accede a este estado:
+
+-   el botón de editar en task setea el estado con la tarea a editar
+-   el formulario de adOrEdit carga los datos de la tarea para que sean editados.
+-   el botón añadir/guardar del formulario distingue entre los dos procesos
+-   en caso de guardar, se utiliza el correspondiente método del hook que envía los datos al api y actualiza toso los estados necesarios
+
+### Testing componentes
+
+Se modifican los tests de acuerdo con los cambios y se añaden los necesarios para las nuevas situaciones

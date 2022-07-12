@@ -3,9 +3,15 @@ import { iTask } from '../../models/task';
 import taskItem from './task.module.css';
 
 export function Task({ task }: { task: iTask }) {
-    const { deleteTask, completeTask } = useTasks();
+    const { deleteTask, completeTask, startToEditTask } = useTasks();
 
-    const handleClick = () => deleteTask(task.id);
+    const handleClick = (action: string) => {
+        if (action === 'edit') {
+            startToEditTask(task);
+        } else {
+            deleteTask(task.id);
+        }
+    };
     const handleChange = () => {
         task.isCompleted = !task.isCompleted;
         completeTask(task.id, task);
@@ -21,10 +27,25 @@ export function Task({ task }: { task: iTask }) {
                 />
             </span>
             <span>{task.title}</span>
-            <span> | </span>
+            <span>|</span>
             <span>{task.responsible}</span>
-            <span role="button" className="button" onClick={handleClick}>
-                🗑️
+            <span>
+                <span
+                    role="button"
+                    className={taskItem.button}
+                    title="edit"
+                    onClick={(ev) => handleClick('edit')}
+                >
+                    🖊️
+                </span>
+                <span
+                    role="button"
+                    className={taskItem.button}
+                    title="delete"
+                    onClick={(ev) => handleClick('delete')}
+                >
+                    🗑️
+                </span>
             </span>
         </div>
     );

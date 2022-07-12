@@ -7,3 +7,17 @@
     padding: 0.2rem;
     border-radius: 10px;
 }
+/* impares */
+.host span:nth-of-type(odd) {
+    flex: 1 0 auto;
+}
+
+/* pares */
+.host span:nth-of-type(even) {
+    flex: 2 0 auto;
+}
+
+.button {
+    cursor: pointer;
+    padding-right: 0.6rem;
+}

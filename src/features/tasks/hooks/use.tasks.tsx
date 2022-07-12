@@ -6,12 +6,18 @@ import { Repository } from '../../../infrastructure/repositories/RTFrebase';
 export function useTasks() {
     // Traer del contexto los valores del estado: tareas, isLoading y sus seteadores
 
-    const { tasks, isLoading, setTasks, setIsLoading } =
-        useContext(TaskContext);
+    const {
+        tasks,
+        isLoading,
+        setTasks,
+        setIsLoading,
+        taskToEdit,
+        setTaskToEdit,
+    } = useContext(TaskContext);
     const rp = useMemo(() => new Repository<iTask>('tasks'), []);
 
     const getContext = () => {
-        return { tasks, isLoading };
+        return { tasks, taskToEdit, isLoading };
     };
 
     const loadTasks = useCallback(() => {
@@ -32,28 +38,43 @@ export function useTasks() {
         );
     };
 
+    const updateTask = (id: iTask['id'], partialTask: Partial<iTask>) => {
+        // Modificar la ratea en el repositorio
+        console.log({ id, partialTask });
+        rp.updateData(id, partialTask).then((data) =>
+            // Actualizar el estado con la tarea modificada
+            setTasks(tasks.map((item) => (item.id === id ? data : item)))
+        );
+    };
+
     const completeTask = (id: iTask['id'], partialTask: Partial<iTask>) => {
         // Modificar la ratea en el repositorio
         console.log({ id, partialTask });
         rp.updateData(id, partialTask).then((data) =>
+            // Actualizar el estado con la tarea modificada
             setTasks(tasks.map((item) => (item.id === id ? data : item)))
         );
-        // Actualizar el estado con la tarea modificada
     };
 
     const deleteTask = (id: iTask['id']) => {
         // Eliminar la tarea del repositorio
         rp.deleteData(id).then(() => {
+            // Actualizar el estado sin la tarea eliminada
             setTasks(tasks.filter((item) => item.id !== id));
         });
-        // Actualizar el estado sin la tarea eliminada
+    };
+
+    const startToEditTask = (task: iTask) => {
+        setTaskToEdit(task);
     };
 
     return {
         getContext,
         loadTasks,
         addTask,
+        updateTask,
         completeTask,
         deleteTask,
+        startToEditTask,
     };
 }

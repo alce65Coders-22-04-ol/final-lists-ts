@@ -5,4 +5,6 @@ export interface iContext {
     setTasks: Function;
     isLoading: boolean;
     setIsLoading: Function;
+    taskToEdit: iTask | null;
+    setTaskToEdit: Function;
 }

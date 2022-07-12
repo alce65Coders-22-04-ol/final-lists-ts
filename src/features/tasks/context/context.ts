@@ -6,6 +6,8 @@ export const initialContext: iContext = {
     setTasks: () => {},
     isLoading: false,
     setIsLoading: () => {},
+    taskToEdit: null,
+    setTaskToEdit: () => {},
 };
 
 export const TaskContext = createContext(initialContext);
