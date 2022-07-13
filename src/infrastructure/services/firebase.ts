@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getDatabase } from 'firebase/database';
+import { getFirestore } from 'firebase/firestore';
 
 export const startFirebase = () => {
     // Your web app's Firebase configuration
@@ -21,5 +22,8 @@ export const startFirebase = () => {
     // Initialize Realtime Database and get a reference to the service
     const fireDataBase = getDatabase(fireApp);
 
-    return { fireApp, fireDataBase };
+    // Initialize Cloud Firestore and get a reference to the service
+    const dbApp = getFirestore(fireApp);
+
+    return { fireApp, fireDataBase, dbApp };
 };

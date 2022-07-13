@@ -1,12 +1,12 @@
 import { render, waitFor } from '@testing-library/react';
 import { useTasks } from './use.tasks';
-import { Repository } from '../../../infrastructure/repositories/RTFrebase';
+import { Repository } from '../../../infrastructure/repositories/RTFirebase';
 import { iTask } from '../models/task';
 import { TaskContext } from '../context/context';
 import { getDatabase } from 'firebase/database';
 import { useState } from 'react';
 
-jest.mock('../../../infrastructure/repositories/RTFrebase');
+jest.mock('../../../infrastructure/repositories/RTFirebase');
 jest.mock('firebase/database');
 
 describe('Given useTasks hook inside a TestElement', () => {
@@ -140,7 +140,7 @@ describe('Given useTasks hook inside a TestElement', () => {
     describe('When its function loadTasks has been used in a component', () => {
         beforeEach(() => {
             // arrange
-            Repository.prototype.getAllData = jest
+            Repository.prototype.getAllItems = jest
                 .fn()
                 .mockResolvedValue([taskData1]);
             TestElement = () => {
@@ -161,7 +161,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             render(jsx);
             // assert
             // expect(tasks).toStrictEqual([]);
-            expect(Repository.prototype.getAllData).toHaveBeenCalled();
+            expect(Repository.prototype.getAllItems).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks).toStrictEqual([taskData1]);
             });
@@ -178,9 +178,7 @@ describe('Given useTasks hook inside a TestElement', () => {
                 responsible: 'Ernesto',
                 isCompleted: false,
             };
-            Repository.prototype.setListData = jest
-                .fn()
-                .mockResolvedValue(newTask);
+            Repository.prototype.addItem = jest.fn().mockResolvedValue(newTask);
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
@@ -199,7 +197,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             render(jsx);
             // assert
             expect(tasks).toStrictEqual([taskData1]);
-            expect(Repository.prototype.setListData).toHaveBeenCalled();
+            expect(Repository.prototype.addItem).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks[1]).toStrictEqual(newTask);
             });
@@ -211,7 +209,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             // arrange
 
             const expectedData = { ...taskData1, isCompleted: true };
-            Repository.prototype.updateData = jest
+            Repository.prototype.updateItem = jest
                 .fn()
                 .mockResolvedValue(expectedData);
             TestElement = () => {
@@ -231,7 +229,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             // act
             render(jsx);
             // assert
-            expect(Repository.prototype.updateData).toHaveBeenCalled();
+            expect(Repository.prototype.updateItem).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks[0].isCompleted).toBe(true);
             });
@@ -241,7 +239,7 @@ describe('Given useTasks hook inside a TestElement', () => {
     describe('When its function deleteTask has been used in a component', () => {
         beforeEach(() => {
             // arrange
-            Repository.prototype.deleteData = jest.fn().mockResolvedValue({});
+            Repository.prototype.deleteItem = jest.fn().mockResolvedValue({});
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
@@ -259,7 +257,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             // act
             render(jsx);
             // assert
-            expect(Repository.prototype.deleteData).toHaveBeenCalled();
+            expect(Repository.prototype.deleteItem).toHaveBeenCalled();
             expect(tasks).toStrictEqual([taskData1]);
         });
     });

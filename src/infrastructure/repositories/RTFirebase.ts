@@ -9,8 +9,11 @@ import {
     DatabaseReference,
     update,
 } from 'firebase/database';
+import { basicResponse, basicT, iRepository } from '../interfaces/repository';
 
-export class Repository<T> {
+export class Repository<T extends basicT, R extends basicResponse>
+    implements iRepository<T, R>
+{
     db: Database;
 
     constructor(public collection: string) {
@@ -33,7 +36,7 @@ export class Repository<T> {
             });
     };
 
-    getAllData(): Promise<Array<T>> {
+    getAllItems(): Promise<Array<T>> {
         const dbRef = ref(this.db);
         const query = child(dbRef, this.collection);
         const result = this.processQuery(query).then(
@@ -48,20 +51,20 @@ export class Repository<T> {
         return result as Promise<Array<T>>;
     }
 
-    getData(dataID: string): Promise<T> {
+    getItem(dataID: T['id']): Promise<T> {
         const dbRef = ref(this.db);
         const target = `${this.collection}/${dataID}`;
         const query = child(dbRef, target);
         return this.processQuery(query) as Promise<T>;
     }
 
-    setData(dataID: string, data: T) {
+    setItem(dataID: string, data: T) {
         const target = `${this.collection}/${dataID}`;
         const dbRef = ref(this.db, target);
         return set(dbRef, data).then(() => data);
     }
 
-    setListData(data: T) {
+    addItem(data: T): Promise<T> {
         const listRef = ref(this.db, this.collection);
         const newItemRef = push(listRef);
         return set(newItemRef, data).then(() => ({
@@ -70,18 +73,26 @@ export class Repository<T> {
         }));
     }
 
-    updateData(dataID: string, data: Partial<T>) {
-        const target = `${this.collection}/${dataID}`;
+    updateItem(data: Partial<T>): Promise<T> {
+        const target = `${this.collection}/${data.id as T['id']}`;
         const dbRef = ref(this.db, target);
-        return update(dbRef, data).then(() => ({
-            ...data,
-            id: dbRef.key,
-        }));
+        return update(dbRef, data).then(
+            () => dbRef as unknown as T
+            // {
+            //     ...data,
+            //     id: dbRef.key,
+            // }
+        );
     }
 
-    deleteData(dataID: string) {
-        const target = `${this.collection}/${dataID}`;
+    deleteItem(dataID: T['id']): Promise<R> {
+        const target = `${this.collection}/${dataID as string}`;
         const dbRef = ref(this.db, target);
-        return set(dbRef, null).then(() => ({}));
+        return set(dbRef, null).then(
+            () =>
+                ({
+                    ok: true,
+                } as R)
+        );
     }
 }

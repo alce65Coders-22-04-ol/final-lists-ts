@@ -1,10 +1,11 @@
 import { iTask } from '../../features/tasks/models/task';
+import { iFBResponse } from '../interfaces/repository';
 import { iUserData } from '../interfaces/user.data';
 import { startFirebase } from '../services/firebase';
-import { Repository } from './RTFrebase';
+import { Repository } from './RTFirebase';
 
-describe('Given an instance of service RTFrebase for "users"', () => {
-    let repo: Repository<iUserData>;
+describe('Given an instance of service RTFirebase for "users"', () => {
+    let repo: Repository<iUserData, iFBResponse>;
     let userData: iUserData;
     let userID: string;
     let collection: string;
@@ -12,8 +13,9 @@ describe('Given an instance of service RTFrebase for "users"', () => {
     beforeEach(() => {
         startFirebase();
         collection = 'users-test';
-        repo = new Repository<iUserData>(collection);
+        repo = new Repository<iUserData, iFBResponse>(collection);
         userData = {
+            id: '1',
             username: 'Pepe',
             email: 'pepe@sample.com',
             profile_picture: 'test',
@@ -23,35 +25,36 @@ describe('Given an instance of service RTFrebase for "users"', () => {
 
     describe('When userId and userData provide are valid', () => {
         test('A document in de DB should be created & read', async () => {
-            await repo.setData(userID, userData);
-            const result = await repo.getData(userID);
-            expect((result as unknown as iUserData).username).toBe('Pepe');
+            await repo.setItem(userID, userData);
+            const result = await repo.getItem(userID);
+            expect(result).toStrictEqual(userData);
         });
         test('A document in de DB should be created & update', async () => {
             userID = '2';
-            await repo.setData(userID, userData);
-            let result = await repo.getData(userID);
-            expect((result as unknown as iUserData).username).toBe('Pepe');
-            await repo.updateData(userID, { username: 'Luisa' });
-            result = await repo.getData(userID);
-            expect((result as unknown as iUserData).username).toBe('Luisa');
+            userData.id = '2';
+            await repo.setItem(userID, userData);
+            let result = await repo.getItem(userID);
+            expect(result).toStrictEqual(userData);
+            await repo.updateItem({ id: userID, username: 'Luisa' });
+            result = await repo.getItem(userID);
+            expect(result).toStrictEqual({ ...userData, username: 'Luisa' });
         });
         test('A document in de DB should be created & deleted', async () => {
             userID = '3';
-            await repo.setData(userID, userData);
-            let result = await repo.getData(userID);
+            await repo.setItem(userID, userData);
+            let result = await repo.getItem(userID);
             expect((result as unknown as iUserData).username).toBe('Pepe');
-            await repo.deleteData(userID);
+            await repo.deleteItem(userID);
             try {
-                await repo.getData(userID);
+                await repo.getItem(userID);
             } catch (error) {
                 // eslint-disable-next-line jest/no-conditional-expect
                 expect(error).toBe(/No data/i);
             }
         });
         test('Several documents in de DB should be read', async () => {
-            // await repo.setData(userData, userID);
-            const result = await repo.getAllData();
+            // await repo.setItem(userData, userID);
+            const result = await repo.getAllItems();
             expect((result as unknown as Array<any>).length).toBeGreaterThan(1);
         });
     });
@@ -60,7 +63,7 @@ describe('Given an instance of service RTFrebase for "users"', () => {
         test('Then an error is throw as result', async () => {
             userID = '22';
             try {
-                await repo.getData(userID);
+                await repo.getItem(userID);
             } catch (error) {
                 // eslint-disable-next-line jest/no-conditional-expect
                 expect(error).toBe(/No data/i);
@@ -70,7 +73,7 @@ describe('Given an instance of service RTFrebase for "users"', () => {
 });
 
 describe('Given an instance of service Repository for "tasks"', () => {
-    let repo: Repository<iTask>;
+    let repo: Repository<iTask, iFBResponse>;
     let taskData: iTask;
     let taskData2: iTask;
     let collection: string;
@@ -78,7 +81,7 @@ describe('Given an instance of service Repository for "tasks"', () => {
     beforeEach(() => {
         startFirebase();
         collection = 'tasks-test';
-        repo = new Repository<iTask>(collection);
+        repo = new Repository<iTask, iFBResponse>(collection);
         taskData = {
             id: '1',
             title: 'Test task',
@@ -93,21 +96,21 @@ describe('Given an instance of service Repository for "tasks"', () => {
         };
     });
     test('A document in de DB should be created & read', async () => {
-        await repo.setListData(taskData);
-        await repo.setListData(taskData2);
-        const result = await repo.getAllData();
+        await repo.addItem(taskData);
+        await repo.addItem(taskData2);
+        const result = await repo.getAllItems();
         expect((result as unknown as Array<any>).length).toBeGreaterThan(1);
         expect((result as unknown as Array<any>)[0].responsible).toBe('Pepe');
     });
     test('A document in de DB should be deleted', async () => {
-        await repo.setListData(taskData);
-        await repo.setListData(taskData2);
-        const data = await repo.getAllData();
+        await repo.addItem(taskData);
+        await repo.addItem(taskData2);
+        const data = await repo.getAllItems();
 
-        data.forEach(async (item, index) => {
-            if (index > 1) await repo.deleteData(item.id);
+        data.forEach(async (item: iTask, index: number) => {
+            if (index > 1) await repo.deleteItem(item.id);
         });
-        const result = await repo.getAllData();
+        const result = await repo.getAllItems();
         expect((result as unknown as Array<any>).length).toBeLessThan(3);
     });
 });
