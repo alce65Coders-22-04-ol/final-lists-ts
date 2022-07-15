@@ -1,6 +1,8 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { menuOptionsType } from '../../../layout/interfaces/menu-options';
+import { appStore } from '../../../infrastructure/store/store';
 
 const Home = React.lazy(() => import('../../../features/home/pages/home'));
 const Todo = React.lazy(() => import('../../../features/tasks/pages/tasks'));
@@ -32,7 +34,9 @@ export function AppRoutes({ menuOptions }: { menuOptions: menuOptionsType }) {
                 path={menuOptions[2].path}
                 element={
                     <React.Suspense>
-                        <Recipes />
+                        <Provider store={appStore}>
+                            <Recipes />
+                        </Provider>
                     </React.Suspense>
                 }
             ></Route>
