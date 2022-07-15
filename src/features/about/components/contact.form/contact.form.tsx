@@ -1,6 +1,7 @@
 import { SyntheticEvent, useLayoutEffect, useRef, useState } from 'react';
 import { AppButton } from '../../../../infrastructure/components/button/app.button';
 import AppInput from '../../../../infrastructure/components/input/app.input';
+import { AppModal } from '../../../../infrastructure/components/modal/modal';
 
 interface iContact {
     userName: string;
@@ -60,22 +61,20 @@ export function ContactForm() {
                     Enviar
                 </AppButton>
             </form>
-            <div>
-                {sendState.send && (
-                    <>
-                        <p>
-                            Gracias{' '}
-                            {(sendState.userToSend as iContact).userName}
-                        </p>
-                        <p>
-                            <span>Te enviaremos información a tu correo </span>
-                            <em role={'log'}>
-                                {(sendState.userToSend as iContact).email}
-                            </em>
-                        </p>
-                    </>
-                )}
-            </div>
+
+            <AppModal title={'Contactos'} show={sendState.send}>
+                <>
+                    <p>
+                        Gracias {(sendState.userToSend as iContact)?.userName}
+                    </p>
+                    <p>
+                        <span>Te enviaremos información a tu correo </span>
+                        <em role={'log'}>
+                            {(sendState.userToSend as iContact)?.email}
+                        </em>
+                    </p>
+                </>
+            </AppModal>
         </>
     );
 }

@@ -1,0 +1,42 @@
+.host header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hostx {
+    display: block;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: fit-content;
+    height: fit-content;
+    /* background-color: canvas;
+    color: canvastext; */
+    margin: auto;
+    border-width: initial;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+    padding: 1em;
+}
+
+.hostx:-internal-modal {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    max-width: calc((100% - 6px) - 2em);
+    max-height: calc((100% - 6px) - 2em);
+    user-select: text;
+    visibility: visible;
+    overflow: auto;
+}
+
+.host::backdrop {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.753);
+}

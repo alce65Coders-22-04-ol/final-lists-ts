@@ -22,7 +22,9 @@ describe('Given Contact Form component', () => {
             fireEvent.blur(inputs[1]);
             userEvent.click(button);
             expect(screen.getByText(/Gracias Pepe/i)).toBeInTheDocument();
-            expect(screen.getByRole('log')).toBeInTheDocument();
+            expect(
+                screen.getByRole('log', { hidden: true })
+            ).toBeInTheDocument();
         });
     });
 });
