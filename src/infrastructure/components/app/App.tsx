@@ -12,6 +12,7 @@ function App() {
     const menuOptions: menuOptionsType = [
         { path: '/', label: 'Home' },
         { path: '/tasks', label: 'Tasks' },
+        { path: '/recipes', label: 'Recipes' },
         { path: '/about', label: 'About' },
     ];
     return (
