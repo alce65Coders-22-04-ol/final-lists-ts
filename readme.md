@@ -305,16 +305,31 @@ DbUrl: https://alce65-todo-react-default-rtdb.europe-west1.firebasedatabase.app/
 
 Se modifica el servicio de inicialización de Firebase `firebase.ts`
 
-Se crea un nuevo servicios de acceso general a datos de la Realtime Database
-basado en la clase **Repository<T>** con los métodos
+-   se importa `getDatabase` desde `'firebase/database'`;
+-   se ejecuta `getDatabase` pasándole como argumento la app de **Firebase**
+
+### Servicio de acceso a los datos
+
+Se crea el interface para los servicios de acceso a datos (repositorios)
 
 ```TS
--   getAllData(): Promise<Array<T>>
--   getData(dataID: string): Promise<T>
--   setData(dataID: string, data: T): Promise<void>
--   setListData(data: T): Promise<void>
--   updateData(dataID: string, data: Partial<T>): Promise<void>
--   deleteData(dataID: string): Promise<void>
+    getAllItems: () => Promise<Array<T>>;
+    getItem: (id: T['id']) => Promise<T>;
+    addItem: (item: T) => Promise<T>;
+    updateItem: (item: Partial<T>) => Promise<T>;
+    deleteItem: (id: T['id']) => Promise<R>;
+```
+
+Se crea un nuevo servicios de acceso general a datos de la **Realtime Database**
+(`RTFirebase`) basado en la clase **Repository<T, R>** con los métodos
+
+```TS
+-   getAllItems(): Promise<Array<T>>
+-   getItem(dataID: string): Promise<T>
+-   setItem(dataID: string, data: T): Promise<void>
+-   addItem(data: T): Promise<T>
+-   updateItem(dataID: string, data: Partial<T>): Promise<T>
+-   deleteItem(dataID: string): Promise<R>
 ```
 
 ## Nuevas páginas (features): About
@@ -421,3 +436,26 @@ Tanto en task como en addOrEdit se accede a este estado:
 ### Testing componentes
 
 Se modifican los tests de acuerdo con los cambios y se añaden los necesarios para las nuevas situaciones
+
+## Firebase Cloud Firestore
+
+Se crea una **Cloud Firestore** en la consola de Firebase
+
+-   Ubicación: Bélgica
+-   Habilitar
+
+Se modifica el servicio de inicialización de Firebase `firebase.ts`
+
+-   se importa `getFirestore` desde `'firebase/firestore'`;
+-   se ejecuta `getFirestore` pasándole como argumento la app de **Firebase**
+
+Se crea un nuevo servicios de acceso general a datos de la **Cloud Firestore** (`CFirestore`)
+basado en la clase **Repository<T>** con los métodos
+
+```TS
+-   getAllItems(): Promise<Array<T>>
+-   getItem(dataID: string): Promise<T>
+-   addItem(data: T): Promise<T>
+-   updateItem(dataID: string, data: Partial<T>): Promise<T>
+-   deleteItem(dataID: string): Promise<R>
+```

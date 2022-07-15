@@ -1,12 +1,12 @@
 import {
     Database,
     getDatabase,
+    DatabaseReference,
+    child,
     ref,
     set,
     get,
     push,
-    child,
-    DatabaseReference,
     update,
 } from 'firebase/database';
 import { basicResponse, basicT, iRepository } from '../interfaces/repository';
@@ -76,12 +76,8 @@ export class Repository<T extends basicT, R extends basicResponse>
     updateItem(data: Partial<T>): Promise<T> {
         const target = `${this.collection}/${data.id as T['id']}`;
         const dbRef = ref(this.db, target);
-        return update(dbRef, data).then(
-            () => dbRef as unknown as T
-            // {
-            //     ...data,
-            //     id: dbRef.key,
-            // }
+        return update(dbRef, data).then(() =>
+            this.getItem(dbRef.key as string)
         );
     }
 

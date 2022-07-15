@@ -30,13 +30,14 @@ describe('Given an instance of service RTFirebase for "users"', () => {
             expect(result).toStrictEqual(userData);
         });
         test('A document in de DB should be created & update', async () => {
-            userID = '2';
             userData.id = '2';
             await repo.setItem(userID, userData);
             let result = await repo.getItem(userID);
             expect(result).toStrictEqual(userData);
-            await repo.updateItem({ id: userID, username: 'Luisa' });
-            result = await repo.getItem(userID);
+            result = await repo.updateItem({
+                id: userData.id,
+                username: 'Luisa',
+            });
             expect(result).toStrictEqual({ ...userData, username: 'Luisa' });
         });
         test('A document in de DB should be created & deleted', async () => {
