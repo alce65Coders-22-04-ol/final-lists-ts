@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { AppButton } from '../button/app.button';
 import modal from './modal.module.css';
 
@@ -20,18 +20,18 @@ export function AppModal({
         dlgRef.current?.setAttribute('open', 'true');
     };
 
-    const closeAppModal = () => {
+    const closeAppModal = useCallback(() => {
         // dlgRef.current?.close();
         console.log('Close modal');
         dlgRef.current?.removeAttribute('open');
         setShow(false);
-    };
+    }, [setShow]);
 
     useEffect(() => {
         console.log({ show });
         if (show) showAppModal();
         else closeAppModal();
-    }, [show]);
+    }, [show, closeAppModal]);
 
     return (
         <dialog className={modal.host} ref={dlgRef}>

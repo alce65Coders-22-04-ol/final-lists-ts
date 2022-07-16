@@ -1,4 +1,4 @@
-import { SyntheticEvent, useRef, useState } from 'react';
+import { SyntheticEvent, useCallback, useRef, useState } from 'react';
 import { AppButton } from '../../../../infrastructure/components/button/app.button';
 import AppInput from '../../../../infrastructure/components/input/app.input';
 import { AppModal } from '../../../../infrastructure/components/modal/modal';
@@ -37,9 +37,9 @@ export function ContactForm() {
             <AppModal
                 title={'Contactos'}
                 show={sendState.send}
-                setShow={(isShow: boolean) => {
+                setShow={useCallback((isShow: boolean) => {
                     setSendState((previous) => ({ ...previous, send: isShow }));
-                }}
+                }, [])}
             >
                 <>
                     <p>
