@@ -5,14 +5,16 @@ describe('Given Modal component', () => {
     describe('When it has been instantiate inside a component', () => {
         let TestComponent: Function;
         let show: boolean;
+        let setShow: Function;
         let title: string;
         beforeEach(() => {
             title = 'Modal Component';
             show = false;
+            setShow = () => {};
             TestComponent = () => (
                 <>
                     <button>Show modal</button>
-                    <AppModal title={title} show={show}>
+                    <AppModal title={title} show={show} setShow={setShow}>
                         <p>Información</p>
                     </AppModal>
                 </>

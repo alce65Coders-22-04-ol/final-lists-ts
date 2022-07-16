@@ -1,22 +1,18 @@
-import { SyntheticEvent, useLayoutEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 import { AppButton } from '../../../../infrastructure/components/button/app.button';
 import AppInput from '../../../../infrastructure/components/input/app.input';
 import { AppModal } from '../../../../infrastructure/components/modal/modal';
-
-interface iContact {
-    userName: string;
-    email: string;
-}
+import { iSendState } from '../../interfaces/send.state';
+import { iContact } from '../../models/contact';
+import contact from './contact.form.module.css';
 
 export function ContactForm() {
     const initialState: iContact = {
         userName: '',
         email: '',
     };
-    const initialSendState: {
-        send: boolean;
-        userToSend: iContact | null;
-    } = { send: false, userToSend: null };
+
+    const initialSendState: iSendState = { send: false, userToSend: null };
     const [formState, setFormState] = useState(initialState);
     const [validState, setValidState] = useState(false);
     const [sendState, setSendState] = useState(initialSendState);
@@ -38,8 +34,31 @@ export function ContactForm() {
 
     return (
         <>
+            <AppModal
+                title={'Contactos'}
+                show={sendState.send}
+                setShow={(isShow: boolean) => {
+                    setSendState((previous) => ({ ...previous, send: isShow }));
+                }}
+            >
+                <>
+                    <p>
+                        Gracias {(sendState.userToSend as iContact)?.userName}
+                    </p>
+                    <p>
+                        <span>Te enviaremos información a tu correo </span>
+                        <em role={'log'}>
+                            {(sendState.userToSend as iContact)?.email}
+                        </em>
+                    </p>
+                </>
+            </AppModal>
             <h3>Formulario de contacto</h3>
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form
+                className={contact.form}
+                onSubmit={handleSubmit}
+                ref={formRef}
+            >
                 <AppInput
                     name="userName"
                     placeholder="Dinos tu nombre"
@@ -57,24 +76,12 @@ export function ContactForm() {
                     ref={emailRef}
                     initialValue={formState.email}
                 ></AppInput>
-                <AppButton type="submit" disabled={!validState}>
-                    Enviar
-                </AppButton>
+                <div>
+                    <AppButton type="submit" disabled={!validState}>
+                        Enviar
+                    </AppButton>
+                </div>
             </form>
-
-            <AppModal title={'Contactos'} show={sendState.send}>
-                <>
-                    <p>
-                        Gracias {(sendState.userToSend as iContact)?.userName}
-                    </p>
-                    <p>
-                        <span>Te enviaremos información a tu correo </span>
-                        <em role={'log'}>
-                            {(sendState.userToSend as iContact)?.email}
-                        </em>
-                    </p>
-                </>
-            </AppModal>
         </>
     );
 }
