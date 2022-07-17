@@ -2,17 +2,19 @@ import { useCallback, useEffect, useRef } from 'react';
 import { AppButton } from '../button/app.button';
 import modal from './modal.module.css';
 
-export function AppModal({
-    children,
-    show,
-    setShow,
-    title = 'Modal Component',
-}: {
+interface iModalProps {
     children: JSX.Element;
     show: boolean;
     setShow: Function;
-    title: string;
-}) {
+    title?: string;
+}
+
+export function AppModal({
+    children,
+    title = 'Modal Component',
+    show,
+    setShow,
+}: iModalProps) {
     const dlgRef = useRef<HTMLDialogElement>(null);
     const showAppModal = () => {
         //dlgRef.current?.showModal();

@@ -14,7 +14,7 @@ describe('Given Modal component', () => {
             TestComponent = () => (
                 <>
                     <button>Show modal</button>
-                    <AppModal title={title} show={show} setShow={setShow}>
+                    <AppModal show={show} setShow={setShow}>
                         <p>Información</p>
                     </AppModal>
                 </>
