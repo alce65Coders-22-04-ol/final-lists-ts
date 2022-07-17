@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { menuOptionsType } from '../../../layout/interfaces/menu-options';
 import { startFirebase } from '../../services/firebase';
@@ -12,6 +12,7 @@ describe('Given AppRoutes component', () => {
             menuOptions = [
                 { path: '/', label: 'Home' },
                 { path: '/tasks', label: 'Tasks' },
+                { path: '/recipes', label: 'Recipes' },
                 { path: '/about', label: 'About' },
             ];
             entries = [...menuOptions.map((item) => item.path), '/bad_route'];
@@ -37,13 +38,28 @@ describe('Given AppRoutes component', () => {
             const element = await screen.findByText(/Página Tasks/i);
             expect(element).toBeInTheDocument();
         });
-        test('If route is About, then About Page will be render', async () => {
+        test('If route is Recipes, then Recipes Page will be render', async () => {
             render(
                 <Router initialEntries={entries} initialIndex={2}>
                     <AppRoutes menuOptions={menuOptions}></AppRoutes>
                 </Router>
             );
-            const element = await screen.findByText(/Página About/i);
+            const element = await screen.findByText(/Página Recipes/i);
+            expect(element).toBeInTheDocument();
+        });
+        test('If route is About, then About Page will be render', async () => {
+            render(
+                <Router initialEntries={entries} initialIndex={3}>
+                    <AppRoutes menuOptions={menuOptions}></AppRoutes>
+                </Router>
+            );
+            let element;
+            await waitFor(
+                async () => {
+                    element = await screen.findByText(/Página About/i);
+                },
+                { timeout: 2000 }
+            );
             expect(element).toBeInTheDocument();
         });
         test('If route is bad, then Home Page will be render', async () => {
