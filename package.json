@@ -56,7 +56,8 @@
             "index.tsx",
             "reportWebVitals.js",
             "interfaces",
-            "models"
+            "models",
+            "action.types"
         ]
     }
 }

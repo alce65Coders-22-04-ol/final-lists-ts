@@ -1,0 +1,20 @@
+/* ul */
+.list {
+    list-style: none;
+    min-width: 300px;
+    width: 60%;
+    border: 1px solid gainsboro;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.list.li {
+    margin: 0;
+    padding: 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem 0;
+}
