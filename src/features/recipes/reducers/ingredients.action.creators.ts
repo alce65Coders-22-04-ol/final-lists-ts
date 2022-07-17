@@ -1,16 +1,16 @@
 import { actionTypes } from './ingredients.action.types';
 import { createAction } from '@reduxjs/toolkit';
-import { iIngredients } from '../models/ingredients';
+import { iIngredient } from '../models/ingredient';
 
-export const loadIngredientsAction = createAction<Array<iIngredients>>(
+export const loadIngredientsAction = createAction<Array<iIngredient>>(
     actionTypes['ingredients@load']
 );
 
-export const addIngredientsAction = createAction<iIngredients>(
+export const addIngredientsAction = createAction<iIngredient>(
     actionTypes['ingredients@add']
 );
 
-export const updateIngredientsAction = createAction<iIngredients>(
+export const updateIngredientsAction = createAction<iIngredient>(
     actionTypes['ingredients@update']
 );
 

@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { iRecipes } from '../models/recipes';
+import { iRecipe } from '../models/recipe';
 import * as ac from './recipes.action.creators';
 
-const initialState: Array<iRecipes> = [];
+const initialState: Array<iRecipe> = [];
 
 export const recipesReducer = createReducer(initialState, (builder) =>
     builder
