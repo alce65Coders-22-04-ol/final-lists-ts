@@ -6,18 +6,18 @@ const initialState: Array<iIngredients> = [];
 
 export const ingredientsReducer = createReducer(initialState, (builder) =>
     builder
-        // .addCase(ac.loadRecipesAction, (state, action) => action.payload)
-        // .addCase(ac.addRecipesAction, (state, action) => [
-        //     ...state,
-        //     action.payload,
-        // ])
-        // .addCase(ac.updateRecipesAction, (state, action) =>
-        //     state.map((item) =>
-        //         item.id === action.payload.id ? action.payload : item
-        //     )
-        // )
-        // .addCase(ac.deleteRecipesAction, (state, action) =>
-        //     state.filter((item) => action.payload !== item.id)
-        // )
+        .addCase(ac.loadIngredientsAction, (state, action) => action.payload)
+        .addCase(ac.addIngredientsAction, (state, action) => [
+            ...state,
+            action.payload,
+        ])
+        .addCase(ac.updateIngredientsAction, (state, action) =>
+            state.map((item) =>
+                item.id === action.payload.id ? action.payload : item
+            )
+        )
+        .addCase(ac.deleteIngredientsAction, (state, action) =>
+            state.filter((item) => action.payload !== item.id)
+        )
         .addDefaultCase((state) => state)
 );
