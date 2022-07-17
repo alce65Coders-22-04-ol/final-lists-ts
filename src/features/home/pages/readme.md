@@ -1,4 +1,4 @@
-# Componente App. Responsabilidades
+# Componente HomePage. Responsabilidades
 
 ## Renderización
 

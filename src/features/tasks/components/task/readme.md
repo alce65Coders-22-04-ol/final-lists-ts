@@ -1,4 +1,4 @@
-# Componente Counter. Responsabilidades
+# Componente tasks/Task. Responsabilidades
 
 ## Renderización
 
