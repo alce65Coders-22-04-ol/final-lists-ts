@@ -1,10 +1,10 @@
-import { render, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import { useTasks } from './use.tasks';
 import { Repository } from '../../../infrastructure/repositories/RTFirebase';
 import { iTask } from '../models/task';
 import { TaskContext } from '../context/context';
 import { getDatabase } from 'firebase/database';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 jest.mock('../../../infrastructure/repositories/RTFirebase');
 jest.mock('firebase/database');
@@ -97,9 +97,13 @@ describe('Given useTasks hook inside a TestElement', () => {
             );
         });
 
-        test('Then it take the values from the context', () => {
+        test('Then it take the values from the context', async () => {
             // act
-            render(jsx);
+            // eslint-disable-next-line testing-library/no-unnecessary-act
+            await act(async () => {
+                // formato usado para corregir el warning
+                render(jsx);
+            });
             // assert
             expect(tasks).toStrictEqual(externalContextData.tasks);
             expect(isLoading).toBe(externalContextData.isLoading);
@@ -117,7 +121,10 @@ describe('Given useTasks hook inside a TestElement', () => {
                 // uno de ellos permite acceder a los datos del contexto
                 ({ taskToEdit } = hook.getContext());
                 // en el contexto estarán definidos los estados y sus setters
-                hook.startToEditTask(taskData1);
+                useEffect(() => {
+                    hook.startToEditTask(taskData1);
+                }, [hook]);
+
                 return <></>;
             };
 
@@ -146,7 +153,9 @@ describe('Given useTasks hook inside a TestElement', () => {
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
-                hook.loadTasks();
+                useEffect(() => {
+                    hook.loadTasks();
+                }, [hook]);
                 return <></>;
             };
             externalContextData.tasks = [];
@@ -182,7 +191,9 @@ describe('Given useTasks hook inside a TestElement', () => {
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
-                hook.addTask(newTask);
+                useEffect(() => {
+                    hook.addTask(newTask);
+                }, [hook]);
                 return <></>;
             };
             externalContextData.tasks = [taskData1];
@@ -215,7 +226,9 @@ describe('Given useTasks hook inside a TestElement', () => {
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
-                hook.updateTask(taskData1.id, { isCompleted: true });
+                useEffect(() => {
+                    hook.updateTask(taskData1.id, { isCompleted: true });
+                }, [hook]);
                 return <></>;
             };
             externalContextData.tasks = [taskData1, taskData2];
@@ -243,22 +256,32 @@ describe('Given useTasks hook inside a TestElement', () => {
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
-                hook.deleteTask(taskData1.id);
+                useEffect(() => {
+                    hook.deleteTask(taskData1.id);
+                });
                 return <></>;
             };
             externalContextData.tasks = [taskData1];
+            externalContextData.isLoading = false;
             jsx = (
                 <TestContextProvider initialData={externalContextData}>
                     <TestElement></TestElement>;
                 </TestContextProvider>
             );
         });
-        test('The repository function deleteData should be call', () => {
+        test('The repository function deleteData should be call', async () => {
             // act
-            render(jsx);
+
+            // eslint-disable-next-line testing-library/no-unnecessary-act
+            act(() => {
+                // formato usado para corregir el warning que aparece al final
+                render(jsx);
+            });
             // assert
             expect(Repository.prototype.deleteItem).toHaveBeenCalled();
-            expect(tasks).toStrictEqual([taskData1]);
+            await waitFor(() => {
+                expect(tasks).toStrictEqual([taskData1]);
+            });
         });
     });
 });

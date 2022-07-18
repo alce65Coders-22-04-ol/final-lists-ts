@@ -3,6 +3,7 @@ import { RecipesList } from './list';
 import { RecipesRepo } from '../../services/recipes.repository';
 import { iRecipe } from '../../models/recipe';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('../../services/recipes.repository');
 
@@ -118,13 +119,38 @@ describe('Given RecipesList component', () => {
             RecipesRepo.prototype.deleteItem = jest.fn().mockResolvedValue({
                 ok: false,
             });
+
             // act
-            render(jsx);
-            buttons = screen.getAllByRole('button', { hidden: true });
+            // eslint-disable-next-line testing-library/no-unnecessary-act
+            await act(async () => {
+                // formato usado para corregir el warning que aparece al final
+                render(jsx);
+            });
+
+            buttons = screen.getAllByRole('button', {
+                hidden: true,
+            });
             buttons[1].removeAttribute('hidden');
             buttons[2].removeAttribute('hidden');
             userEvent.click(buttons[2]);
+
             expect(RecipesRepo.prototype.deleteItem).toHaveBeenCalled();
+
+            //   Warning: An update to RecipesList inside a test was not wrapped in act(...).
+
+            //   When testing, code that causes React state updates should be wrapped into act(...):
+
+            //   act(() => {
+            //     /* fire events that update state */
+            //   });
+            //   /* assert on the output */
+
+            //   This ensures that you're testing the behavior the user would see in the browser.
+            //   Learn more at https://reactjs.org/link/wrap-tests-with-act
+
+            //   RecipesList
+            //   (..\src\features\recipes\components\recipes.list\list.tsx:17:26)
+            //  const recipesState = useSelector((state: rootState) => state.recipes);
         });
     });
 });

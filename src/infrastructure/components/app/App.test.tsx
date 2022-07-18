@@ -6,15 +6,15 @@ import App from './App';
 describe('Given App component', () => {
     describe('When it has been instantiate', () => {
         const appTitle = /Learning React/i;
-        const homePageTitle = /Home/i;
+        const homePageTitle = /Página Home/i;
         const jsx = (
             <Router>
                 <App />;
             </Router>
         );
-        test('Then it renders app title & "Home Page" title ', async () => {
+        test('Then it renders app title & "Home Page" title', async () => {
             // eslint-disable-next-line testing-library/no-unnecessary-act
-            act(() => {
+            await act(async () => {
                 /* finish loading suspended data */
                 render(jsx);
             });
