@@ -17,7 +17,7 @@ import { Repository } from './CFirestore';
 
 jest.mock('firebase/firestore');
 
-describe('Given an instance of service RTFirebase for "users"', () => {
+describe('Given an instance of service CFirestore for "users"', () => {
     let repo: Repository<iUserData, iFBResponse>;
     let userData1: iUserDataInput;
     let userData2: iUserDataInput;

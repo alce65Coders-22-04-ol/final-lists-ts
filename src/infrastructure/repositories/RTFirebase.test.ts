@@ -4,7 +4,8 @@ import { iUserData } from '../interfaces/user.data';
 import { startFirebase } from '../services/firebase';
 import { Repository } from './RTFirebase';
 
-describe('Given an instance of service RTFirebase for "users"', () => {
+describe.skip(`Given an instance of repository service RTFirebase for "users" 
+            really connected to Real Time Firebase`, () => {
     let repo: Repository<iUserData, iFBResponse>;
     let userData: iUserData;
     let userID: string;
@@ -73,7 +74,8 @@ describe('Given an instance of service RTFirebase for "users"', () => {
     });
 });
 
-describe('Given an instance of service Repository for "tasks"', () => {
+describe.skip(`Given an instance of service Repository for "tasks" 
+            really connected to Real Time Firebase`, () => {
     let repo: Repository<iTask, iFBResponse>;
     let taskData: iTask;
     let taskData2: iTask;

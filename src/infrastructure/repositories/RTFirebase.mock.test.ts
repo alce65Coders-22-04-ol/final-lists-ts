@@ -96,7 +96,10 @@ describe('Given an instance of service RTFirebase for "users"', () => {
             // await repo.setItem(userData, userID);
             (get as jest.Mock).mockResolvedValue({
                 exists: jest.fn().mockReturnValue(true),
-                val: jest.fn().mockReturnValue([userData, userData]),
+                val: jest.fn().mockReturnValue({
+                    sample_id001: userData,
+                    sample_id002: userData,
+                }),
             });
             const result = await repo.getAllItems();
             expect(ref).toHaveBeenCalled();
