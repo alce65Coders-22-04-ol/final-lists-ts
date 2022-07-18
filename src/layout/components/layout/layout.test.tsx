@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { menuOptionsType } from '../../interfaces/menu-options';
+import { appOptionsType } from '../../../infrastructure/interfaces/app.options';
 import { Layout } from './layout';
 
 describe('Given Layout component', () => {
@@ -9,12 +9,12 @@ describe('Given Layout component', () => {
             const content = 'Testing content';
             const appTitle = '';
             const company = '';
-            const menuOptions: menuOptionsType = [];
+            const appOptions: appOptionsType = [];
             const jsx = (
                 <Layout
                     appTitle={appTitle}
                     company={company}
-                    menuOptions={menuOptions}
+                    appOptions={appOptions}
                 >
                     <p>{content}</p>
                 </Layout>

@@ -2,7 +2,7 @@
 
 ## Renderización
 
--   Cada una de las opciones del menu, que recibe como `menuOptions` desde App
+-   Cada una de las opciones del menu, que recibe como `appOptions` desde App
 
 ## Respuestas a eventos
 

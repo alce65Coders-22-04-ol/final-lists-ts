@@ -2,10 +2,10 @@ import { IngredientsList } from '../components/ingredients.list/list';
 import { RecipesList } from '../components/recipes.list/list';
 import recipes from './recipes.module.css';
 
-function RecipesPage() {
+function RecipesPage({ title }: { title: string }) {
     return (
         <section className={recipes.host}>
-            <h2>Página Recipes</h2>
+            <h2>{title}</h2>
             <RecipesList></RecipesList>
             <IngredientsList></IngredientsList>
         </section>

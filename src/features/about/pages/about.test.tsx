@@ -6,7 +6,7 @@ describe('Given About Page component', () => {
         test('Then it renders title page', () => {
             // arrange
             const title = 'Página About';
-            const jsx = <AboutPage />;
+            const jsx = <AboutPage title={title} />;
             // act
             render(jsx);
             // assert

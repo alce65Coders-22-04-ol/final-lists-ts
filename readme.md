@@ -7,6 +7,8 @@ Incorporación de **Firebase** en un proyecto de React para utilizar
 -   Autenticación
 -   Bases de datos
 
+# Instalación y componentes iniciales
+
 ## Instalación
 
 1.  Scaffolding del proyecto con **Create React App** y el template de **Typescript**
@@ -163,6 +165,8 @@ Para ser usadas en React, las variables deben denominarse REACT_APP...
     -   REACT_APP_APPID=
     -   REACT_APP_MID=
 
+# Autenticación. Contexto, persistencia y custom hook
+
 ## Autenticación con Firebase
 
 Agrega método(s) de acceso y comenzar a utilizar Firebase Auth
@@ -240,6 +244,8 @@ El estado se mantiene en el contexto, de forma que puede ser compartido por los 
 > Custom Hooks are a mechanism to reuse stateful logic (such as setting up a subscription and remembering the current value), but every time you use a custom Hook, all state and effects inside of it are fully isolated.
 
 En nuestro caso, la lógica en el **custom hook** es responsable de interaccionar con `localStorage` y Firebase para gestionar los procesos de login/logout. Al inicio del hook y al final de sus procesos se setean también los estados recibidos desde el contexto
+
+# Enrutamiento. Features Tasks y About. Repositorios de Firebase
 
 ## Enrutamiento (Routing)
 
@@ -459,3 +465,15 @@ basado en la clase **Repository<T>** con los métodos
 -   updateItem(dataID: string, data: Partial<T>): Promise<T>
 -   deleteItem(dataID: string): Promise<R>
 ```
+
+## Componente genérico modal
+
+## Uso del modal en un componente about/ContactForm
+
+# Feature Recipes con React-Redux
+
+## Instalación de react-redux
+
+## Reducer básico, Store y Provider
+
+## Acciones y reducer

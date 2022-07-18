@@ -31,7 +31,7 @@ describe('Given App component', () => {
     //     //     { path: 'about', label: 'About' },
     //     let entries: Array<string>;
     //     beforeEach(() => {
-    //         entries = [...menuOptions.map((item) => item.path), '/bad_route'];
+    //         entries = [...appOptions.map((item) => item.path), '/bad_route'];
     //     });
 
     //     test('If route is Home, then Home Page will be render', () => {

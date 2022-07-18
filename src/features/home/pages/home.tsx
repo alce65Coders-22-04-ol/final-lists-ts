@@ -5,7 +5,7 @@ import { CounterStates } from '../components/counter-states/counter-states';
 
 import home from './home.module.css';
 
-function HomePage() {
+function HomePage({ title }: { title: string }) {
     const [totalClicks, setTotalClicks] = useState(0);
 
     const addClick = () => {
@@ -14,7 +14,7 @@ function HomePage() {
 
     return (
         <section>
-            <h2>Página Home</h2>
+            <h2>{title}</h2>
             <p>Total clicks: {totalClicks}</p>
             <div className={home.counters}>
                 <Counter setTT={addClick}></Counter>

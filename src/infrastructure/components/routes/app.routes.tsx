@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { menuOptionsType } from '../../../layout/interfaces/menu-options';
+import { appOptionsType } from '../../interfaces/app.options';
 import { appStore } from '../../../infrastructure/store/store';
 
 const Home = React.lazy(() => import('../../../features/home/pages/home'));
@@ -11,43 +11,30 @@ const Recipes = React.lazy(
 );
 const About = React.lazy(() => import('../../../features/about/pages/about'));
 
-export function AppRoutes({ menuOptions }: { menuOptions: menuOptionsType }) {
+export function AppRoutes({ appOptions }: { appOptions: appOptionsType }) {
+    const pages = [
+        ({ title }: { title: string }) => <Home title={title} />,
+        ({ title }: { title: string }) => <Todo title={title} />,
+        ({ title }: { title: string }) => (
+            <Provider store={appStore}>
+                <Recipes title={title} />
+            </Provider>
+        ),
+        ({ title }: { title: string }) => <About title={title} />,
+    ];
     return (
         <Routes>
-            <Route
-                path={menuOptions[0].path}
-                element={
-                    <React.Suspense>
-                        <Home />
-                    </React.Suspense>
-                }
-            ></Route>
-            <Route
-                path={menuOptions[1].path}
-                element={
-                    <React.Suspense>
-                        <Todo />
-                    </React.Suspense>
-                }
-            ></Route>
-            <Route
-                path={menuOptions[2].path}
-                element={
-                    <React.Suspense>
-                        <Provider store={appStore}>
-                            <Recipes />
-                        </Provider>
-                    </React.Suspense>
-                }
-            ></Route>
-            <Route
-                path={menuOptions[3].path}
-                element={
-                    <React.Suspense>
-                        <About />
-                    </React.Suspense>
-                }
-            ></Route>
+            {appOptions.map((option, i) => (
+                <Route
+                    key={option.label}
+                    path={option.path}
+                    element={
+                        <React.Suspense>
+                            {pages[i]({ title: option.title })}
+                        </React.Suspense>
+                    }
+                ></Route>
+            ))}
             <Route path="*" element={<Navigate replace to="" />}></Route>
         </Routes>
     );

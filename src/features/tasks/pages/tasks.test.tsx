@@ -8,7 +8,7 @@ describe('Given Tasks Page component', () => {
             // arrange
             startFirebase();
             const title = 'Página Tasks';
-            const jsx = <TasksPage />;
+            const jsx = <TasksPage title={title} />;
             // act
             render(jsx);
             // assert

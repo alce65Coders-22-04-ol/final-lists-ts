@@ -5,12 +5,13 @@ import HomePage from './home';
 describe('Given Home Page component', () => {
     describe('When it has been instantiate', () => {
         let jsx: JSX.Element;
+        let title: string;
         beforeEach(() => {
-            jsx = <HomePage />;
+            // arrange
+            title = 'Página Home';
+            jsx = <HomePage title={title} />;
         });
         test('Then it renders title page', () => {
-            // arrange
-            const title = 'Página Home';
             // act
             render(jsx);
             // assert

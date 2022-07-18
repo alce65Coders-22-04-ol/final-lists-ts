@@ -10,7 +10,7 @@ describe('Given Recipes Page component', () => {
         test('Then it renders title page', () => {
             // arrange
             const title = 'Página Recipes';
-            const jsx = <RecipesPage />;
+            const jsx = <RecipesPage title={title} />;
             // act
             render(jsx);
             // assert
