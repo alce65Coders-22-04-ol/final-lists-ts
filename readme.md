@@ -477,3 +477,37 @@ basado en la clase **Repository<T>** con los métodos
 ## Reducer básico, Store y Provider
 
 ## Acciones y reducer
+
+# E2E Testing
+
+## Cypress Installation
+
+```shell
+npm i cypress eslint-plugin-cypress -D
+```
+
+En la configuaración del ESLint en package.json se añade
+
+```json
+    "plugins": [
+        "cypress"
+    ],
+    "env": {
+        "cypress/globals": true
+    }
+```
+
+Se añade npm script
+
+```json
+"e2e": "cypress open"
+```
+
+Para probar los test de ejemplo se ejecuta el script
+Normalmente habrá que permitir el acceso al firewall que pueda haber en el equipo
+
+El GUI para la configuración añade al proyecto los ficheros necesarios
+A continuación permite elegir el navegador
+Finalmente es posible generar una serie de ejemplos o un
+
+## Test writing and running
