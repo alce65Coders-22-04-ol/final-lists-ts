@@ -5,7 +5,79 @@ Preparación de las clases del BootCamp online.
 Incorporación de **Firebase** en un proyecto de React para utilizar
 
 -   Autenticación
--   Bases de datos
+-   Bases de datos (RealTime Firebase & CloudFirestore)
+
+La **arquitectura** del proyecto incluye 3 grandes bloques
+
+-   **Features**: carpetas da cada una de las features que darán lugar a cada una de las páginas de la aplicación
+-   **Infrastructure**: elementos comunes a la aplicación (core)
+-   **Layout**: componentes empleados para crear el layout común a todas las páginas
+
+## Infraestructura y layout
+
+-   Componentes básicos de la aplicación
+
+    -   `components/App`, proporciona contexto global al layout y al router, al tiempo que define las rutas de la aplicación
+    -   `components/AppRoutes`, crea las rutas de la aplicación cargando de forma lazy la página principal correspondiente a cada una de ellas
+
+-   Componentes genéricos preparados para ser integrados en otros componentes de la aplicación
+
+    -   `components/AppInput`
+    -   `components/AppButton`
+    -   `components/AppModal`
+
+-   Elementos necesarios para el proceso de autenticación basado en firebase
+
+    -   `services/firebase` con la conexión al SDK de Firebase
+    -   `models/user` con el interface de los datos del usuario
+    -   `hooks/use.login` con la lógica de los procesos login y logout
+        -   En ella se incluye la persistencia de los datos del usuario logado en localStore
+        -   `services/local.store` encapsula las conexiones a localStore
+    -   `context/context` con el contexto que da acceso a los estados `isLogged` y `userLogged`)
+    -   `context/provider` con el provider del anterior, que define los estados)
+    -   `components/login`, que incluye el botón para que el usuario desencadene los procesos de login o logout
+
+-   Componentes utilizados en el layout:
+
+    -   `components/layout/layout`
+    -   `components/layout/header`
+    -   `components/layout/footer`
+    -   `components/layout/menu`
+
+### Repositorios: acceso a los datos del backend
+
+Para homogenizar los repositorios se crea un interfaz con los métodos y sus firmas
+
+A partir de el se implementan las clases específicas de los distintos accesos a backend que se utilizarán
+
+-   Http REST
+-   RealTime Firebase
+-   Cloud Firestore
+
+[ToDo] Testing de los repositorios
+
+## Features
+
+Las distintas features se utilizarán para implementar los diferentes patrones de arquitectura y conexiones al back (Firebase)
+
+-   **Home**: **Contadores**
+    -   Ejemplos iniciales del estado de Redux
+-   **About**
+    -   Utilizada inicialmente para probar las funciones de enrutamiento
+    -   Se añade un formulario de contacto para probar componentes genéricos (input, button, modal)
+-   **Tasks**
+    -   Uso del contexto para almacenar el estado
+    -   Uso de un custom hook para la lógica de la feature
+    -   Uso de una instancia del repositorio RTFirebase para almacenas la lista de tareas
+-   **Recipes**
+    -   Uso del patrón Redux completo (react-redux / redux-toolkit)
+    -   En el Store se almacenan dos ramas de estado diferentes (recetas e ingredientes), correspondientes a dos reducers
+    -   La lógica de la feature se guarda en componentes "monolítico" para la lista de recetas y la lista de ingredientes
+    -   Se usa una instancia del repositorio CFirestore para almacenar listas de recetas e ingredientes
+-   **Notes**
+    -   [ToDo] Uso del patrón Flux/Redux basado en hooks nativos de react
+
+## Enrutamiento
 
 # Instalación y componentes iniciales
 
@@ -110,7 +182,7 @@ Test completos de la página y los componentes
 
 ## Firebase
 
-[Consola](hhhttps://console.firebase.google.com/?pli=1)
+[Consola](https://console.firebase.google.com/?pli=1)
 
 usuario: alejandro.cerezo@skylab.com
 
