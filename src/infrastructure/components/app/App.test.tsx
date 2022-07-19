@@ -1,7 +1,9 @@
 import { act, render, screen } from '@testing-library/react';
-
+import { startFirebase } from '../../services/firebase';
 import { MemoryRouter as Router } from 'react-router-dom';
 import App from './App';
+
+jest.mock('../../services/firebase');
 
 describe('Given App component', () => {
     describe('When it has been instantiate', () => {
@@ -13,6 +15,7 @@ describe('Given App component', () => {
             </Router>
         );
         test('Then it renders app title & "Home Page" title', async () => {
+            startFirebase as jest.Mock;
             // eslint-disable-next-line testing-library/no-unnecessary-act
             await act(async () => {
                 /* finish loading suspended data */
