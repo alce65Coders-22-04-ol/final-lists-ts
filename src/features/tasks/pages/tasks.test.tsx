@@ -1,12 +1,18 @@
 import { render, screen } from '@testing-library/react';
-import { startFirebase } from '../../../infrastructure/services/firebase';
+import { getDatabase, get } from 'firebase/database';
 import TasksPage from './tasks';
+
+jest.mock('firebase/database');
 
 describe('Given Tasks Page component', () => {
     describe('When it has been instantiate', () => {
         test('Then it renders title page', () => {
             // arrange
-            startFirebase();
+            getDatabase as jest.Mock;
+            (get as jest.Mock).mockResolvedValue({
+                exists: jest.fn().mockReturnValue(true),
+                val: jest.fn().mockReturnValue({}),
+            });
             const title = 'Página Tasks';
             const jsx = <TasksPage title={title} />;
             // act

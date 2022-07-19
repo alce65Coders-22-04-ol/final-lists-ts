@@ -2,7 +2,16 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { appOptionsType } from '../../interfaces/app.options';
 import { startFirebase } from '../../services/firebase';
+import { initializeApp } from 'firebase/app';
+import { getDatabase, get } from 'firebase/database';
+import { getFirestore, getDocs } from 'firebase/firestore';
 import { AppRoutes } from './app.routes';
+
+jest.mock('firebase/app');
+jest.mock('firebase/database');
+jest.mock('firebase/firestore');
+
+jest.mock('../../services/firebase');
 
 describe('Given AppRoutes component', () => {
     describe('When it has been instantiate inside a router', () => {
@@ -16,6 +25,20 @@ describe('Given AppRoutes component', () => {
                 { path: '/about', label: 'About', title: 'Página About' },
             ];
             entries = [...appOptions.map((item) => item.path), '/bad_route'];
+
+            initializeApp as jest.Mock;
+            getDatabase as jest.Mock;
+            getFirestore as jest.Mock;
+
+            (get as jest.Mock).mockResolvedValue({
+                exists: jest.fn().mockReturnValue(true),
+                val: jest.fn().mockReturnValue({}),
+            });
+            (getDocs as jest.Mock).mockReturnValue([
+                {
+                    data: jest.fn().mockReturnValue({}),
+                },
+            ]);
         });
 
         test('If route is Home, then Home Page will be render', async () => {
