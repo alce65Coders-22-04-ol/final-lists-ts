@@ -1,5 +1,4 @@
-import { useState, useEffect, forwardRef } from 'react';
-import { SyntheticEvent } from 'react';
+import { useState, useEffect, forwardRef, SyntheticEvent } from 'react';
 import input from './app.input.module.css';
 
 interface FormInfo {

@@ -19,6 +19,7 @@ describe('Given Item model', () => {
             const newItem = new Item(...tuple);
             // assert
             expect({ ...newItem }).toStrictEqual(expected);
+            expect(newItem.isCompleted).toBe(false);
         });
     });
 });
