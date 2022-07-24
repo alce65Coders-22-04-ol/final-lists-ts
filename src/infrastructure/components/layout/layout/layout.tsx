@@ -1,4 +1,4 @@
-import { appOptionsType } from '../../../infrastructure/interfaces/app.options';
+import { appOptionsType } from '../../../../infrastructure/interfaces/app.options';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
 import { Menu } from '../menu/menu';

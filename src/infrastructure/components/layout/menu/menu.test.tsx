@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
-import { appOptionsType } from '../../../infrastructure/interfaces/app.options';
+import { appOptionsType } from '../../../../infrastructure/interfaces/app.options';
 import { Menu } from './menu';
 
 describe('Given Menu component', () => {

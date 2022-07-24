@@ -3,7 +3,7 @@ import { Counter } from '../components/counter/counter';
 import { CounterClicks } from '../components/counter-clicks/counter-clicks';
 import { CounterStates } from '../components/counter-states/counter-states';
 
-import home from './home.module.css';
+import home from './home.page.module.css';
 
 function HomePage({ title }: { title: string }) {
     const [totalClicks, setTotalClicks] = useState(0);

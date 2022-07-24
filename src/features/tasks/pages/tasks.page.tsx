@@ -1,6 +1,6 @@
 import { List } from '../components/list/list';
 import { TaskContextProvider } from '../context/provider';
-import tasks from './tasks.module.css';
+import tasks from './tasks.page.module.css';
 
 function TasksPage({ title }: { title: string }) {
     return (

@@ -1,6 +1,6 @@
 import { startFirebase } from '../../services/firebase';
 import { appOptionsType } from '../../interfaces/app.options';
-import { Layout } from '../../../layout/components/layout/layout';
+import { Layout } from '../layout/layout/layout';
 import { AppContextProvider } from '../../context/provider';
 import { AppRoutes } from '../routes/app.routes';
 

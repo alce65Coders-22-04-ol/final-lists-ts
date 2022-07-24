@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { appOptionsType } from '../../../infrastructure/interfaces/app.options';
+import { appOptionsType } from '../../../../infrastructure/interfaces/app.options';
 import { Layout } from './layout';
 
 describe('Given Layout component', () => {

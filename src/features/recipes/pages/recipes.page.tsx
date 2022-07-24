@@ -1,6 +1,6 @@
 import { IngredientsList } from '../components/ingredients.list/list';
 import { RecipesList } from '../components/recipes.list/list';
-import recipes from './recipes.module.css';
+import recipes from './recipes.page.module.css';
 
 function RecipesPage({ title }: { title: string }) {
     return (

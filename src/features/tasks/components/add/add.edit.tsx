@@ -1,8 +1,8 @@
 import { SyntheticEvent, useRef, useState, useEffect } from 'react';
 import { TaskModel, TaskInput } from '../../models/task.model';
 import { useTasks } from '../../hooks/use.tasks';
-import AppInput from '../../../../infrastructure/components/input/app.input';
-import { AppButton } from '../../../../infrastructure/components/button/app.button';
+import AppInput from '../../../../infrastructure/components/ui/input/app.input';
+import { AppButton } from '../../../../infrastructure/components/ui/button/app.button';
 
 export function AddOrEdit() {
     const { addTask, updateTask, getContext } = useTasks();

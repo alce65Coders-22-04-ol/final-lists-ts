@@ -1,7 +1,7 @@
 import { SyntheticEvent, useCallback, useRef, useState } from 'react';
-import { AppButton } from '../../../../infrastructure/components/button/app.button';
-import AppInput from '../../../../infrastructure/components/input/app.input';
-import { AppModal } from '../../../../infrastructure/components/modal/modal';
+import { AppButton } from '../../../../infrastructure/components/ui/button/app.button';
+import AppInput from '../../../../infrastructure/components/ui/input/app.input';
+import { AppModal } from '../../../../infrastructure/components/ui/modal/modal';
 import { SendState } from '../../interfaces/send.state';
 import { ContactModel } from '../../models/contact.model';
 import contact from './contact.form.module.css';

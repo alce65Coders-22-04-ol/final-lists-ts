@@ -2,7 +2,7 @@ import login from './login.module.css';
 import { useLogin } from '../../hooks/use.login';
 import { useContext } from 'react';
 import { AppContext } from '../../context/context';
-import { AppButton } from '../button/app.button';
+import { AppButton } from '../ui/button/app.button';
 
 export function Login() {
     const { isLogged } = useContext(AppContext);
