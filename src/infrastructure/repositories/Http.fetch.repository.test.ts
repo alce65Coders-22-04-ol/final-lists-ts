@@ -1,5 +1,5 @@
-import { Item } from '../models/Item';
-import { Repository } from './Http.fetch';
+import { Item, ItemModel } from '../models/item.model';
+import { HttpFetchRepository } from './Http.fetch.repository';
 
 //import axios from "axios";
 //jest.mock("axios")
@@ -18,8 +18,8 @@ describe('Given Repository', () => {
                         ]),
                 });
                 // act
-                const result = await new Repository<
-                    Item,
+                const result = await new HttpFetchRepository<
+                    ItemModel,
                     Response
                 >().getAllItems();
                 //
@@ -40,9 +40,10 @@ describe('Given Repository', () => {
                         ),
                 });
                 // act
-                const result = await new Repository<Item, Response>().getItem(
-                    itemId
-                );
+                const result = await new HttpFetchRepository<
+                    ItemModel,
+                    Response
+                >().getItem(itemId);
                 // assert
                 expect(fetch).toBeCalled();
                 expect(result.title).toBe('Item1');
@@ -63,9 +64,10 @@ describe('Given Repository', () => {
                         .mockResolvedValue(new Item('3', 'Item1', 'Pepe')),
                 });
                 // act
-                const result = await new Repository<Item, Response>().addItem(
-                    item
-                );
+                const result = await new HttpFetchRepository<
+                    ItemModel,
+                    Response
+                >().addItem(item);
                 // assert
                 expect(fetch).toBeCalled();
                 expect(result.title).toBe('Item1');
@@ -83,8 +85,8 @@ describe('Given Repository', () => {
                         ),
                 });
                 // act
-                const result = await new Repository<
-                    Item,
+                const result = await new HttpFetchRepository<
+                    ItemModel,
                     Response
                 >().updateItem(item);
                 // assert
@@ -100,8 +102,8 @@ describe('Given Repository', () => {
                     status: 200,
                 });
                 // act
-                const result = await new Repository<
-                    Item,
+                const result = await new HttpFetchRepository<
+                    ItemModel,
                     Response
                 >().deleteItem(deleteId);
                 expect(fetch).toBeCalled();

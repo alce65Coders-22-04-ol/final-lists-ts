@@ -8,7 +8,7 @@ import {
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AppContext } from '../context/context';
-import { iContext } from '../interfaces/context';
+import { Context } from '../interfaces/context';
 import { useLogin } from './use.login';
 import { LocalStore } from '../services/local.store';
 
@@ -22,7 +22,7 @@ describe('Given Login component', () => {
     describe('When it has been instantiate', () => {
         let jsx: JSX.Element;
         let TestComponent: Function;
-        let context: iContext;
+        let context: Context;
         let btnLabel: string;
         beforeEach(() => {
             context = {

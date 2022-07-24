@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { useContext, useEffect } from 'react';
-import { iTask } from '../models/task';
+import { TaskModel } from '../models/task.model';
 import { TaskContextProvider } from './provider';
 import { TaskContext, initialContext } from './context';
 
@@ -10,7 +10,7 @@ describe('Given the context AppContext', () => {
         beforeEach(() => {
             initialContext.setTasks([]);
             initialContext.setIsLoading(false);
-            const task: iTask = {
+            const task: TaskModel = {
                 id: '1',
                 title: 'Test task',
                 responsible: 'Pepe',

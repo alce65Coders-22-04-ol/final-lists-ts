@@ -1,8 +1,7 @@
-import { basicResponse, basicT, iRepository } from '../interfaces/repository';
-// import { iItem } from '../models/item';
+import { basicResponse, basicT, Repository } from '../interfaces/repository';
 
-export class Repository<T extends basicT, R extends basicResponse>
-    implements iRepository<T, R>
+export class HttpFetchRepository<T extends basicT, R extends basicResponse>
+    implements Repository<T, R>
 {
     url: string;
     constructor() {

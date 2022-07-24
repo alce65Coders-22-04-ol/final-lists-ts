@@ -1,8 +1,8 @@
 import { useTasks } from '../../hooks/use.tasks';
-import { iTask } from '../../models/task';
+import { TaskModel } from '../../models/task.model';
 import taskItem from './task.module.css';
 
-export function Task({ task }: { task: iTask }) {
+export function Task({ task }: { task: TaskModel }) {
     const { deleteTask, updateTask, startToEditTask } = useTasks();
 
     const handleClick = (action: string) => {

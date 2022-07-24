@@ -13,12 +13,12 @@ import {
 } from 'firebase/firestore';
 import { iFBResponse } from '../interfaces/repository';
 import { iUserData, iUserDataInput } from '../interfaces/user.data';
-import { Repository } from './CFirestore';
+import { CFirestoreRepository } from './CFirestore.repository';
 
 jest.mock('firebase/firestore');
 
 describe('Given an instance of service CFirestore for "users"', () => {
-    let repo: Repository<iUserData, iFBResponse>;
+    let repo: CFirestoreRepository<iUserData, iFBResponse>;
     let userData1: iUserDataInput;
     let userData2: iUserDataInput;
     let userData3: iUserDataInput;
@@ -27,7 +27,7 @@ describe('Given an instance of service CFirestore for "users"', () => {
     beforeEach(() => {
         // startFirebase());
         collectionName = 'users-test';
-        repo = new Repository<iUserData, iFBResponse>(collectionName);
+        repo = new CFirestoreRepository<iUserData, iFBResponse>(collectionName);
         userData1 = {
             username: 'Pepe',
             email: 'pepe@sample.com',

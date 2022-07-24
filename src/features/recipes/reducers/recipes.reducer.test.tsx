@@ -1,11 +1,11 @@
 import { recipesReducer } from './recipes.reducer';
 import * as ac from './recipes.action.creators';
-import { iRecipe } from '../models/recipe';
+import { RecipeModel } from '../models/recipe.model';
 
 describe('Given Recipes reducer', () => {
     describe('When it has been instantiate with an initial state', () => {
-        let initialState: Array<iRecipe>;
-        let mockRecipe: iRecipe;
+        let initialState: Array<RecipeModel>;
+        let mockRecipe: RecipeModel;
         beforeAll(() => {
             mockRecipe = { id: '1', name: 'Test Recipe', ingredients: [] };
             initialState = [];

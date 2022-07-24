@@ -1,5 +1,5 @@
 import { SyntheticEvent, useRef, useState, useEffect } from 'react';
-import { iTask, iTaskInput } from '../../models/task';
+import { TaskModel, TaskInput } from '../../models/task.model';
 import { useTasks } from '../../hooks/use.tasks';
 import AppInput from '../../../../infrastructure/components/input/app.input';
 import { AppButton } from '../../../../infrastructure/components/button/app.button';
@@ -8,7 +8,7 @@ export function AddOrEdit() {
     const { addTask, updateTask, getContext } = useTasks();
     const { taskToEdit } = getContext();
 
-    const initialState: iTaskInput = {
+    const initialState: TaskInput = {
         title: '',
         responsible: '',
         isCompleted: false,
@@ -18,7 +18,7 @@ export function AddOrEdit() {
 
     useEffect(() => {
         if (taskToEdit) {
-            const updateState: iTask = {
+            const updateState: TaskModel = {
                 id: taskToEdit.id,
                 title: taskToEdit.title,
                 responsible: taskToEdit.responsible,
@@ -41,7 +41,7 @@ export function AddOrEdit() {
     };
 
     const makeAddTask = () => {
-        const formData: iTaskInput = {
+        const formData: TaskInput = {
             title: formState.title,
             responsible: formState.responsible,
             isCompleted: false,
@@ -51,8 +51,8 @@ export function AddOrEdit() {
         setValidState(false);
     };
 
-    const makeUpdateTask = (task: iTask) => {
-        const formData: iTaskInput = {
+    const makeUpdateTask = (task: TaskModel) => {
+        const formData: TaskInput = {
             title: formState.title,
             responsible: formState.responsible,
             isCompleted: task.isCompleted,

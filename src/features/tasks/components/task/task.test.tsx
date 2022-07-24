@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { iTask } from '../../models/task';
+import { TaskModel } from '../../models/task.model';
 import { Task } from './task';
 
 import { useTasks } from '../../hooks/use.tasks';
@@ -9,7 +9,7 @@ jest.mock('../../hooks/use.tasks');
 
 describe('Given Task component', () => {
     describe('When it has been instantiate with some task data', () => {
-        let task: iTask;
+        let task: TaskModel;
         let jsx: JSX.Element;
         beforeEach(() => {
             // arrange

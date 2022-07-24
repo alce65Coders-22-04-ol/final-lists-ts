@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import HomePage from './home';
+import HomePage from './home.page';
 
 describe('Given Home Page component', () => {
     describe('When it has been instantiate', () => {

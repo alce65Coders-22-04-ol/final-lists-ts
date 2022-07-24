@@ -1,6 +1,6 @@
 import { getFirestore, getDocs } from 'firebase/firestore';
 import { render, screen } from '../reducers/test.utils';
-import RecipesPage from './recipes';
+import RecipesPage from './recipes.page';
 
 jest.mock('firebase/firestore');
 

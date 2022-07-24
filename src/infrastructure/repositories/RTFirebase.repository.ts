@@ -9,10 +9,10 @@ import {
     push,
     update,
 } from 'firebase/database';
-import { basicResponse, basicT, iRepository } from '../interfaces/repository';
+import { basicResponse, basicT, Repository } from '../interfaces/repository';
 
-export class Repository<T extends basicT, R extends basicResponse>
-    implements iRepository<T, R>
+export class RTFirebaseRepository<T extends basicT, R extends basicResponse>
+    implements Repository<T, R>
 {
     db: Database;
 

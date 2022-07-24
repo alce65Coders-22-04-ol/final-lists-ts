@@ -3,7 +3,7 @@ import { Login } from './login';
 import * as hook from '../../hooks/use.login';
 import userEvent from '@testing-library/user-event';
 import { AppContext } from '../../context/context';
-import { iContext } from '../../interfaces/context';
+import { Context } from '../../interfaces/context';
 
 jest.mock('../../hooks/use.login');
 
@@ -11,7 +11,7 @@ describe('Given Login component', () => {
     describe('When it has been instantiate', () => {
         let jsx: JSX.Element;
         let handleClick: Function;
-        let context: Partial<iContext>;
+        let context: Partial<Context>;
 
         beforeEach(() => {
             (hook.useLogin as jest.Mock).mockReturnValue({
@@ -27,7 +27,7 @@ describe('Given Login component', () => {
                 btnLabel = 'Login';
                 context = { isLogged: false };
                 jsx = (
-                    <AppContext.Provider value={context as iContext}>
+                    <AppContext.Provider value={context as Context}>
                         <Login />;
                     </AppContext.Provider>
                 );
@@ -55,7 +55,7 @@ describe('Given Login component', () => {
                 btnLabel = 'Logout';
                 context = { isLogged: true };
                 jsx = (
-                    <AppContext.Provider value={context as iContext}>
+                    <AppContext.Provider value={context as Context}>
                         <Login />;
                     </AppContext.Provider>
                 );

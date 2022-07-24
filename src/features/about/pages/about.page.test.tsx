@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import AboutPage from './about';
+import AboutPage from './about.page';
 
 describe('Given About Page component', () => {
     describe('When it has been instantiate', () => {

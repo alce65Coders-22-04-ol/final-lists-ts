@@ -1,9 +1,12 @@
 import { basicResponse } from '../../../infrastructure/interfaces/repository';
-import { Repository } from '../../../infrastructure/repositories/CFirestore';
+import { CFirestoreRepository } from '../../../infrastructure/repositories/CFirestore.repository';
 
-import { iRecipe } from '../models/recipe';
+import { RecipeModel } from '../models/recipe.model';
 
-export class RecipesRepo extends Repository<iRecipe, basicResponse> {
+export class RecipesRepo extends CFirestoreRepository<
+    RecipeModel,
+    basicResponse
+> {
     constructor(public collection: string = 'recipes') {
         super(collection);
     }

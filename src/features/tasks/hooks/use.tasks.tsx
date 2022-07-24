@@ -1,7 +1,7 @@
 import { useContext, useCallback, useMemo } from 'react';
 import { TaskContext } from '../context/context';
-import { iTask, iTaskInput } from '../models/task';
-import { Repository } from '../../../infrastructure/repositories/RTFirebase';
+import { TaskModel, TaskInput } from '../models/task.model';
+import { RTFirebaseRepository } from '../../../infrastructure/repositories/RTFirebase.repository';
 import { iFBResponse } from '../../../infrastructure/interfaces/repository';
 
 export function useTasks() {
@@ -14,7 +14,10 @@ export function useTasks() {
         taskToEdit,
         setTaskToEdit,
     } = useContext(TaskContext);
-    const rp = useMemo(() => new Repository<iTask, iFBResponse>('tasks'), []);
+    const rp = useMemo(
+        () => new RTFirebaseRepository<TaskModel, iFBResponse>('tasks'),
+        []
+    );
 
     const getContext = () => {
         return { tasks, taskToEdit, isLoading };
@@ -30,15 +33,18 @@ export function useTasks() {
         });
     }, [rp, setTasks, setIsLoading]);
 
-    const addTask = (task: iTaskInput) => {
+    const addTask = (task: TaskInput) => {
         // Añadir la tarea al repositorio
-        rp.addItem(task as iTask).then((data) =>
+        rp.addItem(task as TaskModel).then((data) =>
             // Actualizar el estado con la nueva tarea
             setTasks([...tasks, data])
         );
     };
 
-    const updateTask = (id: iTask['id'], partialTask: Partial<iTask>) => {
+    const updateTask = (
+        id: TaskModel['id'],
+        partialTask: Partial<TaskModel>
+    ) => {
         partialTask.id = id;
         // Modificar la ratea en el repositorio
         rp.updateItem(partialTask).then((data) =>
@@ -47,7 +53,7 @@ export function useTasks() {
         );
     };
 
-    const deleteTask = (id: iTask['id']) => {
+    const deleteTask = (id: TaskModel['id']) => {
         // Eliminar la tarea del repositorio
         rp.deleteItem(id).then(() => {
             // Actualizar el estado sin la tarea eliminada
@@ -55,7 +61,7 @@ export function useTasks() {
         });
     };
 
-    const startToEditTask = (task: iTask) => {
+    const startToEditTask = (task: TaskModel) => {
         setTaskToEdit(task);
     };
 

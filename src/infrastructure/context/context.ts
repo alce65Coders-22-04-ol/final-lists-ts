@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { iContext } from '../interfaces/context';
+import { Context } from '../interfaces/context';
 
-export const initialContext: iContext = {
+export const initialContext: Context = {
     isLogged: false,
     setIsLogged: () => {},
     userLogged: { uid: '', name: '', email: '' },

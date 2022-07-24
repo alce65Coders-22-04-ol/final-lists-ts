@@ -4,12 +4,16 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { appOptionsType } from '../../interfaces/app.options';
 import { appStore } from '../../../infrastructure/store/store';
 
-const Home = React.lazy(() => import('../../../features/home/pages/home'));
-const Todo = React.lazy(() => import('../../../features/tasks/pages/tasks'));
-const Recipes = React.lazy(
-    () => import('../../../features/recipes/pages/recipes')
+const Home = React.lazy(() => import('../../../features/home/pages/home.page'));
+const Todo = React.lazy(
+    () => import('../../../features/tasks/pages/tasks.page')
 );
-const About = React.lazy(() => import('../../../features/about/pages/about'));
+const Recipes = React.lazy(
+    () => import('../../../features/recipes/pages/recipes.page')
+);
+const About = React.lazy(
+    () => import('../../../features/about/pages/about.page')
+);
 
 export function AppRoutes({ appOptions }: { appOptions: appOptionsType }) {
     const pages = [

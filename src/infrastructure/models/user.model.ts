@@ -1,4 +1,4 @@
-export interface iUser {
+export interface UserModel {
     uid: string;
     token?: string;
     name: string | null;

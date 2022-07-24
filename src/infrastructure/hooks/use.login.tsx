@@ -6,13 +6,13 @@ import {
     signOut,
 } from 'firebase/auth';
 import { LocalStore } from '../services/local.store';
-import { iUser } from '../models/user';
+import { UserModel } from '../models/user.model';
 import { AppContext } from '../context/context';
 
 export function useLogin() {
     const { isLogged, setIsLogged } = useContext(AppContext);
     const { setUserLogged } = useContext(AppContext);
-    const ls = useMemo(() => new LocalStore<iUser>('Login'), []);
+    const ls = useMemo(() => new LocalStore<UserModel>('Login'), []);
 
     useEffect(() => {
         const storeUser = ls.getItem();
@@ -45,7 +45,7 @@ export function useLogin() {
                 if (!credential) throw error;
                 // console.log({ token, user });
                 setIsLogged(true);
-                const userData: iUser = {
+                const userData: UserModel = {
                     uid: result.user.uid,
                     token: credential.accessToken,
                     name: result.user.displayName,

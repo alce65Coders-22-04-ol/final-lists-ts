@@ -2,17 +2,17 @@ import { SyntheticEvent, useCallback, useRef, useState } from 'react';
 import { AppButton } from '../../../../infrastructure/components/button/app.button';
 import AppInput from '../../../../infrastructure/components/input/app.input';
 import { AppModal } from '../../../../infrastructure/components/modal/modal';
-import { iSendState } from '../../interfaces/send.state';
-import { iContact } from '../../models/contact';
+import { SendState } from '../../interfaces/send.state';
+import { ContactModel } from '../../models/contact.model';
 import contact from './contact.form.module.css';
 
 export function ContactForm() {
-    const initialState: iContact = {
+    const initialState: ContactModel = {
         userName: '',
         email: '',
     };
 
-    const initialSendState: iSendState = { send: false, userToSend: null };
+    const initialSendState: SendState = { send: false, userToSend: null };
     const [formState, setFormState] = useState(initialState);
     const [validState, setValidState] = useState(false);
     const [sendState, setSendState] = useState(initialSendState);
@@ -47,12 +47,13 @@ export function ContactForm() {
             >
                 <>
                     <p>
-                        Gracias {(sendState.userToSend as iContact)?.userName}
+                        Gracias{' '}
+                        {(sendState.userToSend as ContactModel)?.userName}
                     </p>
                     <p>
                         <span>Te enviaremos información a tu correo </span>
                         <em role={'log'}>
-                            {(sendState.userToSend as iContact)?.email}
+                            {(sendState.userToSend as ContactModel)?.email}
                         </em>
                     </p>
                 </>

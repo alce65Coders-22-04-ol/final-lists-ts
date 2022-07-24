@@ -1,8 +1,8 @@
-import { iUser } from '../models/user';
+import { UserModel } from '../models/user.model';
 
-export interface iContext {
+export interface Context {
     isLogged: boolean;
     setIsLogged: Function;
-    userLogged: iUser;
+    userLogged: UserModel;
     setUserLogged: Function;
 }

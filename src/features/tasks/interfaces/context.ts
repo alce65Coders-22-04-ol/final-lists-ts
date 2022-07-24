@@ -1,10 +1,10 @@
-import { iTask } from '../models/task';
+import { TaskModel } from '../models/task.model';
 
-export interface iContext {
-    tasks: Array<iTask>;
-    setTasks: (state: Array<iTask>) => void;
+export interface Context {
+    tasks: Array<TaskModel>;
+    setTasks: (state: Array<TaskModel>) => void;
     isLoading: boolean;
     setIsLoading: (state: boolean) => void;
-    taskToEdit: iTask | null;
-    setTaskToEdit: (state: null | iTask) => void;
+    taskToEdit: TaskModel | null;
+    setTaskToEdit: (state: null | TaskModel) => void;
 }

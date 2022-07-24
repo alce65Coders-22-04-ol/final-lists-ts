@@ -1,5 +1,5 @@
 import { ContactForm } from '../components/contact.form/contact.form';
-import about from './about.module.css';
+import about from './about.page.module.css';
 
 function AboutPage({ title }: { title: string }) {
     return (

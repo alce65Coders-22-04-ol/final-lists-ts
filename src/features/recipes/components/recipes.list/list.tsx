@@ -4,9 +4,9 @@ import { rootState } from '../../../../infrastructure/store/store';
 import { RecipesRepo } from '../../services/recipes.repository';
 import * as ac from '../../reducers/recipes.action.creators';
 import recipes from './list.module.css';
-import { iRecipe } from '../../models/recipe';
+import { RecipeModel } from '../../models/recipe.model';
 
-let mockData: Partial<iRecipe> = {
+let mockData: Partial<RecipeModel> = {
     id: '',
     name: 'Pollo al curry',
     ingredients: ['pollo', 'curry'],
@@ -33,7 +33,7 @@ export function RecipesList() {
     }, [repo, dispatch]);
 
     const handleClickAdd = () => {
-        repo.addItem(mockData as iRecipe).then((data) => {
+        repo.addItem(mockData as RecipeModel).then((data) => {
             mockData.id = data.id;
             dispatch(ac.addRecipesAction(data));
             setNotAdded(false);

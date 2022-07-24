@@ -1,6 +1,6 @@
-import { iContact } from '../models/contact';
+import { ContactModel } from '../models/contact.model';
 
-export interface iSendState {
+export interface SendState {
     send: boolean;
-    userToSend: iContact | null;
+    userToSend: ContactModel | null;
 }

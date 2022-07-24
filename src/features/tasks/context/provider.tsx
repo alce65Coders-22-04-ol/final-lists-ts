@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { iTask } from '../models/task';
+import { TaskModel } from '../models/task.model';
 
 import { TaskContext } from './context';
 
 export function TaskContextProvider({ children }: { children: JSX.Element }) {
-    const [tasks, setTasks] = useState([] as Array<iTask>);
+    const [tasks, setTasks] = useState([] as Array<TaskModel>);
     const [isLoading, setIsLoading] = useState(false);
-    const [taskToEdit, setTaskToEdit] = useState(null as null | iTask);
+    const [taskToEdit, setTaskToEdit] = useState(null as null | TaskModel);
 
     const context = {
         tasks,

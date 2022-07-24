@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { iContext } from '../interfaces/context';
+import { Context } from '../interfaces/context';
 
-export const initialContext: iContext = {
+export const initialContext: Context = {
     tasks: [],
     setTasks: () => [],
     isLoading: false,

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { getDatabase, get } from 'firebase/database';
-import TasksPage from './tasks';
+import TasksPage from './tasks.page';
 
 jest.mock('firebase/database');
 

@@ -1,13 +1,13 @@
-import { iTask } from '../../features/tasks/models/task';
+import { TaskModel } from '../../features/tasks/models/task.model';
 import { iFBResponse } from '../interfaces/repository';
 import { iUserData } from '../interfaces/user.data';
-import { Repository } from './RTFirebase';
+import { RTFirebaseRepository } from './RTFirebase.repository';
 import { ref, child, set, get, push, update } from 'firebase/database';
 
 jest.mock('firebase/database');
 
 describe('Given an instance of service RTFirebase for "users"', () => {
-    let repo: Repository<iUserData, iFBResponse>;
+    let repo: RTFirebaseRepository<iUserData, iFBResponse>;
     let userData: iUserData;
     let userID: string;
     let collection: string;
@@ -18,7 +18,7 @@ describe('Given an instance of service RTFirebase for "users"', () => {
         (set as jest.Mock).mockResolvedValue({ type: 'T' });
         (child as jest.Mock).mockReturnValue({ type: 'child/query' });
         collection = 'users-test';
-        repo = new Repository<iUserData, iFBResponse>(collection);
+        repo = new RTFirebaseRepository<iUserData, iFBResponse>(collection);
     });
 
     describe('When userId and userData provide are valid', () => {
@@ -125,9 +125,9 @@ describe('Given an instance of service RTFirebase for "users"', () => {
 });
 
 describe('Given an instance of service Repository for "tasks"', () => {
-    let repo: Repository<iTask, iFBResponse>;
-    let taskData: iTask;
-    let taskData2: iTask;
+    let repo: RTFirebaseRepository<TaskModel, iFBResponse>;
+    let taskData: TaskModel;
+    let taskData2: TaskModel;
     let collection: string;
 
     beforeEach(() => {
@@ -153,7 +153,7 @@ describe('Given an instance of service Repository for "tasks"', () => {
             val: jest.fn().mockReturnValue([taskData, taskData2]),
         });
         collection = 'tasks-test';
-        repo = new Repository<iTask, iFBResponse>(collection);
+        repo = new RTFirebaseRepository<TaskModel, iFBResponse>(collection);
     });
     test('A document in de DB should be created & read', async () => {
         await repo.addItem(taskData);
@@ -172,7 +172,7 @@ describe('Given an instance of service Repository for "tasks"', () => {
         expect(push).toHaveBeenCalled();
         const data = await repo.getAllItems();
 
-        data.forEach(async (item: iTask, index: number) => {
+        data.forEach(async (item: TaskModel, index: number) => {
             if (index > 1) await repo.deleteItem(item.id);
         });
         expect(set).toHaveBeenCalled();

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { iRecipe } from '../../features/recipes/models/recipe';
+import { RecipeModel } from '../../features/recipes/models/recipe.model';
 import { ingredientsReducer } from '../../features/recipes/reducers/ingredients.reducer';
 import { recipesReducer } from '../../features/recipes/reducers/recipes.reducer';
 
@@ -15,5 +15,5 @@ export type rootStore = typeof appStore;
 export type rootState = ReturnType<typeof appStore.getState>;
 
 export interface iState {
-    recipes: Array<iRecipe>;
+    recipes: Array<RecipeModel>;
 }

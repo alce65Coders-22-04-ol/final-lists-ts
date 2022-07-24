@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { rootState } from '../../../../infrastructure/store/store';
-import { iIngredient } from '../../models/ingredient';
+import { IngredientModel } from '../../models/ingredient.model';
 import ingredients from './list.module.css';
 import * as ac from '../../reducers/ingredients.action.creators';
 
@@ -12,7 +12,7 @@ export function IngredientsList() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const mockIngredients: Array<iIngredient> = [
+        const mockIngredients: Array<IngredientModel> = [
             { id: '1', name: 'First Ingredient', tags: [], country: 'Spain' },
             { id: '2', name: 'Second Ingredient', tags: [], country: 'Spain' },
         ];

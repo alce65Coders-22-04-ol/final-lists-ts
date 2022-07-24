@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '../../reducers/test.utils';
 import { RecipesList } from './list';
 import { RecipesRepo } from '../../services/recipes.repository';
-import { iRecipe } from '../../models/recipe';
+import { RecipeModel } from '../../models/recipe.model';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
@@ -10,8 +10,8 @@ jest.mock('../../services/recipes.repository');
 describe('Given RecipesList component', () => {
     describe(`When it has been instantiate inside a redux Provider of the store
                 and it has access to a mocked repository of the data`, () => {
-        let mockRecipes: Array<iRecipe>;
-        let mockNewRecipe: iRecipe;
+        let mockRecipes: Array<RecipeModel>;
+        let mockNewRecipe: RecipeModel;
         let buttons;
         let jsx: JSX.Element;
         beforeEach(() => {

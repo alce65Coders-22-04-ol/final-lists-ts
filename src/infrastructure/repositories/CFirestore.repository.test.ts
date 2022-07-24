@@ -5,11 +5,11 @@
 import { iFBResponse } from '../interfaces/repository';
 import { iUserData, iUserDataInput } from '../interfaces/user.data';
 import { startFirebase } from '../services/firebase';
-import { Repository } from './CFirestore';
+import { CFirestoreRepository } from './CFirestore.repository';
 
 describe.skip(`Given an instance of repository service CFirestore for "users" 
         really connected to Cloud Firestore`, () => {
-    let repo: Repository<iUserData, iFBResponse>;
+    let repo: CFirestoreRepository<iUserData, iFBResponse>;
     let userData1: iUserDataInput;
     let userData2: iUserDataInput;
     let userData3: iUserDataInput;
@@ -18,7 +18,7 @@ describe.skip(`Given an instance of repository service CFirestore for "users"
     beforeEach(() => {
         startFirebase();
         collectionName = 'users-test';
-        repo = new Repository<iUserData, iFBResponse>(collectionName);
+        repo = new CFirestoreRepository<iUserData, iFBResponse>(collectionName);
         userData1 = {
             username: 'Pepe',
             email: 'pepe@sample.com',

@@ -1,4 +1,4 @@
-export interface iIngredient {
+export interface IngredientModel {
     id: string;
     name: string;
     tags: Array<string>;

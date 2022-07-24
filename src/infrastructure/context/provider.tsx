@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { iUser } from '../models/user';
+import { UserModel } from '../models/user.model';
 import { AppContext } from './context';
 
 export function AppContextProvider({ children }: { children: JSX.Element }) {
-    const initialUserLoggedState: iUser = {
+    const initialUserLoggedState: UserModel = {
         uid: '',
         name: '',
         email: '',

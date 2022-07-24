@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { useContext } from 'react';
-import { iTask } from '../models/task';
+import { TaskModel } from '../models/task.model';
 
 import { TaskContext, initialContext } from './context';
 
@@ -11,7 +11,7 @@ describe('Given the context AppContext', () => {
             initialContext.setTasks([]);
             initialContext.setIsLoading(false);
             initialContext.setTaskToEdit(null);
-            const task: iTask = {
+            const task: TaskModel = {
                 id: '1',
                 title: 'Test task',
                 responsible: 'Pepe',

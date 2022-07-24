@@ -1,7 +1,7 @@
 import { act, render, waitFor } from '@testing-library/react';
 import { useTasks } from './use.tasks';
-import { Repository } from '../../../infrastructure/repositories/RTFirebase';
-import { iTask } from '../models/task';
+import { RTFirebaseRepository } from '../../../infrastructure/repositories/RTFirebase.repository';
+import { TaskModel } from '../models/task.model';
 import { TaskContext } from '../context/context';
 import { getDatabase } from 'firebase/database';
 import { useEffect, useState } from 'react';
@@ -12,14 +12,14 @@ jest.mock('firebase/database');
 describe('Given useTasks hook inside a TestElement', () => {
     let TestElement: Function;
     let TestContextProvider: Function;
-    let tasks: Array<iTask>;
+    let tasks: Array<TaskModel>;
     let isLoading: boolean;
-    let taskToEdit: iTask | null;
+    let taskToEdit: TaskModel | null;
     let jsx: JSX.Element;
     let externalContextData: {
-        tasks: Array<iTask>;
+        tasks: Array<TaskModel>;
         isLoading: boolean;
-        taskToEdit: iTask | null;
+        taskToEdit: TaskModel | null;
     };
 
     const taskData1 = {
@@ -43,14 +43,16 @@ describe('Given useTasks hook inside a TestElement', () => {
         }: {
             children: JSX.Element;
             initialData: {
-                tasks: Array<iTask>;
+                tasks: Array<TaskModel>;
                 isLoading: boolean;
                 taskToEdit: null;
             };
         }) => {
             const [tasks, setTasks] = useState(initialData.tasks);
             const [isLoading, setIsLoading] = useState(initialData.isLoading);
-            const [taskToEdit, setTaskToEdit] = useState(null as iTask | null);
+            const [taskToEdit, setTaskToEdit] = useState(
+                null as TaskModel | null
+            );
 
             const context = {
                 tasks,
@@ -147,7 +149,7 @@ describe('Given useTasks hook inside a TestElement', () => {
     describe('When its function loadTasks has been used in a component', () => {
         beforeEach(() => {
             // arrange
-            Repository.prototype.getAllItems = jest
+            RTFirebaseRepository.prototype.getAllItems = jest
                 .fn()
                 .mockResolvedValue([taskData1]);
             TestElement = () => {
@@ -170,7 +172,9 @@ describe('Given useTasks hook inside a TestElement', () => {
             render(jsx);
             // assert
             // expect(tasks).toStrictEqual([]);
-            expect(Repository.prototype.getAllItems).toHaveBeenCalled();
+            expect(
+                RTFirebaseRepository.prototype.getAllItems
+            ).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks).toStrictEqual([taskData1]);
             });
@@ -178,7 +182,7 @@ describe('Given useTasks hook inside a TestElement', () => {
     });
 
     describe('When its function addTask has been used in a component', () => {
-        let newTask: iTask;
+        let newTask: TaskModel;
         beforeEach(() => {
             // arrange
             newTask = {
@@ -187,7 +191,9 @@ describe('Given useTasks hook inside a TestElement', () => {
                 responsible: 'Ernesto',
                 isCompleted: false,
             };
-            Repository.prototype.addItem = jest.fn().mockResolvedValue(newTask);
+            RTFirebaseRepository.prototype.addItem = jest
+                .fn()
+                .mockResolvedValue(newTask);
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
@@ -208,7 +214,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             render(jsx);
             // assert
             expect(tasks).toStrictEqual([taskData1]);
-            expect(Repository.prototype.addItem).toHaveBeenCalled();
+            expect(RTFirebaseRepository.prototype.addItem).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks[1]).toStrictEqual(newTask);
             });
@@ -220,7 +226,7 @@ describe('Given useTasks hook inside a TestElement', () => {
             // arrange
 
             const expectedData = { ...taskData1, isCompleted: true };
-            Repository.prototype.updateItem = jest
+            RTFirebaseRepository.prototype.updateItem = jest
                 .fn()
                 .mockResolvedValue(expectedData);
             TestElement = () => {
@@ -242,7 +248,9 @@ describe('Given useTasks hook inside a TestElement', () => {
             // act
             render(jsx);
             // assert
-            expect(Repository.prototype.updateItem).toHaveBeenCalled();
+            expect(
+                RTFirebaseRepository.prototype.updateItem
+            ).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks[0].isCompleted).toBe(true);
             });
@@ -252,7 +260,9 @@ describe('Given useTasks hook inside a TestElement', () => {
     describe('When its function deleteTask has been used in a component', () => {
         beforeEach(() => {
             // arrange
-            Repository.prototype.deleteItem = jest.fn().mockResolvedValue({});
+            RTFirebaseRepository.prototype.deleteItem = jest
+                .fn()
+                .mockResolvedValue({});
             TestElement = () => {
                 const hook = useTasks();
                 ({ tasks, isLoading } = hook.getContext());
@@ -278,7 +288,9 @@ describe('Given useTasks hook inside a TestElement', () => {
                 render(jsx);
             });
             // assert
-            expect(Repository.prototype.deleteItem).toHaveBeenCalled();
+            expect(
+                RTFirebaseRepository.prototype.deleteItem
+            ).toHaveBeenCalled();
             await waitFor(() => {
                 expect(tasks).toStrictEqual([taskData1]);
             });
