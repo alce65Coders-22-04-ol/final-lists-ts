@@ -10,6 +10,6 @@ export interface Repository<T extends basicT, R extends basicResponse> {
     deleteItem: (id: T['id']) => Promise<R>;
 }
 
-export interface iFBResponse {
+export interface FBResponse {
     ok: boolean;
 }

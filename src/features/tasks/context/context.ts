@@ -3,11 +3,11 @@ import { Context } from '../interfaces/context';
 
 export const initialContext: Context = {
     tasks: [],
-    setTasks: () => [],
+    setTasks: (state) => {},
     isLoading: false,
-    setIsLoading: () => false,
+    setIsLoading: (state) => {},
     taskToEdit: null,
-    setTaskToEdit: () => null,
+    setTaskToEdit: (state) => {},
 };
 
 export const TaskContext = createContext(initialContext);

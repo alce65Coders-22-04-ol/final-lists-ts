@@ -43,7 +43,7 @@ export function useLogin() {
                 error.code = '';
                 error.customData = { email: '' };
                 if (!credential) throw error;
-                // console.log({ token, user });
+                // For more info console.log({ token, user });
                 setIsLogged(true);
                 const userData: UserModel = {
                     uid: result.user.uid,
@@ -57,7 +57,6 @@ export function useLogin() {
             .catch((error) => {
                 const credential =
                     GoogleAuthProvider.credentialFromError(error);
-                // ...
                 console.error({
                     errorCode: error.code,
                     errorMessage: error.message,

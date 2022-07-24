@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { IngredientModel } from '../../features/recipes/models/ingredient.model';
 import { RecipeModel } from '../../features/recipes/models/recipe.model';
 import { ingredientsReducer } from '../../features/recipes/reducers/ingredients.reducer';
 import { recipesReducer } from '../../features/recipes/reducers/recipes.reducer';
@@ -14,6 +15,13 @@ export type rootStore = typeof appStore;
 
 export type rootState = ReturnType<typeof appStore.getState>;
 
-export interface iState {
-    recipes: Array<RecipeModel>;
-}
+/**
+ * Como alternativa al tipo rootState se podría crear un interface
+ * export interface iState {
+ *     recipes: Array<RecipeModel>;
+ *     ingredients: Array<IngredientModel>
+ * }
+ *
+ *  En este caso no se actualizaría automáticamente al cambiar el Store
+ *
+ */

@@ -6,22 +6,22 @@
  */
 
 import { TaskModel } from '../../features/tasks/models/task.model';
-import { iFBResponse } from '../interfaces/repository';
-import { iUserData } from '../interfaces/user.data';
+import { FBResponse } from '../interfaces/repository';
+import { UserData } from '../interfaces/user.data';
 import { startFirebase } from '../services/firebase';
 import { RTFirebaseRepository } from './RTFirebase.repository';
 
 describe(`Given an instance of repository service RTFirebase for "users" 
             really connected to Real Time Firebase`, () => {
-    let repo: RTFirebaseRepository<iUserData, iFBResponse>;
-    let userData: iUserData;
+    let repo: RTFirebaseRepository<UserData, FBResponse>;
+    let userData: UserData;
     let userID: string;
     let collection: string;
 
     beforeEach(() => {
         startFirebase();
         collection = 'users-test';
-        repo = new RTFirebaseRepository<iUserData, iFBResponse>(collection);
+        repo = new RTFirebaseRepository<UserData, FBResponse>(collection);
         userData = {
             id: '1',
             username: 'Pepe',
@@ -52,7 +52,7 @@ describe(`Given an instance of repository service RTFirebase for "users"
             userID = '3';
             await repo.setItem(userID, userData);
             let result = await repo.getItem(userID);
-            expect((result as unknown as iUserData).username).toBe('Pepe');
+            expect((result as unknown as UserData).username).toBe('Pepe');
             await repo.deleteItem(userID);
             try {
                 await repo.getItem(userID);
@@ -62,7 +62,6 @@ describe(`Given an instance of repository service RTFirebase for "users"
             }
         });
         test('Several documents in de DB should be read', async () => {
-            // await repo.setItem(userData, userID);
             const result = await repo.getAllItems();
             expect((result as unknown as Array<any>).length).toBeGreaterThan(1);
         });
@@ -83,7 +82,7 @@ describe(`Given an instance of repository service RTFirebase for "users"
 
 describe(`Given an instance of service Repository for "tasks" 
             really connected to Real Time Firebase`, () => {
-    let repo: RTFirebaseRepository<TaskModel, iFBResponse>;
+    let repo: RTFirebaseRepository<TaskModel, FBResponse>;
     let taskData: TaskModel;
     let taskData2: TaskModel;
     let collection: string;
@@ -91,7 +90,7 @@ describe(`Given an instance of service Repository for "tasks"
     beforeEach(() => {
         startFirebase();
         collection = 'tasks-test';
-        repo = new RTFirebaseRepository<TaskModel, iFBResponse>(collection);
+        repo = new RTFirebaseRepository<TaskModel, FBResponse>(collection);
         taskData = {
             id: '1',
             title: 'Test task',

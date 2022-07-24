@@ -9,7 +9,9 @@ export function AppContextProvider({ children }: { children: JSX.Element }) {
         email: '',
     };
     const [isLogged, setIsLogged] = useState(false);
-    const [userLogged, setUserLogged] = useState(initialUserLoggedState);
+    const [userLogged, setUserLogged] = useState(
+        initialUserLoggedState as UserModel | null
+    );
 
     const context = {
         isLogged,

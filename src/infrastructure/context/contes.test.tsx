@@ -7,10 +7,10 @@ describe('Given the context AppContext', () => {
     let TestComponent: Function;
     describe('When a Test Component is wrapper with this context', () => {
         beforeEach(() => {
-            initialContext.userLogged.name = 'Pepe';
+            initialContext.userLogged = { uid: '', name: 'Pepe', email: '' };
             TestComponent = () => {
                 const { userLogged } = useContext(AppContext);
-                return <>{userLogged.name}</>;
+                return <>{userLogged?.name}</>;
             };
         });
         test('Context values should be used in the component', () => {
@@ -20,7 +20,7 @@ describe('Given the context AppContext', () => {
                 </AppContext.Provider>
             );
             const element = screen.getByText(
-                initialContext.userLogged.name as string
+                initialContext.userLogged?.name as string
             );
             expect(element).toBeInTheDocument();
         });

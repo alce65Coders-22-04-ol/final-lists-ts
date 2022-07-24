@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { AppButton } from '../button/app.button';
 import modal from './modal.module.css';
 
-interface iModalProps {
+interface ModalProps {
     children: JSX.Element;
     show: boolean;
     setShow: Function;
@@ -14,17 +14,23 @@ export function AppModal({
     title = 'Modal Component',
     show,
     setShow,
-}: iModalProps) {
+}: ModalProps) {
     const dlgRef = useRef<HTMLDialogElement>(null);
     const showAppModal = () => {
-        //dlgRef.current?.showModal();
-        console.log('Show modal');
+        /**
+         * Por ser un HTMLDialogElement podría usarse
+         * dlgRef.current?.showModal()
+         * pero no es válido en jest
+         */
         dlgRef.current?.setAttribute('open', 'true');
     };
 
     const closeAppModal = useCallback(() => {
-        // dlgRef.current?.close();
-        console.log('Close modal');
+        /**
+         * Por ser un HTMLDialogElement podría usarse
+         * dlgRef.current?.close()
+         * pero no es válido en jest
+         */
         dlgRef.current?.removeAttribute('open');
         setShow(false);
     }, [setShow]);

@@ -7,23 +7,23 @@ import {
     updateDoc,
     deleteDoc,
 } from 'firebase/firestore';
-import { iFBResponse } from '../interfaces/repository';
-import { iUserData, iUserDataInput } from '../interfaces/user.data';
+import { FBResponse } from '../interfaces/repository';
+import { UserData, UserDataInput } from '../interfaces/user.data';
 import { CFirestoreRepository } from './CFirestore.repository';
 
 jest.mock('firebase/firestore');
 
 describe('Given an instance of service CFirestore for "users"', () => {
-    let repo: CFirestoreRepository<iUserData, iFBResponse>;
-    let userData1: iUserDataInput;
-    let userData2: iUserDataInput;
-    let userData3: iUserDataInput;
+    let repo: CFirestoreRepository<UserData, FBResponse>;
+    let userData1: UserDataInput;
+    let userData2: UserDataInput;
+    let userData3: UserDataInput;
     let collectionName: string;
 
     beforeEach(() => {
         // startFirebase());
         collectionName = 'users-test';
-        repo = new CFirestoreRepository<iUserData, iFBResponse>(collectionName);
+        repo = new CFirestoreRepository<UserData, FBResponse>(collectionName);
         userData1 = {
             username: 'Pepe',
             email: 'pepe@sample.com',
@@ -50,7 +50,7 @@ describe('Given an instance of service CFirestore for "users"', () => {
                 exists: jest.fn().mockReturnValue(true),
                 data: jest.fn().mockReturnValue({ ...userData1, id }),
             });
-            let result = await repo.addItem(userData1 as iUserData);
+            let result = await repo.addItem(userData1 as UserData);
             expect(collection).toHaveBeenCalled();
             expect(doc).toHaveBeenCalled();
             expect(setDoc).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe('Given an instance of service CFirestore for "users"', () => {
             });
             (doc as jest.Mock).mockReturnValue({ type: 'docRef', id });
 
-            let result = await repo.addItem(userData2 as iUserData);
+            let result = await repo.addItem(userData2 as UserData);
             expect(collection).toHaveBeenCalled();
             expect(setDoc).toHaveBeenCalled();
             expect(getDoc).toHaveBeenCalled();

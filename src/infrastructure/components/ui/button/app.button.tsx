@@ -8,7 +8,7 @@ export function AppButton({
     onClick,
 }: {
     children: string;
-    type?: 'button' | 'submit' | 'reset' | undefined;
+    type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }) {

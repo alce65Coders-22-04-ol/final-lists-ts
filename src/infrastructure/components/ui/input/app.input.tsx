@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { SyntheticEvent } from 'react';
 import input from './app.input.module.css';
 
-interface iFormInfo {
+interface FormInfo {
     setFormState: Function;
     setValidState: Function;
     formRef: React.RefObject<HTMLFormElement> | null;
@@ -23,11 +23,11 @@ function AppInput<T>(
         placeholder: string;
         name: string;
         type?: string;
-        formInfo: iFormInfo;
+        formInfo: FormInfo;
         required?: boolean;
-        pattern?: string | undefined;
-        maxLength?: number | undefined;
-        minLength?: number | undefined;
+        pattern?: string;
+        maxLength?: number;
+        minLength?: number;
         initialValue?: string;
     },
     ref: React.ForwardedRef<HTMLInputElement>
@@ -61,7 +61,10 @@ function AppInput<T>(
             valid: element.checkValidity(),
             errorMessage: element.validationMessage,
         });
-        // console.log('Validity:', element.validity);
+        /**
+         * Para obtener la información completa sobre la validez del elemento:
+         * console.log('Validity:', element.validity);
+         */
     };
 
     let jsx: JSX.Element = (
@@ -91,4 +94,4 @@ function AppInput<T>(
     );
 }
 
-export default React.forwardRef(AppInput);
+export default forwardRef(AppInput);

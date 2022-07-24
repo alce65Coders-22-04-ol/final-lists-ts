@@ -11,7 +11,7 @@ export class HttpFetchRepository<T extends basicT, R extends basicResponse>
         return fetch(this.url).then((resp) => resp.json());
     }
     getItem(id: T['id']): Promise<T> {
-        return fetch((this.url + id) as string).then((resp) => resp.json());
+        return fetch(this.url + id).then((resp) => resp.json());
     }
 
     addItem(item: Partial<T>): Promise<T> {

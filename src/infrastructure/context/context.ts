@@ -3,9 +3,9 @@ import { Context } from '../interfaces/context';
 
 export const initialContext: Context = {
     isLogged: false,
-    setIsLogged: () => {},
+    setIsLogged: (state) => {},
     userLogged: { uid: '', name: '', email: '' },
-    setUserLogged: () => {},
+    setUserLogged: (state) => {},
 };
 
 export const AppContext = createContext(initialContext);

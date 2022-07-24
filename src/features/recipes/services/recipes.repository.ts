@@ -7,7 +7,7 @@ export class RecipesRepo extends CFirestoreRepository<
     RecipeModel,
     basicResponse
 > {
-    constructor(public collection: string = 'recipes') {
-        super(collection);
+    constructor(public collectionName: string = 'recipes') {
+        super(collectionName);
     }
 }

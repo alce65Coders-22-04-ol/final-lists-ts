@@ -2,7 +2,7 @@ import { useContext, useCallback, useMemo } from 'react';
 import { TaskContext } from '../context/context';
 import { TaskModel, TaskInput } from '../models/task.model';
 import { RTFirebaseRepository } from '../../../infrastructure/repositories/RTFirebase.repository';
-import { iFBResponse } from '../../../infrastructure/interfaces/repository';
+import { FBResponse } from '../../../infrastructure/interfaces/repository';
 
 export function useTasks() {
     // Traer del contexto los valores del estado: tareas, isLoading y sus setters
@@ -15,7 +15,7 @@ export function useTasks() {
         setTaskToEdit,
     } = useContext(TaskContext);
     const rp = useMemo(
-        () => new RTFirebaseRepository<TaskModel, iFBResponse>('tasks'),
+        () => new RTFirebaseRepository<TaskModel, FBResponse>('tasks'),
         []
     );
 

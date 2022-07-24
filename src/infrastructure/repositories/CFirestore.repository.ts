@@ -19,25 +19,27 @@ export class CFirestoreRepository<T extends basicT, R extends basicResponse>
 {
     db: Firestore;
 
-    constructor(public collection: string) {
+    constructor(public collectionName: string) {
         this.db = getFirestore();
     }
 
     async getAllItems(): Promise<Array<T>> {
-        const colRef = collection(this.db, this.collection);
+        const colRef = collection(this.db, this.collectionName);
         const data: DocumentData = await getDocs(colRef);
         const result: Array<T> = [];
-        data.forEach((doc: any) => result.push({ ...doc.data(), id: doc.id }));
+        data.forEach((docItem: any) =>
+            result.push({ ...docItem.data(), id: docItem.id })
+        );
         return result;
     }
 
     async getItem(dataID: T['id']): Promise<T> {
         const docRef = doc(
             this.db,
-            this.collection,
+            this.collectionName,
             dataID as unknown as string
         );
-        return await this.processItemData(docRef, 'Get');
+        return this.processItemData(docRef, 'Get');
     }
 
     private processItemData = async (
@@ -53,29 +55,22 @@ export class CFirestoreRepository<T extends basicT, R extends basicResponse>
         return result;
     };
 
-    // setItem(dataID: string, data: T) {
-    //     const target = `${this.collection}/${dataID}`;
-    //     const dbRef = ref(this.db, target);
-    //     return set(dbRef, data).then(() => data);
-    // }
-
     async addItem(data: T): Promise<T> {
-        const colRef = collection(this.db, this.collection);
+        const colRef = collection(this.db, this.collectionName);
         const docRef = doc(colRef);
         await setDoc(docRef, data);
         console.log('ID', docRef.id);
-        return await this.processItemData(docRef, 'Add');
+        return this.processItemData(docRef, 'Add');
     }
 
     async updateItem(data: Partial<T>): Promise<T> {
-        const docRef = doc(this.db, this.collection, data.id as string);
+        const docRef = doc(this.db, this.collectionName, data.id as string);
         await updateDoc(docRef as DocumentReference<T>, data as UpdateData<T>);
         return this.processItemData(docRef, 'Upddate');
-        // return this.getItem(data.id as T['id']);
     }
 
     async deleteItem(dataID: T['id']): Promise<R> {
-        const docRef = doc(this.db, this.collection, dataID as string);
+        const docRef = doc(this.db, this.collectionName, dataID as string);
         await deleteDoc(docRef);
         return { ok: true } as R;
     }
