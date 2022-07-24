@@ -1,5 +1,9 @@
 /**
  * @jest-environment node
+ *
+ * Test de integración que no hace mock de la conexión a Firebase
+ * Se nombra como spec para que solo se incluya en el script test:all
+ *
  */
 
 import { iFBResponse } from '../interfaces/repository';

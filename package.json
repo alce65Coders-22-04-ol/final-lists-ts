@@ -68,7 +68,8 @@
             "reportWebVitals.js",
             "interfaces",
             "models",
-            "action.types"
+            "action.types",
+            "spec"
         ]
     }
 }
