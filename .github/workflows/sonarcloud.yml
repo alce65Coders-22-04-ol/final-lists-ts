@@ -38,16 +38,6 @@ on:
 permissions:
     pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
-# env:
-# REACT_APP_APIKEY: AIzaSyDNBZL2K9O3TFRqAaIG492T8qgtB84Wh2w
-# REACT_APP_AUTHDOMAIN: alce65-todo-react.firebaseapp.com
-# REACT_APP_DB: alce65-todo-react-default-rtdb
-# REACT_APP_DBR: europe-west1
-# REACT_APP_PID: alce65-todo-react
-# REACT_APP_SB: alce65-todo-react.appspot.com
-# REACT_APP_SID: 572638449828
-# REACT_APP_APPID: 1:572638449828:web:0e91ec8b575dc8c549d631
-
 jobs:
     SonarCloud:
         name: SonarCloud

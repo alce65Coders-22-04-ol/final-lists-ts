@@ -10,7 +10,6 @@ export function List() {
 
     useEffect(() => {
         loadTasks();
-        return () => {};
     }, [loadTasks]);
 
     return (

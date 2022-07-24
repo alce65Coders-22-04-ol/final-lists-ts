@@ -13,7 +13,12 @@ let mockData: Partial<iRecipe> = {
 };
 
 export function RecipesList() {
-    // const [recipesState] = useState(second)
+    /**
+     * Al utilizar redux, useSelector es en cierto modo el equivalente a
+     * const [recipesState] = useState(initialState)
+     * al definir la variable a la que asignamos la rama del estado seleccionada
+     */
+
     const recipesState = useSelector((state: rootState) => state.recipes);
     const dispatch = useDispatch();
 

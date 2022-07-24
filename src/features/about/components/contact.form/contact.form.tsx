@@ -21,9 +21,13 @@ export function ContactForm() {
     const emailRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
-    // useLayoutEffect(() => {
-    //     console.log({ formRef });
-    // });
+    /**
+     * Cuando quiere acceder a las referencias inmediatamente después del renderizado del componente
+     * se debe usar useLayoutEffect en lugar de useEffect
+     * useLayoutEffect(() => {
+     *     console.log({ formRef });
+     * });
+     */
 
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();

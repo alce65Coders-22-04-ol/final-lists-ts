@@ -2,9 +2,9 @@ import { iTask } from '../models/task';
 
 export interface iContext {
     tasks: Array<iTask>;
-    setTasks: Function;
+    setTasks: (state: Array<iTask>) => void;
     isLoading: boolean;
-    setIsLoading: Function;
+    setIsLoading: (state: boolean) => void;
     taskToEdit: iTask | null;
-    setTaskToEdit: Function;
+    setTaskToEdit: (state: null | iTask) => void;
 }

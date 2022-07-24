@@ -34,7 +34,7 @@ export function Task({ task }: { task: iTask }) {
                     role="button"
                     className={taskItem.button}
                     title="edit"
-                    onClick={(ev) => handleClick('edit')}
+                    onClick={() => handleClick('edit')}
                 >
                     🖊️
                 </span>
@@ -42,7 +42,7 @@ export function Task({ task }: { task: iTask }) {
                     role="button"
                     className={taskItem.button}
                     title="delete"
-                    onClick={(ev) => handleClick('delete')}
+                    onClick={() => handleClick('delete')}
                 >
                     🗑️
                 </span>

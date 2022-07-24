@@ -6,7 +6,7 @@ const initialState: Array<iIngredient> = [];
 
 export const ingredientsReducer = createReducer(initialState, (builder) =>
     builder
-        .addCase(ac.loadIngredientsAction, (state, action) => action.payload)
+        .addCase(ac.loadIngredientsAction, (_state, action) => action.payload)
         .addCase(ac.addIngredientsAction, (state, action) => [
             ...state,
             action.payload,

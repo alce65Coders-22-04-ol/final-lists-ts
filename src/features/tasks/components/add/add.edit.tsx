@@ -42,8 +42,8 @@ export function AddOrEdit() {
 
     const makeAddTask = () => {
         const formData: iTaskInput = {
-            title: formState.title as string,
-            responsible: formState.responsible as string,
+            title: formState.title,
+            responsible: formState.responsible,
             isCompleted: false,
         };
         addTask(formData);
@@ -53,8 +53,8 @@ export function AddOrEdit() {
 
     const makeUpdateTask = (task: iTask) => {
         const formData: iTaskInput = {
-            title: formState.title as string,
-            responsible: formState.responsible as string,
+            title: formState.title,
+            responsible: formState.responsible,
             isCompleted: task.isCompleted,
         };
         updateTask(task.id, formData);
@@ -86,8 +86,8 @@ export function AddOrEdit() {
                         setValidState,
                         formRef,
                     }}
-                    placeholder={item.placeholder as string}
-                    required={item.required as boolean}
+                    placeholder={item.placeholder}
+                    required={item.required}
                     initialValue={formState[item.name] as string}
                 />
             ))}
