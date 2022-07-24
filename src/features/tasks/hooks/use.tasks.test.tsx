@@ -50,7 +50,7 @@ describe('Given useTasks hook inside a TestElement', () => {
         }) => {
             const [tasks, setTasks] = useState(initialData.tasks);
             const [isLoading, setIsLoading] = useState(initialData.isLoading);
-            const [taskToEdit, setTaskToEdit] = useState(null);
+            const [taskToEdit, setTaskToEdit] = useState(null as iTask | null);
 
             const context = {
                 tasks,

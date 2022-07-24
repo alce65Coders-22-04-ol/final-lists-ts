@@ -26,7 +26,7 @@ describe('Given the context AppContext', () => {
                 }, [setIsLoading, setTasks]);
                 const handleClick = () => {
                     setIsLoading(false);
-                    setTasks(null);
+                    setTasks([]);
                 };
                 return (
                     <>
