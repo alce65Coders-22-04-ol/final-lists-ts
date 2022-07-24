@@ -7,7 +7,7 @@ import { iUserData, iUserDataInput } from '../interfaces/user.data';
 import { startFirebase } from '../services/firebase';
 import { CFirestoreRepository } from './CFirestore.repository';
 
-describe.skip(`Given an instance of repository service CFirestore for "users" 
+describe(`Given an instance of repository service CFirestore for "users" 
         really connected to Cloud Firestore`, () => {
     let repo: CFirestoreRepository<iUserData, iFBResponse>;
     let userData1: iUserDataInput;

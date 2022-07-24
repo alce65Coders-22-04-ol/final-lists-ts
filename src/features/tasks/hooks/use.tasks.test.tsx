@@ -6,7 +6,7 @@ import { TaskContext } from '../context/context';
 import { getDatabase } from 'firebase/database';
 import { useEffect, useState } from 'react';
 
-jest.mock('../../../infrastructure/repositories/RTFirebase');
+jest.mock('../../../infrastructure/repositories/RTFirebase.repository');
 jest.mock('firebase/database');
 
 describe('Given useTasks hook inside a TestElement', () => {
