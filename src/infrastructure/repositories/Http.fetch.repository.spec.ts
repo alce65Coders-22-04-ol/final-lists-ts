@@ -16,7 +16,7 @@ const deleteAllData = async (
     repo: HttpFetchRepository<ItemModel, basicResponse>
 ) => {
     const result = await repo.getAllItems();
-    result.map((item) => repo.deleteItem(item.id));
+    result.forEach((item) => repo.deleteItem(item.id));
 };
 
 describe('Given Repository', () => {

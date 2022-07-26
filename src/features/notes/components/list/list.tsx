@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { useState, useMemo, useReducer, useEffect } from 'react';
 import { NoteModel } from '../../models/note.model';
 import { notesReducer } from '../../reducers/notes.reducer';

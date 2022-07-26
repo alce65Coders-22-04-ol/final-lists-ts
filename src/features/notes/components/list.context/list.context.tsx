@@ -39,13 +39,13 @@ export function ListContext() {
     const handleClickUpdate = () => {
         mockData = {
             id: (notesState.at(-1) as NoteModel).id,
-            title: 'Upadated Note',
+            title: 'Updated Note',
         };
         updateNote(mockData);
     };
 
     const handleClickDelete = () => {
-        deleteNote((notesState.at(-1) as NoteModel).id as string);
+        deleteNote((notesState.at(-1) as NoteModel).id);
         setNotAdded(true);
     };
 

@@ -10,14 +10,18 @@ export function NotesProvider({ children }: { children: JSX.Element }) {
     const repo = useMemo(() => new NotesRepo('notes-context'), []);
 
     const initialState: Array<NoteModel> = [];
-    // const [notes, setNotes] = useState(initialState);
+    /**
+     * En el patrón flux con hooks nativos, useReducer equivale a
+     * const [notes, setNotes] = useState(initialState)
+     */
+
     const [notes, dispatch] = useReducer(notesReducer, initialState);
 
     const loadNotes = useCallback(() => {
         // petición al backend
-        repo.getAllItems().then((notes: Array<NoteModel>) => {
+        repo.getAllItems().then((dataNotes: Array<NoteModel>) => {
             // setter del estado
-            dispatch(act.loadNotesAction(notes));
+            dispatch(act.loadNotesAction(dataNotes));
         });
     }, [repo]);
 

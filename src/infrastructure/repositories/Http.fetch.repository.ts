@@ -3,7 +3,7 @@ import { basicResponse, basicT, Repository } from '../interfaces/repository';
 export class HttpFetchRepository<T extends basicT, R extends basicResponse>
     implements Repository<T, R>
 {
-    constructor(public url: string, public postUrl = '') {}
+    constructor(public url: string, public postUrl: string = '') {}
     getAllItems(): Promise<Array<T>> {
         return fetch(this.url + this.postUrl)
             .then((resp) => resp.json())
