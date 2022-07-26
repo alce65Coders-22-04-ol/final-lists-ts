@@ -7,13 +7,14 @@ Incorporación de **Firebase** en un proyecto de React para utilizar
 -   Autenticación
 -   Bases de datos (RealTime Firebase & CloudFirestore)
 
-La **arquitectura** del proyecto incluye 3 grandes bloques
+La **arquitectura** del proyecto incluye 2 grandes bloques
 
 -   **Features**: carpetas da cada una de las features que darán lugar a cada una de las páginas de la aplicación
 -   **Infrastructure**: elementos comunes a la aplicación (core)
--   **Layout**: componentes empleados para crear el layout común a todas las páginas
 
-## Infraestructura y layout
+## Infraestructura
+
+(elementos incluidos en la carpeta `/infrastructure`)
 
 -   Componentes básicos de la aplicación
 
@@ -22,9 +23,9 @@ La **arquitectura** del proyecto incluye 3 grandes bloques
 
 -   Componentes genéricos preparados para ser integrados en otros componentes de la aplicación
 
-    -   `components/AppInput`
-    -   `components/AppButton`
-    -   `components/AppModal`
+    -   `components/ui/AppInput`
+    -   `components/ui/AppButton`
+    -   `components/ui/AppModal`
 
 -   Elementos necesarios para el proceso de autenticación basado en firebase
 
@@ -78,6 +79,13 @@ Las distintas features se utilizarán para implementar los diferentes patrones d
     -   [ToDo] Uso del patrón Flux/Redux basado en hooks nativos de react
 
 ## Enrutamiento
+
+Coincidiendo con las features definidas se definen las rutas de la aplicación
+
+-   En `components/App` se crea un array con las opciones, incluyendo las rutas de la aplicación
+-   En `components/AppRoutes`, se crean las rutas de la aplicación
+-   En todas ells se carga de forma lazy la página principal correspondiente
+-   Cada feature incluye en su carpeta `pages` un componente `<feature>Page`
 
 # Instalación y componentes iniciales
 
@@ -544,11 +552,83 @@ basado en la clase **Repository<T>** con los métodos
 
 # Feature Recipes con React-Redux
 
+Se crea la feature con las mismas características que las anteriores
+
+-   Se añade la carpeta correspondiente en features (e.g. recipes)
+-   Se añade la carpeta de la página copiándola desde alguna anterior
+-   Se añade la definición de la ruta lazy al `app.routes`
+-   Se añade la entrada en la lista de opciones definida en el componente App
+-   Se completa el test de `app.routes` para que incluya la nueva ruta
+
 ## Instalación de react-redux
 
 ## Reducer básico, Store y Provider
 
 ## Acciones y reducer
+
+# Feature Notes con Flux(Redux) mediante hooks nativos de React
+
+Se crea la feature con las mismas características que las anteriores
+
+-   Se añade la carpeta correspondiente en features (e.g. notes)
+-   Se añade la carpeta de la página copiándola desde alguna anterior
+-   Se añade la definición de la ruta lazy al `app.routes`
+-   Se añade la entrada en la lista de opciones definida en el componente App
+-   Se completa el test de `app.routes` para que incluya la nueva ruta
+
+## Modelo y repositorio y componente lista
+
+Se crea interface que actuará como **modelo de datos** de notas.
+
+Se crea el **repositorio**, extendiendo de `Http.fetch` para acceder a RealTime Firebase como si fuera un API Rest estándar. En el se define una constante con el valor de la url, tal como lo proporciona Firebase
+
+A modo de prueba se crea un **componente básico** que renderiza una lista y que dispone de tres botones (añadir, modificar y borrar) que simulan la interacción del usuario sin que exista un formulario.
+
+Entre sus funcionalidades se incluye crear la **instancia del repositorio** a partir del correspondiente servicio.
+
+Se crea el **test** que, de momento, comprueba la renderización del componente
+
+## Accesos al API de Firebase
+
+Se testea de forma integrada el repositorio Http.fetch utilizando la url de RTFirebase.
+Para ello se utiliza el fichero spec, en el que no se hace mock de la conexión a firebase
+
+## Acciones y reducer
+
+Se definen los tipos de acciones y sus creadores:
+
+-   load
+-   add
+-   update
+-   delete
+
+Se crea el reducer que mediante un switch procesa los cuatro casos posibles
+
+Se crea el test del reducer
+
+## Flux en un componente
+
+Aunque no es lo habitual, se puede incorporar el patron Flux a nivel de un componente
+Como en el caso más habitual, se utilizan el hook nativo de React **useReducer**
+Con él se crea una variable de estado cuyo setter queda asociado con un determinado reducer.
+
+Se testea el componente.
+Se hace mock del repo. Al ser una clase se accede a los métodos en el prototipo y se convierten en jest.fn() asignándoles la implementación adecuada.
+El resto del proceso Flux (dispatcher -> reducer -> nuevo estado) sigue su curso y a nivel del renderizado se comprueba como se reflejan los cambios en el estado.
+
+## Flux en el contexto
+
+Se crea el contexto con su provider y se utiliza como wrapper de la ruta al definirla en `appRoutes`
+En el provider se utilizarán el hooks **useReducer** para crear el "Store" que servirá de base para la arquitectura flux
+
+Se crea el test del contexto
+
+Se crea una copia del componente básico usado anteriormente (ListaContext) pero sin la lógica de gestión del estado, que se sustituye por un acceso al contexto gracias a **useContext**
+
+Se crea el test del componente.
+Se le proporciona un contexto en el que todas las funciones han sido mockeadas...
+Lo mismo sucede con el estado inicial, que toma como valor un array con una sola nota.
+En el test se comprueba que el renderizado inicial del componente y los eventos click en los distintos botones desencadenan la llamada a los distintos métodos mockeados en el contexto.
 
 # E2E Testing
 

@@ -67,7 +67,11 @@
             "index.tsx",
             "reportWebVitals.js",
             "interfaces",
-            "features/models",
+            "features/about/models",
+            "features/home/models",
+            "features/notes/models",
+            "features/recipes/models",
+            "features/tasks/models",
             "action.types",
             "spec"
         ]

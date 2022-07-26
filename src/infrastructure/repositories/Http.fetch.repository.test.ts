@@ -21,11 +21,46 @@ describe('Given Repository', () => {
                 const result = await new HttpFetchRepository<
                     ItemModel,
                     Response
-                >().getAllItems();
+                >('').getAllItems();
                 //
                 // assert
                 expect(fetch).toBeCalled();
                 expect(result.length).toBe(2);
+            });
+            test('If the backend is firebase, then in return an object', async () => {
+                // arrange
+                global.fetch = jest.fn().mockResolvedValue({
+                    json: jest.fn().mockResolvedValue({
+                        '1': new Item('1', 'Item1', 'Made by Pepe'),
+                        '2': new Item('2', 'Item2', 'Made by Luisa'),
+                    }),
+                });
+                // act
+                const result = await new HttpFetchRepository<
+                    ItemModel,
+                    Response
+                >('').getAllItems();
+                //
+                // assert
+                expect(fetch).toBeCalled();
+                expect(result.length).toBe(2);
+            });
+            test('If there are no data, then in return an empty array', async () => {
+                // arrange
+                global.fetch = jest.fn().mockResolvedValue({
+                    json: jest.fn().mockResolvedValue(null),
+                });
+                // act
+                const result = await new HttpFetchRepository<
+                    ItemModel,
+                    Response
+                >('').getAllItems();
+                //
+                // assert
+                expect(fetch).toBeCalled();
+                //expect(Array.isArray(result)).toBe(true)
+                // expect(result.length).toBe(0);
+                expect(result).toStrictEqual([]);
             });
         });
         describe('And we use method getItem', () => {
@@ -43,7 +78,7 @@ describe('Given Repository', () => {
                 const result = await new HttpFetchRepository<
                     ItemModel,
                     Response
-                >().getItem(itemId);
+                >('').getItem(itemId);
                 // assert
                 expect(fetch).toBeCalled();
                 expect(result.title).toBe('Item1');
@@ -67,7 +102,7 @@ describe('Given Repository', () => {
                 const result = await new HttpFetchRepository<
                     ItemModel,
                     Response
-                >().addItem(item);
+                >('').addItem(item);
                 // assert
                 expect(fetch).toBeCalled();
                 expect(result.title).toBe('Item1');
@@ -88,7 +123,7 @@ describe('Given Repository', () => {
                 const result = await new HttpFetchRepository<
                     ItemModel,
                     Response
-                >().updateItem(item);
+                >('').updateItem(item);
                 // assert
                 expect(fetch).toBeCalled();
                 expect(result.title).toBe('Item1');
@@ -105,7 +140,7 @@ describe('Given Repository', () => {
                 const result = await new HttpFetchRepository<
                     ItemModel,
                     Response
-                >().deleteItem(deleteId);
+                >('').deleteItem(deleteId);
                 expect(fetch).toBeCalled();
                 expect(result.status).toBe(200);
             });

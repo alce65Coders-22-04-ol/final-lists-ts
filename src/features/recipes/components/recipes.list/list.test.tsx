@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '../../reducers/test.utils';
+import { render, screen, waitFor } from '../../reducers/test.utils';
 import { RecipesList } from './list';
 import { RecipesRepo } from '../../services/recipes.repository';
 import { RecipeModel } from '../../models/recipe.model';
@@ -6,6 +6,11 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
 jest.mock('../../services/recipes.repository');
+
+/**
+ * Si el módulo del servicio exportara directamente un conjunto de funciones ya estarían mockeadas
+ * (getAllItems as jest.Mock).mockResolvedValue(mockRecipes);
+ */
 
 describe('Given RecipesList component', () => {
     describe(`When it has been instantiate inside a redux Provider of the store

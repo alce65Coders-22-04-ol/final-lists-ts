@@ -41,8 +41,10 @@ describe('Given Task component', () => {
                 // assert
                 const element = screen.getByRole('checkbox');
                 expect(element).toBeInTheDocument();
+
+                const { updateTask } = useTasks();
                 userEvent.click(element);
-                expect(useTasks().updateTask).toHaveBeenCalled();
+                expect(updateTask).toHaveBeenCalled();
             });
         });
         describe('And the user click "edit"  button', () => {
@@ -54,8 +56,10 @@ describe('Given Task component', () => {
                 // assert
                 const elements = screen.getAllByRole('button');
                 expect(elements[0]).toBeInTheDocument();
+
+                const { startToEditTask } = useTasks();
                 userEvent.click(elements[0]);
-                expect(useTasks().startToEditTask).toHaveBeenCalled();
+                expect(startToEditTask).toHaveBeenCalled();
             });
         });
         describe('And the user click "delete" button', () => {
@@ -66,8 +70,10 @@ describe('Given Task component', () => {
                 // assert
                 const elements = screen.getAllByRole('button');
                 expect(elements[1]).toBeInTheDocument();
+
+                const { deleteTask } = useTasks();
                 userEvent.click(elements[1]);
-                expect(useTasks().deleteTask).toHaveBeenCalled();
+                expect(deleteTask).toHaveBeenCalled();
             });
         });
     });

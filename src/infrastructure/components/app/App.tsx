@@ -13,6 +13,7 @@ function App() {
         { path: '/', label: 'Home', title: 'Página Home' },
         { path: '/tasks', label: 'Tasks', title: 'Página Tasks' },
         { path: '/recipes', label: 'Recipes', title: 'Página Recipes' },
+        { path: '/notes', label: 'Notes', title: 'Página Notes' },
         { path: '/about', label: 'About', title: 'Página About' },
     ];
     return (

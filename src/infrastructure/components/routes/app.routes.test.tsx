@@ -22,6 +22,7 @@ describe('Given AppRoutes component', () => {
                 { path: '/', label: 'Home', title: 'Página Home' },
                 { path: '/tasks', label: 'Tasks', title: 'Página Tasks' },
                 { path: '/recipes', label: 'Recipes', title: 'Página Recipes' },
+                { path: '/notes', label: 'Notes', title: 'Página Notes' },
                 { path: '/about', label: 'About', title: 'Página About' },
             ];
             entries = [...appOptions.map((item) => item.path), '/bad_route'];
@@ -70,9 +71,18 @@ describe('Given AppRoutes component', () => {
             const element = await screen.findByText(/Página Recipes/i);
             expect(element).toBeInTheDocument();
         });
-        test('If route is About, then About Page will be render', async () => {
+        test('If route is Notes, then Notes Page will be render', async () => {
             render(
                 <Router initialEntries={entries} initialIndex={3}>
+                    <AppRoutes appOptions={appOptions}></AppRoutes>
+                </Router>
+            );
+            const element = await screen.findByText(/Página Notes/i);
+            expect(element).toBeInTheDocument();
+        });
+        test('If route is About, then About Page will be render', async () => {
+            render(
+                <Router initialEntries={entries} initialIndex={4}>
                     <AppRoutes appOptions={appOptions}></AppRoutes>
                 </Router>
             );
