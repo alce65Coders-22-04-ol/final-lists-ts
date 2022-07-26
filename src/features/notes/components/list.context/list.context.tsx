@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { NoteModel } from '../../models/note.model';
 

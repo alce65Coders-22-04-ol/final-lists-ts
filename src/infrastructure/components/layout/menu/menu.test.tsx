@@ -9,7 +9,12 @@ describe('Given Menu component', () => {
             // arrange
             const label = 'Test Page';
             const appOptions: appOptionsType = [
-                { path: './test.html', label, title: label },
+                {
+                    path: './test.html',
+                    label,
+                    title: label,
+                    isProtected: false,
+                },
             ];
             const jsx = (
                 <Router>

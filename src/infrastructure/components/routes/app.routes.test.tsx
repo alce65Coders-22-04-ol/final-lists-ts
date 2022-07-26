@@ -6,6 +6,7 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase, get } from 'firebase/database';
 import { getFirestore, getDocs } from 'firebase/firestore';
 import { AppRoutes } from './app.routes';
+import { AppContext, initialContext } from '../../context/context';
 
 jest.mock('firebase/app');
 jest.mock('firebase/database');
@@ -19,11 +20,36 @@ describe('Given AppRoutes component', () => {
         let entries: Array<string>;
         beforeEach(() => {
             appOptions = [
-                { path: '/', label: 'Home', title: 'Página Home' },
-                { path: '/tasks', label: 'Tasks', title: 'Página Tasks' },
-                { path: '/recipes', label: 'Recipes', title: 'Página Recipes' },
-                { path: '/notes', label: 'Notes', title: 'Página Notes' },
-                { path: '/about', label: 'About', title: 'Página About' },
+                {
+                    path: '/',
+                    label: 'Home',
+                    title: 'Página Home',
+                    isProtected: false,
+                },
+                {
+                    path: '/tasks',
+                    label: 'Tasks',
+                    title: 'Página Tasks',
+                    isProtected: true,
+                },
+                {
+                    path: '/recipes',
+                    label: 'Recipes',
+                    title: 'Página Recipes',
+                    isProtected: true,
+                },
+                {
+                    path: '/notes',
+                    label: 'Notes',
+                    title: 'Página Notes',
+                    isProtected: true,
+                },
+                {
+                    path: '/about',
+                    label: 'About',
+                    title: 'Página About',
+                    isProtected: false,
+                },
             ];
             entries = [...appOptions.map((item) => item.path), '/bad_route'];
 
@@ -52,32 +78,65 @@ describe('Given AppRoutes component', () => {
             const element = await screen.findByText(/Página Home/i);
             expect(element).toBeInTheDocument();
         });
-        test('If route is Tasks, then Task Page will be render', async () => {
+        test(`If route is Tasks and user is logged, 
+                then Task Page will be render`, async () => {
             startFirebase();
+            const context = {
+                ...initialContext,
+                isLogged: true,
+            };
             render(
-                <Router initialEntries={entries} initialIndex={1}>
-                    <AppRoutes appOptions={appOptions}></AppRoutes>
-                </Router>
+                <AppContext.Provider value={context}>
+                    <Router initialEntries={entries} initialIndex={1}>
+                        <AppRoutes appOptions={appOptions}></AppRoutes>
+                    </Router>
+                </AppContext.Provider>
             );
             const element = await screen.findByText(/Página Tasks/i);
             expect(element).toBeInTheDocument();
         });
-        test('If route is Recipes, then Recipes Page will be render', async () => {
+        test(`If route is Recipes and user is logged, 
+                then Recipes Page will be render`, async () => {
+            const context = {
+                ...initialContext,
+                isLogged: true,
+            };
             render(
-                <Router initialEntries={entries} initialIndex={2}>
-                    <AppRoutes appOptions={appOptions}></AppRoutes>
-                </Router>
+                <AppContext.Provider value={context}>
+                    <Router initialEntries={entries} initialIndex={2}>
+                        <AppRoutes appOptions={appOptions}></AppRoutes>
+                    </Router>
+                </AppContext.Provider>
             );
             const element = await screen.findByText(/Página Recipes/i);
             expect(element).toBeInTheDocument();
         });
-        test('If route is Notes, then Notes Page will be render', async () => {
+        test(`'If route is Notes and the user is logged, 
+            then Notes Page will be render`, async () => {
+            const context = {
+                ...initialContext,
+                isLogged: true,
+            };
+            render(
+                <AppContext.Provider value={context}>
+                    <Router initialEntries={entries} initialIndex={3}>
+                        <AppRoutes appOptions={appOptions}></AppRoutes>
+                    </Router>
+                </AppContext.Provider>
+            );
+            const element = await screen.findByText(/Página Notes/i);
+            expect(element).toBeInTheDocument();
+        });
+        test(`If route is Notes and the user is not logged, 
+            then Home Page will be render`, async () => {
+            // Al menos una prueba del caso "n logged / protected route"
+            // completa el coverage del componente ProtectedRoute
             render(
                 <Router initialEntries={entries} initialIndex={3}>
                     <AppRoutes appOptions={appOptions}></AppRoutes>
                 </Router>
             );
-            const element = await screen.findByText(/Página Notes/i);
+            const element = await screen.findByText(/Página Home/i);
             expect(element).toBeInTheDocument();
         });
         test('If route is About, then About Page will be render', async () => {

@@ -4,6 +4,7 @@ export class HttpFetchRepository<T extends basicT, R extends basicResponse>
     implements Repository<T, R>
 {
     constructor(public url: string, public postUrl: string = '') {}
+
     getAllItems(): Promise<Array<T>> {
         return fetch(this.url + this.postUrl)
             .then((resp) => resp.json())
@@ -16,6 +17,7 @@ export class HttpFetchRepository<T extends basicT, R extends basicResponse>
                 }));
             });
     }
+
     getItem(id: T['id']): Promise<T> {
         return fetch(this.url + '/' + id + this.postUrl)
             .then((resp) => resp.json())
@@ -46,6 +48,7 @@ export class HttpFetchRepository<T extends basicT, R extends basicResponse>
             .then((resp) => resp.json())
             .then((data) => this.getItem(data.id));
     }
+
     deleteItem(id: T['id']): Promise<R> {
         return fetch(this.url + '/' + id + this.postUrl, {
             method: 'DELETE',

@@ -17,3 +17,7 @@
     display: block;
     padding: 0.2rem 1rem;
 }
+
+.host .protected a {
+    color: rgba(220, 220, 220, 0.6);
+}

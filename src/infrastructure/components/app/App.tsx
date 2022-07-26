@@ -10,11 +10,31 @@ function App() {
     const company = 'ISDI Coders';
 
     const appOptions: appOptionsType = [
-        { path: '/', label: 'Home', title: 'Página Home' },
-        { path: '/tasks', label: 'Tasks', title: 'Página Tasks' },
-        { path: '/recipes', label: 'Recipes', title: 'Página Recipes' },
-        { path: '/notes', label: 'Notes', title: 'Página Notes' },
-        { path: '/about', label: 'About', title: 'Página About' },
+        { path: '/', label: 'Home', title: 'Página Home', isProtected: false },
+        {
+            path: '/tasks',
+            label: 'Tasks',
+            title: 'Página Tasks',
+            isProtected: true,
+        },
+        {
+            path: '/recipes',
+            label: 'Recipes',
+            title: 'Página Recipes',
+            isProtected: true,
+        },
+        {
+            path: '/notes',
+            label: 'Notes',
+            title: 'Página Notes',
+            isProtected: true,
+        },
+        {
+            path: '/about',
+            label: 'About',
+            title: 'Página About',
+            isProtected: false,
+        },
     ];
     return (
         <AppContextProvider>

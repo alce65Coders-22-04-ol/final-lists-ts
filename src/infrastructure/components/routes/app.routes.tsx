@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { appOptionsType } from '../../interfaces/app.options';
 import { appStore } from '../../../infrastructure/store/store';
 import { NotesProvider } from '../../../features/notes/context/notes.provider';
+import { ProtectedRoute } from '../protected.route/protected.route';
 
 const Home = React.lazy(() => import('../../../features/home/pages/home.page'));
 const Todo = React.lazy(
@@ -22,15 +23,23 @@ const About = React.lazy(
 export function AppRoutes({ appOptions }: { appOptions: appOptionsType }) {
     const pages = [
         ({ title }: { title: string }) => <Home title={title} />,
-        ({ title }: { title: string }) => <Todo title={title} />,
+        ({ title }: { title: string }) => (
+            <ProtectedRoute>
+                <Todo title={title} />
+            </ProtectedRoute>
+        ),
         ({ title }: { title: string }) => (
             <Provider store={appStore}>
-                <Recipes title={title} />
+                <ProtectedRoute>
+                    <Recipes title={title} />
+                </ProtectedRoute>
             </Provider>
         ),
         ({ title }: { title: string }) => (
             <NotesProvider>
-                <Notes title={title} />
+                <ProtectedRoute>
+                    <Notes title={title} />
+                </ProtectedRoute>
             </NotesProvider>
         ),
         ({ title }: { title: string }) => <About title={title} />,
