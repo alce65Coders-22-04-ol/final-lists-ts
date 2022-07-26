@@ -1,8 +1,21 @@
 import { useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { AppContext } from '../../context/context';
-// import protectedRoute from './protected.route.module.css'
 
+/**
+ * @name: ProtectedRoute
+ * @type: Component
+ * @description: Component Responsibilities
+ * @see: ## Renderización:
+ *  - si el usuario está logado, renderiza el componente que le llega como children
+ *  - si el usuario no está logado, navega a la ruta home
+ * @event: ## Respuesta a eventos:
+ *  - ninguna
+ * @external: ## Testing
+ *  - indirectamente, al testear las rutas en el componente appRoutes
+ * @param param0: children prop
+ * @returns: JSX.Element
+ */
 export function ProtectedRoute({ children }: { children: JSX.Element }) {
     const { isLogged } = useContext(AppContext);
 

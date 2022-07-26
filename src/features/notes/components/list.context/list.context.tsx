@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import { NoteModel } from '../../models/note.model';
 
-import notes from './list.context.module.css';
 import { NotesContext } from '../../context/notes.context';
+import { ListItems } from '../list.items/list.items';
 
 let mockData: Partial<NoteModel> = {
     title: 'Acerca de las Notas',
@@ -51,22 +51,13 @@ export function ListContext() {
     return (
         <section>
             <h3>Lista de notas (Estado en el contexto)</h3>
-            <div className={notes.buttons}>
-                <button onClick={handleClickAdd} hidden={!hasNotBeenAdded}>
-                    Añadir nota
-                </button>
-                <button onClick={handleClickUpdate} hidden={hasNotBeenAdded}>
-                    Modificar nota
-                </button>
-                <button onClick={handleClickDelete} hidden={hasNotBeenAdded}>
-                    Borrar nota
-                </button>
-            </div>
-            <ul className={notes.list}>
-                {notesState.map((item) => (
-                    <li key={item.id}>{item.title}</li>
-                ))}
-            </ul>
+            <ListItems
+                handleClickAdd={handleClickAdd}
+                handleClickUpdate={handleClickUpdate}
+                handleClickDelete={handleClickDelete}
+                hasNotBeenAdded={hasNotBeenAdded}
+                notesState={notesState}
+            ></ListItems>
         </section>
     );
 }

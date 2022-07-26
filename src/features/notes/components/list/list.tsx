@@ -4,7 +4,7 @@ import { notesReducer } from '../../reducers/notes.reducer';
 import { NotesRepo } from '../../services/notes.repository';
 
 import * as ac from '../../reducers/notes.action.creators';
-import notes from './list.module.css';
+import { ListItems } from '../list.items/list.items';
 
 let mockData: Partial<NoteModel> = {
     id: '',
@@ -64,22 +64,13 @@ export function List() {
     return (
         <section>
             <h3>Lista de notas (Estado standalone)</h3>
-            <div className={notes.buttons}>
-                <button onClick={handleClickAdd} hidden={!hasNotBeenAdded}>
-                    Añadir nota
-                </button>
-                <button onClick={handleClickUpdate} hidden={hasNotBeenAdded}>
-                    Modificar nota
-                </button>
-                <button onClick={handleClickDelete} hidden={hasNotBeenAdded}>
-                    Borrar nota
-                </button>
-            </div>
-            <ul className={notes.list}>
-                {notesState.map((item) => (
-                    <li key={item.id}>{item.title}</li>
-                ))}
-            </ul>
+            <ListItems
+                handleClickAdd={handleClickAdd}
+                handleClickUpdate={handleClickUpdate}
+                handleClickDelete={handleClickDelete}
+                hasNotBeenAdded={hasNotBeenAdded}
+                notesState={notesState}
+            ></ListItems>
         </section>
     );
 }
